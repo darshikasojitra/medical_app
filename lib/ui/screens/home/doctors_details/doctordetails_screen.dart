@@ -143,7 +143,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 30.h, bottom: 15.h),
+                    padding: EdgeInsets.only(left: 10.w, top: 30.h, bottom: 15.h),
                     child: Text(
                       'About',
                       style: TextStyle(
@@ -154,7 +154,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 25.w, bottom: 20.h),
+                    padding: EdgeInsets.only(left: 10.w,right: 25.w, bottom: 20.h),
                     child: Container(
                       height: 100.h,
                       width: 319.w,
@@ -169,7 +169,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                                 fontFamily: 'NunitoSans'),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 70.w, top: 8.h),
+                            padding: EdgeInsets.only(right: 60.w, top: 8.h),
                             child: Container(
                               height: 75,
                               width: 319,
@@ -188,7 +188,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 40.h),
+                    padding: EdgeInsets.only(left: 10.w,bottom: 40.h,right: 10.w),
                     child: Container(
                       height: 70.h,
                       width: 300.w,
@@ -202,8 +202,8 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 15.w, right: 20.w),
                             child: Container(
-                              height: 45.h,
-                              width: 45.w,
+                              height: 46.h,
+                              width: 52.w,
                               decoration: BoxDecoration(
                                 color: Color(0xffDCEDF9),
                                 borderRadius: BorderRadius.circular(16.r),
@@ -235,33 +235,36 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                             ],
                           ),
                           SizedBox(
-                            width: 100.w,
+                            width: 90.w,
                           ),
                           Image.asset(AssetsManager.detailscreenarrow)
                         ],
                       ),
                     ),
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AppoinmentScreen(),
-                          ));
-                    },
-                    height: 46.h,
-                    minWidth: double.infinity,
-                    color: Color(0xff1C6BA4),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14.r)),
-                    child: Text(
-                      'Book Now',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15.sp,
-                          color: Color(0xffFFFFFF),
-                          fontFamily: 'NunitoSans'),
+                  Padding(
+                    padding:  EdgeInsets.only(left: 10.w,right: 10.w),
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AppoinmentScreen(),
+                            ));
+                      },
+                      height: 46.h,
+                      minWidth: double.infinity,
+                      color: Color(0xff1C6BA4),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.r)),
+                      child: Text(
+                        'Book Now',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.sp,
+                            color: Color(0xffFFFFFF),
+                            fontFamily: 'NunitoSans'),
+                      ),
                     ),
                   )
                 ],

@@ -43,14 +43,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.home_sharp,
                 size: 30,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.calendar_month,
+                Icons.calendar_month_sharp,
                 size: 28,
               ),
               label: 'Schedule',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/assets_manager.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/doctordetails_screen.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class DoctorSearchScreen extends StatefulWidget {
   static const String id = 'DoctorSearchScreen';
@@ -12,6 +13,8 @@ class DoctorSearchScreen extends StatefulWidget {
 }
 
 class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
+  int _myindex = 0;
+  int _yerindex =0;
   bool light = true;
   final List _populardoctorimage = [
     Image.asset(AssetsManager.drmim),
@@ -33,6 +36,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     Image.asset(AssetsManager.allergistimage),
     Image.asset(AssetsManager.urologistimage),
   ];
+  final List _yeartext = ['0-2 yrs','3-5 yrs','10+ yrs'];
   final List _categorytext = ['Dentist', 'Surgeon', 'Allergist', 'Urologist'];
   final List _doctorname = ['Dr. Mim Akhter', 'Dr. Jon Sina', 'Dr. Zim Khan'];
   @override
@@ -138,58 +142,73 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                                               return Padding(
                                                 padding:
                                                     EdgeInsets.only(left: 8.w),
-                                                child: GestureDetector(
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    height: 92.h,
-                                                    width: 67.w,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffFFFFFF),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.r),
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xff1C6BA4))),
-                                                    child: Column(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  bottom: 8.h,
-                                                                  top: 8.h),
+                                                child: Container(
+                                                  height: 92.h,
+                                                  width: 67.w,
+                                                  decoration: BoxDecoration(
+                                                      color: Color(0xffFFFFFF),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.r),
+                                                      border: Border.all(
+                                                          color: _myindex ==
+                                                                  index
+                                                              ? const Color(
+                                                                  0xff1C6BA4)
+                                                              : const Color(
+                                                                  0xffD7DEEA))),
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                bottom: 8.h,
+                                                                top: 8.h),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _myindex = index;
+                                                            });
+                                                          },
                                                           child: Container(
                                                             height: 54.h,
                                                             width: 54.w,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16.r),
-                                                              color: Color(
-                                                                  0xff1C6BA4),
-                                                            ),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(16
+                                                                            .r),
+                                                                border: Border.all(
+                                                                    color: _myindex ==
+                                                                            index
+                                                                        ? const Color(
+                                                                            0xff1C6BA4)
+                                                                        : const Color(
+                                                                            0xffD7DEEA)),
+                                                                color: _myindex ==
+                                                                        index
+                                                                    ? const Color(
+                                                                        0xff1C6BA4)
+                                                                    : const Color(
+                                                                        0xffFFFFFF)),
                                                             child:
                                                                 _categoryimage[
                                                                     index],
                                                           ),
                                                         ),
-                                                        Text(
-                                                          _categorytext[index],
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'NunitoSans',
-                                                              fontSize: 11.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Color(
-                                                                  0xff4A545E)),
-                                                        )
-                                                      ],
-                                                    ),
+                                                      ),
+                                                      Text(
+                                                        _categorytext[index],
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'NunitoSans',
+                                                            fontSize: 11.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Color(
+                                                                0xff4A545E)),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
                                               );
@@ -237,76 +256,90 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                                     SizedBox(
                                       height: 20.h,
                                     ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 25.h,
-                                          width: 90.w,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffFFFFFF),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                              border: Border.all(
-                                                  color:
-                                                      const Color(0xffBECADA))),
-                                          child: Text(
-                                            '0-2 yrs',
-                                            style: TextStyle(
-                                                fontFamily: 'NunitoSans',
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xff7B8D9E)),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 8.w,
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 25.h,
-                                          width: 90.w,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff1C6BA4),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                              border: Border.all(
-                                                  color:
-                                                      const Color(0xffBECADA))),
-                                          child: Text(
-                                            '3-5 yrs',
-                                            style: TextStyle(
-                                                fontFamily: 'NunitoSans',
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xffFFFFFF)),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 8.w,
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 25.h,
-                                          width: 90.w,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffFFFFFF),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                              border: Border.all(
-                                                  color:
-                                                      const Color(0xffBECADA))),
-                                          child: Text(
-                                            '10+ yrs',
-                                            style: TextStyle(
-                                                fontFamily: 'NunitoSans',
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xff7B8D9E)),
-                                          ),
-                                        )
-                                      ],
+                                    Container(height: 25.h,width: 300.w,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:  _yeartext.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding:  EdgeInsets.only(right: 8.w),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _yerindex = index;
+                                                });
+                                              },
+                                              child: Container(
+                                              alignment: Alignment.center,
+                                              height: 25.h,
+                                              width: 90.w,
+                                              decoration: BoxDecoration(
+                                                  color:_yerindex == index? Color(0xff1C6BA4):Color(0xffFFFFFF),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.r),
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color(0xffBECADA))),
+                                              child: Text(
+                                                _yeartext[index],
+                                                style: TextStyle(
+                                                    fontFamily: 'NunitoSans',
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:_yerindex==index?Color(0xffFFFFFF): Color(0xff7B8D9E)),
+                                              ),
+                                                                                    ),
+                                            ),
+                                          );
+                                        },),
                                     ),
+                                       
+                                    // SizedBox(
+                                    //   width: 8.w,
+                                    // ),
+                                    // Container(
+                                    //   alignment: Alignment.center,
+                                    //   height: 25.h,
+                                    //   width: 90.w,
+                                    //   decoration: BoxDecoration(
+                                    //       color: Color(0xff1C6BA4),
+                                    //       borderRadius:
+                                    //           BorderRadius.circular(8.r),
+                                    //       border: Border.all(
+                                    //           color:
+                                    //               const Color(0xffBECADA))),
+                                    //   child: Text(
+                                    //     '3-5 yrs',
+                                    //     style: TextStyle(
+                                    //         fontFamily: 'NunitoSans',
+                                    //         fontSize: 14.sp,
+                                    //         fontWeight: FontWeight.w700,
+                                    //         color: Color(0xffFFFFFF)),
+                                    //   ),
+                                    // ),
+                                    // SizedBox(
+                                    //   width: 8.w,
+                                    // ),
+                                    // Container(
+                                    //   alignment: Alignment.center,
+                                    //   height: 25.h,
+                                    //   width: 90.w,
+                                    //   decoration: BoxDecoration(
+                                    //       color: Color(0xffFFFFFF),
+                                    //       borderRadius:
+                                    //           BorderRadius.circular(8.r),
+                                    //       border: Border.all(
+                                    //           color:
+                                    //               const Color(0xffBECADA))),
+                                    //   child: Text(
+                                    //     '10+ yrs',
+                                    //     style: TextStyle(
+                                    //         fontFamily: 'NunitoSans',
+                                    //         fontSize: 14.sp,
+                                    //         fontWeight: FontWeight.w700,
+                                    //         color: Color(0xff7B8D9E)),
+                                    //   ),
+                                    // ),
                                     SizedBox(
                                       height: 20.h,
                                     ),
@@ -356,31 +389,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             top: 20.h,
             bottom: 18.h,
           ),
-          child: TextFormField(
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color(0xffEEF6FC),
-              prefixIcon: Icon(
-                Icons.search,
-                size: 28.sp,
-                color: Color(0xff8AA0BC),
-              ),
-              suffixIcon: Image.asset(AssetsManager.sufiximage),
-              hintText: 'Search medical..',
-              hintStyle: TextStyle(
-                  fontSize: 12.sp,
-                  fontFamily: 'NunitoSans',
-                  color: Color(0xff8AA0BC)),
-              border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.r),
-                borderSide: BorderSide(color: Color(0xffEEF6FC)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.r),
-                  borderSide: BorderSide(color: Color(0xffEEF6FC))),
-            ),
-          ),
+          child: searchtextfeild,
         ),
         Padding(
           padding: EdgeInsets.only(left: 25.w),

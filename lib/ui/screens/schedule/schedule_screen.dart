@@ -12,6 +12,8 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
+  int _dateIndex = 0;
+  int _cardIndex = 0;
   List<String> date = ['12', '13', '14', '15', '16', '17', '18'];
   List day = ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'];
   final List _doctorsimages = [
@@ -46,9 +48,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                       fontFamily: 'NunitoSans'),
                 ),
                 SizedBox(
-                  width: 170.w,
+                  width: 160.w,
                 ),
-                Image.asset(AssetsManager.scheduleimage)
+                GestureDetector(
+                    onTap: () => _selectDate(context),
+                    child: Image.asset(AssetsManager.scheduleimage))
               ],
             ),
           ),
@@ -63,32 +67,44 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(right: 10.w),
-                    child: Container(
-                      height: 84.h,
-                      width: 60.w,
-                      decoration: BoxDecoration(
-                        color: Color(0xff1C6BA4),
-                        //Color(0xffDCEDF9),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            date[index],
-                            style: TextStyle(
-                                fontSize: 18.sp,
-                                fontFamily: 'NunitoSans',
-                                fontWeight: FontWeight.w800,
-                                color: Color(0xffFFFFFF)),
-                          ),
-                          Text(day[index],
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _dateIndex = index;
+                        });
+                      },
+                      child: Container(
+                        height: 84.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                          color: _dateIndex == index
+                              ? Color(0xff1C6BA4)
+                              : Color(0xffDCEDF9),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              date[index],
                               style: TextStyle(
-                                  fontSize: 12.sp,
+                                  fontSize: 18.sp,
                                   fontFamily: 'NunitoSans',
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffFFFFFF))),
-                        ],
+                                  fontWeight: FontWeight.w800,
+                                  color: _dateIndex == index
+                                      ? Color(0xffFFFFFF)
+                                      : Color(0xff253141)),
+                            ),
+                            Text(day[index],
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontFamily: 'NunitoSans',
+                                    fontWeight: FontWeight.w600,
+                                    color: _dateIndex == index
+                                        ? Color(0xffFFFFFF)
+                                        : Color(0xff253141))),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -133,65 +149,72 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           ],
                         ),
                       ),
-                      Container(
-                        height: 100.h,
-                        width: 360.w,
-                        decoration: BoxDecoration(
-                          color: _colors[index],
-                          borderRadius: BorderRadius.circular(28.r),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.w, right: 15.w),
-                              child: Container(
-                                child: _doctorsimages[index],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _cardIndex =index;
+                          });
+                        },
+                        child: Container(
+                          height: 100.h,
+                          width: 360.w,
+                          decoration: BoxDecoration(
+                            color: _colors[index],
+                            borderRadius: BorderRadius.circular(28.r),
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 10.w, right: 15.w),
+                                child: Container(
+                                  child: _doctorsimages[index],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 22.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 200.w, bottom: 5.w),
-                                    child: Image.asset(
-                                      AssetsManager.horozontal3dots,
-                                      color: Color(0xff0C1115),
+                              Padding(
+                                padding: EdgeInsets.only(top: 22.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 200.w, bottom: 5.w),
+                                      child: Image.asset(
+                                        AssetsManager.horozontal3dots,
+                                        color: _cardIndex==index ? Color(0xffFFFFFF): Color(0xff0C1115),
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    _time[index],
-                                    style: TextStyle(
-                                      color: Color(0xff0C1115),
-                                      fontSize: 14.sp,
-                                      fontFamily: 'NunitoSans',
-                                      fontWeight: FontWeight.w400,
+                                    Text(
+                                      _time[index],
+                                      style: TextStyle(
+                                        color: _cardIndex==index ? Color(0xffFFFFFF): Color(0xff0C1115),
+                                        fontSize: 14.sp,
+                                        fontFamily: 'NunitoSans',
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    _drname[index],
-                                    style: TextStyle(
-                                      color: Color(0xff0E1012),
-                                      fontSize: 17.sp,
-                                      fontFamily: 'NunitoSans',
-                                      fontWeight: FontWeight.w700,
+                                    Text(
+                                      _drname[index],
+                                      style: TextStyle(
+                                        color: _cardIndex==index ? Color(0xffFFFFFF):Color(0xff0E1012),
+                                        fontSize: 17.sp,
+                                        fontFamily: 'NunitoSans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Cardiologist',
-                                    style: TextStyle(
-                                      color: Color(0xff0C1115),
-                                      fontSize: 12.sp,
-                                      fontFamily: 'NunitoSans',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
+                                    Text(
+                                      'Cardiologist',
+                                      style: TextStyle(
+                                        color: _cardIndex==index ? Color(0xffFFFFFF): Color(0xff0C1115),
+                                        fontSize: 12.sp,
+                                        fontFamily: 'NunitoSans',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -204,4 +227,30 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       ),
     ));
   }
+}
+
+_selectDate(BuildContext context) async {
+  final DateTime? selected = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2010),
+    lastDate: DateTime(2025),
+    builder: (context, child) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.light(
+            primary: ColorManager.darkblue,
+            onPrimary: ColorManager.white,
+            onSurface: ColorManager.darkblack,
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              primary: ColorManager.darkblue,
+            ),
+          ),
+        ),
+        child: child!,
+      );
+    },
+  );
 }

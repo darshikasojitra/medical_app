@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/color_manager.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/doctor_search_screen.dart';
+import 'package:medical_app/ui/screens/medicinesearch_screen.dart';
 import 'package:medical_app/ui/screens/profile_screen.dart';
 import '../../../resources/assets_manager.dart';
 
@@ -89,33 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: 28.w, right: 28.w, top: 20.h, bottom: 15.h),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  // contentPadding: EdgeInsets.only(left: 15.w,right: 15.w),
-                  filled: true,
-                  fillColor: ColorManager.searchcolor,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 28.sp,
-                    color: ColorManager.searchiconcolor,
-                  ),
-                  suffixIcon: Image.asset(AssetsManager.sufiximage),
-                  hintText: 'Search medical..',
-                  hintStyle: TextStyle(
-                      fontSize: 12.sp,
-                      fontFamily: 'NunitoSans',
-                      color: ColorManager.searchiconcolor),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18.r),
-                    borderSide: BorderSide(color: ColorManager.searchcolor),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18.r),
-                      borderSide: BorderSide(color: ColorManager.searchcolor)),
-                ),
-              ),
+                  left: 25.w, right: 25.w, top: 20.h, bottom: 15.h),
+              child: searchtextfeild,
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -135,25 +111,35 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(top: 10.h, bottom: 15.h, left: 28.w),
               child: Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DoctorSearchScreen(),
-                          ));
-                    },
-                    child: Container(
-                      height: 65.h,
-                      width: 330.w,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(
-                              right: 10.w,
-                            ),
+                  Container(
+                    height: 65.h,
+                    width: 330.w,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            right: 10.w,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (index == 0) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DoctorSearchScreen(),
+                                    ));
+                              } else if (index == 1) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MedicineSearchScreen(),
+                                    ));
+                              }
+                            },
                             child: Container(
                               height: 65.h,
                               width: 65.w,
@@ -163,9 +149,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               child: image[index],
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   )
                 ],
@@ -231,12 +217,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 145.h,
                       width: 116.w,
                       decoration: BoxDecoration(
-                         // color: Colors.pink,
-                           borderRadius: BorderRadius.only(
-                             bottomRight: Radius.circular(28.r))
-                      ),
+                          // color: Colors.pink,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(28.r))),
                       child: Padding(
-                        padding:  EdgeInsets.only(top: 0.h),
+                        padding: EdgeInsets.only(top: 0.h),
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Image.asset(
@@ -382,3 +367,33 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+Widget searchtextfeild = TextFormField(
+  decoration: InputDecoration(
+    // contentPadding: EdgeInsets.only(left: 15.w,right: 15.w),
+    filled: true,
+    fillColor: ColorManager.searchcolor,
+    prefixIcon: Padding(
+      padding:
+          EdgeInsets.only(left: 15.w, right: 10.w, top: 10.h, bottom: 10.h),
+      child: Image.asset(AssetsManager.searchimage),
+    ),
+    suffixIcon: Padding(
+      padding: EdgeInsets.only(right: 20.w, top: 10.h, bottom: 10.h),
+      child: Image.asset(AssetsManager.sufiximage),
+    ),
+    hintText: 'Search medical..',
+    hintStyle: TextStyle(
+        fontSize: 12.sp,
+        fontFamily: 'NunitoSans',
+        color: ColorManager.searchiconcolor),
+    border: OutlineInputBorder(),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(18.r),
+      borderSide: BorderSide(color: ColorManager.searchcolor),
+    ),
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(18.r),
+        borderSide: BorderSide(color: ColorManager.searchcolor)),
+  ),
+);

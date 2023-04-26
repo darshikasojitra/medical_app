@@ -16,14 +16,15 @@ class MakeAppoinmentScreen extends StatefulWidget {
 }
 
 class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
-   DateTime? _selectedDay;
+  DateTime? _selectedDay;
+  DateTime _focusedDay = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 40.h),
+            padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 40.h,bottom: 10.h),
             child: Row(
               children: [
                 Container(
@@ -54,213 +55,193 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
           Container(
             height: 300.h,
             width: 322.w,
-            child: TableCalendar(
-              // focusedDay: DateTime.now(),
-              // firstDay: DateTime.utc(2023, 10, 20),
-              // lastDay: DateTime.utc(2040, 10, 20),
-              //calendarFormat: CalendarFormat.month,
-
-               firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  focusedDay: DateTime.utc(2021, 6, 14),
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    log(selectedDay.day.toString());
-                    if (!isSameDay(_selectedDay, selectedDay)) {
-                      // Call `setState()` when updating the selected day
-                      setState(() {
-                        //_selectedDay = selectedDay;
-                        //_focusedDay = focusedDay;
-                      });
-                    }
-                  },
-            ),
+           // color: Colors.amber,
+            child: NewTableCalender()
           ),
-         
-          // Container(
-          //   height: 311.h,
-          //   width: double.infinity,
-          //   decoration: BoxDecoration(
-          //       color: Color(0xff1C6BA4),
-          //       borderRadius: BorderRadius.only(
-          //           topLeft: Radius.circular(30.w),
-          //           topRight: Radius.circular(30.w))),
-          //   child: Padding(
-          //     padding: EdgeInsets.only(left: 30.w, top: 40.h, right: 30.w),
-          //     child: Column(
-          //       children: [
-          //         Align(
-          //           alignment: Alignment.topLeft,
-          //           child: Text(
-          //             'Time',
-          //             style: TextStyle(
-          //                 fontSize: 24.sp,
-          //                 fontWeight: FontWeight.w800,
-          //                 fontFamily: 'NunitoSans',
-          //                 color: Color(0xffFFFFFF)),
-          //           ),
-          //         ),
-          //         SizedBox(
-          //           height: 20.h,
-          //         ),
-          //         Row(
-          //           children: [
-          //             Container(
-          //               alignment: Alignment.center,
-          //               height: 36.h,
-          //               width: 90.w,
-          //               decoration: BoxDecoration(
-          //                   color: Color(0xff1C6BA4),
-          //                   borderRadius: BorderRadius.circular(8.r),
-          //                   border: Border.all(color: const Color(0xffFFFFFF))),
-          //               child: Text(
-          //                 '09:30 AM',
-          //                 style: TextStyle(
-          //                     fontFamily: 'NunitoSans',
-          //                     fontSize: 14.sp,
-          //                     fontWeight: FontWeight.w700,
-          //                     color: Color(0xffFFFFFF)),
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               width: 5.w,
-          //             ),
-          //             Container(
-          //               alignment: Alignment.center,
-          //               height: 36.h,
-          //               width: 90.w,
-          //               decoration: BoxDecoration(
-          //                   color: Color(0xffE09F1F),
-          //                   borderRadius: BorderRadius.circular(8.r),
-          //                   border: Border.all(color: const Color(0xffFFFFFF))),
-          //               child: Text(
-          //                 '10:30 AM',
-          //                 style: TextStyle(
-          //                     fontFamily: 'NunitoSans',
-          //                     fontSize: 14.sp,
-          //                     fontWeight: FontWeight.w700,
-          //                     color: Color(0xffFFFFFF)),
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               width: 5.w,
-          //             ),
-          //             Container(
-          //               alignment: Alignment.center,
-          //               height: 36.h,
-          //               width: 90.w,
-          //               decoration: BoxDecoration(
-          //                   color: Color(0xff1C6BA4),
-          //                   borderRadius: BorderRadius.circular(8.r),
-          //                   border: Border.all(color: const Color(0xffFFFFFF))),
-          //               child: Text(
-          //                 '11:00 AM',
-          //                 style: TextStyle(
-          //                     fontFamily: 'NunitoSans',
-          //                     fontSize: 14.sp,
-          //                     fontWeight: FontWeight.w700,
-          //                     color: Color(0xffFFFFFF)),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //         SizedBox(
-          //           height: 20.h,
-          //         ),
-          //         Row(
-          //           children: [
-          //             Container(
-          //               alignment: Alignment.center,
-          //               height: 36.h,
-          //               width: 90.w,
-          //               decoration: BoxDecoration(
-          //                   color: Color(0xff1C6BA4),
-          //                   borderRadius: BorderRadius.circular(8.r),
-          //                   border: Border.all(color: const Color(0xffFFFFFF))),
-          //               child: Text(
-          //                 '11:30 AM',
-          //                 style: TextStyle(
-          //                     fontFamily: 'NunitoSans',
-          //                     fontSize: 14.sp,
-          //                     fontWeight: FontWeight.w700,
-          //                     color: Color(0xffFFFFFF)),
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               width: 5.w,
-          //             ),
-          //             Container(
-          //               alignment: Alignment.center,
-          //               height: 36.h,
-          //               width: 90.w,
-          //               decoration: BoxDecoration(
-          //                   color: Color(0xff1C6BA4),
-          //                   borderRadius: BorderRadius.circular(8.r),
-          //                   border: Border.all(color: const Color(0xffFFFFFF))),
-          //               child: Text(
-          //                 '12:00 AM',
-          //                 style: TextStyle(
-          //                     fontFamily: 'NunitoSans',
-          //                     fontSize: 14.sp,
-          //                     fontWeight: FontWeight.w700,
-          //                     color: Color(0xffFFFFFF)),
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               width: 5.w,
-          //             ),
-          //             Container(
-          //               alignment: Alignment.center,
-          //               height: 36.h,
-          //               width: 90.w,
-          //               decoration: BoxDecoration(
-          //                   color: Color(0xff1C6BA4),
-          //                   borderRadius: BorderRadius.circular(8.r),
-          //                   border: Border.all(color: const Color(0xffFFFFFF))),
-          //               child: Text(
-          //                 '12:30 AM',
-          //                 style: TextStyle(
-          //                     fontFamily: 'NunitoSans',
-          //                     fontSize: 14.sp,
-          //                     fontWeight: FontWeight.w700,
-          //                     color: Color(0xffFFFFFF)),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //         SizedBox(
-          //           height: 45.h,
-          //         ),
-          //         MaterialButton(
-          //           onPressed: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                   builder: (context) => PaymentScreen(),
-          //                 ));
-          //           },
-          //           height: 46.h,
-          //           minWidth: double.infinity,
-          //           color: Color(0xffFFFFFF),
-          //           shape: RoundedRectangleBorder(
-          //               borderRadius: BorderRadius.circular(14.r)),
-          //           child: Text(
-          //             'Make Appointment',
-          //             style: TextStyle(
-          //                 fontWeight: FontWeight.w700,
-          //                 fontSize: 15.sp,
-          //                 color: Color(0xff1C6BA4),
-          //                 fontFamily: 'NunitoSans'),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // )
+
+          
         ],
       ),
     );
   }
 }
+Widget displaybottomcontainer(BuildContext context) => Container(
+            height: 311.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Color(0xff1C6BA4),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.w),
+                    topRight: Radius.circular(30.w))),
+            child: Padding(
+              padding: EdgeInsets.only(left: 30.w, top: 40.h, right: 30.w),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Time',
+                      style: TextStyle(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'NunitoSans',
+                          color: Color(0xffFFFFFF)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 36.h,
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xff1C6BA4),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: const Color(0xffFFFFFF))),
+                        child: Text(
+                          '09:30 AM',
+                          style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 36.h,
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xffE09F1F),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: const Color(0xffFFFFFF))),
+                        child: Text(
+                          '10:30 AM',
+                          style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 36.h,
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xff1C6BA4),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: const Color(0xffFFFFFF))),
+                        child: Text(
+                          '11:00 AM',
+                          style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 36.h,
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xff1C6BA4),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: const Color(0xffFFFFFF))),
+                        child: Text(
+                          '11:30 AM',
+                          style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 36.h,
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xff1C6BA4),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: const Color(0xffFFFFFF))),
+                        child: Text(
+                          '12:00 AM',
+                          style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 36.h,
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xff1C6BA4),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: const Color(0xffFFFFFF))),
+                        child: Text(
+                          '12:30 AM',
+                          style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 45.h,
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentScreen(),
+                          ));
+                    },
+                    height: 46.h,
+                    minWidth: double.infinity,
+                    color: Color(0xffFFFFFF),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.r)),
+                    child: Text(
+                      'Make Appointment',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15.sp,
+                          color: Color(0xff1C6BA4),
+                          fontFamily: 'NunitoSans'),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );

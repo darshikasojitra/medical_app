@@ -133,7 +133,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
         ),
         Padding(
           padding: EdgeInsets.only(
-            top: 30.h,
+            top: 25.h,
             left: 72.w,
           ),
           child: Text(
@@ -147,21 +147,34 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
         ),
         Padding(
           padding:
-              EdgeInsets.only(left: 72.w, right: 62.w, top: 10.h, bottom: 30.h),
-          child: Text(
-            'We will show the pharmacy that got all the medicine.',
+              EdgeInsets.only(left: 72.w, right: 62.w, top: 10.h, bottom: 25.h),
+          child: Column(
+            children: [
+              Text(
+                'We will show the pharmacy that',
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13.sp,
+                    color: Color(0xff4A545E),
+                    fontFamily: 'NunitoSans'),
+              ),
+              Text(
+            ' all the medicine.',
             style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 13.sp,
                 color: Color(0xff4A545E),
                 fontFamily: 'NunitoSans'),
           ),
+            ],
+          ),
+          
         ),
         Padding(
           padding: EdgeInsets.only(left: 72.w, right: 62.w, bottom: 30.h),
           child: Container(
             height: 130.h,
-            width: 250.w,
+            width: 264.w,
             decoration: BoxDecoration(
               color: Color(0xffE4E9F1),
               borderRadius: BorderRadius.circular(24.r),

@@ -64,4 +64,6 @@ class AssetsManager {
   static const String pharmaimage = "$imagepath/pharma_image.png";
   static const String smallclockimage = "$imagepath/smallclock_image.png";
   static const String locationarrowimage = "$imagepath/locationarrow_image.png";
+  static const String searchimage = "$imagepath/search_image.png";
+  static const String homeimage = "$imagepath/home_image.png";
 }
