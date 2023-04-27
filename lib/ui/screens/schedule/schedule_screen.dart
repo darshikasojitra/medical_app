@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/assets_manager.dart';
 import 'package:medical_app/resources/color_manager.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class ScheduleScreen extends StatefulWidget {
   static const String id = 'ScheduleScreen';
@@ -47,8 +48,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                       fontSize: 27.sp,
                       fontFamily: 'NunitoSans'),
                 ),
-                SizedBox(
-                  width: 160.w,
+                buildSizedBoxSpacer(
+                  width: 175.w,
                 ),
                 GestureDetector(
                     onTap: () => _selectDate(context),
@@ -135,7 +136,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'NunitoSans'),
                             ),
-                            SizedBox(
+                            buildSizedBoxSpacer(
                               width: 10.w,
                             ),
                             Text(

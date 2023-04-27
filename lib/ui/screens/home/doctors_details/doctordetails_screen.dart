@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/assets_manager.dart';
+import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/appoinment_screen.dart';
-import 'package:medical_app/ui/screens/medicinesearch_screen.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class DoctorDetailScreen extends StatefulWidget {
   static const String id = 'DoctorDetailScreen';
@@ -22,7 +22,63 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       children: [
         Column(
           children: [
-            Container(
+            appbarContainer(context),
+            Padding(
+              padding: EdgeInsets.only(top: 70.h, left: 25.w, right: 25.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                _threeCard(_firsttext,_secondtext),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 10.w, top: 30.h, bottom: 15.h),
+                    child: Text(
+                      'About',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17.sp,
+                          color: Color(0xff0E1012),
+                          fontFamily: 'NunitoSans'),
+                    ),
+                  ),
+               _aboutText,
+                 _availabilitycard,
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AppoinmentScreen(),
+                            ));
+                      },
+                      height: 46.h,
+                      minWidth: double.infinity,
+                      color: Color(0xff1C6BA4),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.r)),
+                      child: Text(
+                        'Book Now',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.sp,
+                            color: Color(0xffFFFFFF),
+                            fontFamily: 'NunitoSans'),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        _doctorIntro,
+      ],
+    ));
+  }
+}
+Widget appbarContainer(context) => Container(
               height: 210,
               width: double.infinity,
               color: Color(0xff1C6BA4),
@@ -46,7 +102,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                               color: Color(0xffFFFFFF),
                             )),
                       ),
-                      SizedBox(
+                      buildSizedBoxSpacer(
                         width: 90.w,
                       ),
                       Text(
@@ -57,7 +113,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                             color: Color(0xffFFFFFF),
                             fontFamily: 'NunitoSans'),
                       ),
-                      SizedBox(
+                      buildSizedBoxSpacer(
                         width: 90.w,
                       ),
                       Container(
@@ -68,14 +124,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                             borderRadius: BorderRadius.circular(12.r),
                             border: Border.all(color: Color(0xffD7DEEA))),
                         child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        MedicineSearchScreen(),
-                                  ));
-                            },
+                            onTap: () {},
                             child: Image.asset(
                               AssetsManager.linkimage,
                               color: Color(0xffFFFFFF),
@@ -85,13 +134,9 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 70.h, left: 25.w, right: 25.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            );
+
+Widget _threeCard(firsttext,secondtext) =>   Row(
                     children: [
                       Container(
                         height: 80.h,
@@ -117,7 +162,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        _firsttext[index],
+                                        firsttext[index],
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 12.sp,
@@ -125,7 +170,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                                             fontFamily: 'NunitoSans'),
                                       ),
                                       Text(
-                                        _secondtext[index],
+                                        secondtext[index],
                                         style: TextStyle(
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16.sp,
@@ -141,22 +186,13 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                         ),
                       ),
                     ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.w, top: 30.h, bottom: 15.h),
-                    child: Text(
-                      'About',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17.sp,
-                          color: Color(0xff0E1012),
-                          fontFamily: 'NunitoSans'),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.w,right: 25.w, bottom: 20.h),
+                  );
+
+Widget _aboutText =    Padding(
+                    padding:
+                        EdgeInsets.only(left: 10.w, right: 25.w, bottom: 10.h),
                     child: Container(
-                      height: 100.h,
+                      height: 110.h,
                       width: 319.w,
                       child: Column(
                         children: [
@@ -171,7 +207,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                           Padding(
                             padding: EdgeInsets.only(right: 60.w, top: 8.h),
                             child: Container(
-                              height: 75,
+                              height: 70,
                               width: 319,
                               child: Text(
                                 'Ex-Professor & Head of Department Department of Neurosurgery    Dhaka Medical College & Hospital',
@@ -186,9 +222,10 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.w,bottom: 40.h,right: 10.w),
+                  );
+Widget _availabilitycard =  Padding(
+                    padding:
+                        EdgeInsets.only(left: 10.w, bottom: 35.h, right: 10.w),
                     child: Container(
                       height: 70.h,
                       width: 300.w,
@@ -234,91 +271,59 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                               )
                             ],
                           ),
-                          SizedBox(
+                          buildSizedBoxSpacer(
                             width: 90.w,
                           ),
                           Image.asset(AssetsManager.detailscreenarrow)
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:  EdgeInsets.only(left: 10.w,right: 10.w),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AppoinmentScreen(),
-                            ));
-                      },
-                      height: 46.h,
-                      minWidth: double.infinity,
-                      color: Color(0xff1C6BA4),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.r)),
-                      child: Text(
-                        'Book Now',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15.sp,
-                            color: Color(0xffFFFFFF),
-                            fontFamily: 'NunitoSans'),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                  );
+
+Widget _doctorIntro = Positioned(
+  left: 25.w,
+  right: 25.w,
+  top: 120.h,
+  child: Container(
+    height: 90.h,
+    width: 319.w,
+    decoration: BoxDecoration(
+      color: Color(0xffFFFFFF),
+      borderRadius: BorderRadius.circular(28.r),
+    ),
+    child: Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(14.w),
+          child: Image.asset(AssetsManager.detailscreendrimage),
         ),
-        Positioned(
-            left: 28,
-            right: 28,
-            top: 160,
-            child: Container(
-              height: 110,
-              width: 319,
-              decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
-                borderRadius: BorderRadius.circular(28),
+        Padding(
+          padding: EdgeInsets.only(top: 22.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Dr. Mim Akhter',
+                style: regularTextStyle(
+                  color: Color(0xff0E1012),
+                  fontSize: 19.sp,
+                  fontFamily: 'NunitoSans',
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Image.asset(AssetsManager.detailscreendrimage),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 31),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Dr. Mim Akhter',
-                          style: TextStyle(
-                            color: Color(0xff0E1012),
-                            fontSize: 19,
-                            fontFamily: 'NunitoSans',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          'Cardiologist in apolo hospital',
-                          style: TextStyle(
-                            color: Color(0xff4A545E),
-                            fontSize: 12,
-                            fontFamily: 'NunitoSans',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            )),
+              Text(
+                'Cardiologist in apolo hospital',
+                style: regularTextStyle(
+                  color: Color(0xff4A545E),
+                  fontSize: 12.sp,
+                  fontFamily: 'NunitoSans',
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
+          ),
+        ),
       ],
-    ));
-  }
-}
+    ),
+  ),
+);

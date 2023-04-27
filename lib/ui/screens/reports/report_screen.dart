@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/assets_manager.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
 
-class ReportScreen extends StatefulWidget {
+class ReportScreen extends StatelessWidget {
   static const String id = 'ReportScreen';
   const ReportScreen({super.key});
 
   @override
-  State<ReportScreen> createState() => _ReportScreenState();
-}
-
-class _ReportScreenState extends State<ReportScreen> {
-  final List _containercolor = [
-    Color(0xffDCEDF9),
-    Color(0xffD6FFF3),
-  ];
-  final List _reportfile = [
-    Image.asset(AssetsManager.bluereportimage),
-    Image.asset(AssetsManager.greenreportimage)
-  ];
-  @override
   Widget build(BuildContext context) {
+    final List _containercolor = [
+      Color(0xffDCEDF9),
+      Color(0xffD6FFF3),
+    ];
+    final List _reportfile = [
+      Image.asset(AssetsManager.bluereportimage),
+      Image.asset(AssetsManager.greenreportimage)
+    ];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-               padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 45.h),
+              padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 45.h),
               child: Row(
                 children: [
                   Text(
@@ -38,7 +34,7 @@ class _ReportScreenState extends State<ReportScreen> {
                         fontWeight: FontWeight.w700,
                         fontFamily: 'NunitoSans'),
                   ),
-                  SizedBox(
+                  buildSizedBoxSpacer(
                     width: 200.w,
                   ),
                   Image.asset(
@@ -48,9 +44,8 @@ class _ReportScreenState extends State<ReportScreen> {
                 ],
               ),
             ),
-            
             Padding(
-              padding:  EdgeInsets.only(left: 25.w,right: 25.w,top: 25.h),
+              padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 25.h),
               child: Container(
                 height: 130.h,
                 width: 375.w,
@@ -72,14 +67,14 @@ class _ReportScreenState extends State<ReportScreen> {
                                 fontFamily: 'NunitoSans',
                                 fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(
+                          buildSizedBoxSpacer(
                             height: 22.h,
                           ),
                           Image.asset(AssetsManager.bpm),
                         ],
                       ),
                     ),
-                    SizedBox(
+                    buildSizedBoxSpacer(
                       width: 25.w,
                     ),
                     Image.asset(AssetsManager.graphimage)
@@ -87,9 +82,8 @@ class _ReportScreenState extends State<ReportScreen> {
                 ),
               ),
             ),
-          
             Padding(
-              padding:  EdgeInsets.only(left: 25.w,right: 25.w,top: 20.h),
+              padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 20.h),
               child: Row(
                 children: [
                   Container(
@@ -104,21 +98,24 @@ class _ReportScreenState extends State<ReportScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding:  EdgeInsets.only(top: 20.h,),
+                            padding: EdgeInsets.only(
+                              top: 20.h,
+                            ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Image.asset(AssetsManager.bloodimage),
-                                 SizedBox(width: 85.w,),
+                                Image.asset(AssetsManager.bloodimage),
+                                SizedBox(
+                                  width: 85.w,
+                                ),
                                 Image.asset(
                                   AssetsManager.horozontal3dots,
                                   color: const Color(0xff4A545E),
                                 ),
-                               
                               ],
                             ),
                           ),
-                          SizedBox(
+                          buildSizedBoxSpacer(
                             height: 13.h,
                           ),
                           Text(
@@ -139,7 +136,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  buildSizedBoxSpacer(
                     width: 10.w,
                   ),
                   Container(
@@ -149,12 +146,14 @@ class _ReportScreenState extends State<ReportScreen> {
                         color: const Color(0xffFAF0DB),
                         borderRadius: BorderRadius.circular(24.r)),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 18.w,top: 20.h),
+                      padding: EdgeInsets.only(left: 18.w, top: 20.h),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.asset(AssetsManager.weightimage),
-                          SizedBox(width: 50.w,),
+                          SizedBox(
+                            width: 50.w,
+                          ),
                           Image.asset(
                             AssetsManager.horozontal3dots,
                             color: const Color(0xff4A545E),
@@ -166,9 +165,8 @@ class _ReportScreenState extends State<ReportScreen> {
                 ],
               ),
             ),
-           
             Padding(
-              padding:  EdgeInsets.only(left: 25.w,top: 25.w),
+              padding: EdgeInsets.only(left: 25.w, top: 25.w),
               child: Text(
                 'Lattest Report',
                 style: TextStyle(
@@ -178,78 +176,79 @@ class _ReportScreenState extends State<ReportScreen> {
                     fontFamily: 'NunitoSans'),
               ),
             ),
-            Padding(
-              padding:  EdgeInsets.only(left: 25.w,right: 25.w),
-              child: Container(
-                width: 350.w,
-                height: 200.h,
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: _reportfile.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding:  EdgeInsets.only(bottom: 20.h),
-                      child: Container(
-                        height: 73.h,
-                        width: 320.w,
-                        decoration: BoxDecoration(
-                          color: Color(0xffFFFFFF),
-                          borderRadius: BorderRadius.circular(28.r),
-                          border: Border.all(color: Color(0xffD7DDEA))
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(left: 10.w, right: 16.h),
-                              child: Container(
-                                height: 54.h,
-                                width: 60.w,
-                                decoration: BoxDecoration(
-                                    color: _containercolor[index],
-                                    borderRadius:
-                                        BorderRadius.circular(20.r)),
-                                child: _reportfile[index],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 18.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'General Health',
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'NunitoSans'),
-                                  ),
-                                  SizedBox(height: 5.h,),
-                                  Text(
-                                    '8 files',
-                                    style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'NunitoSans'),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 95.w,
-                            ),
-                            Image.asset(AssetsManager.vertical3dotsimage)
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            )
+            _latestReport(_reportfile, _containercolor)
           ],
         ),
       ),
     );
   }
 }
+
+Widget _latestReport(reportfile, containercolor) => Padding(
+      padding: EdgeInsets.only(left: 25.w, right: 25.w),
+      child: Container(
+        width: 350.w,
+        height: 200.h,
+        child: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          itemCount: reportfile.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(bottom: 20.h),
+              child: Container(
+                height: 73.h,
+                width: 320.w,
+                decoration: BoxDecoration(
+                    color: Color(0xffFFFFFF),
+                    borderRadius: BorderRadius.circular(28.r),
+                    border: Border.all(color: Color(0xffD7DDEA))),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.w, right: 16.h),
+                      child: Container(
+                        height: 54.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                            color: containercolor[index],
+                            borderRadius: BorderRadius.circular(20.r)),
+                        child: reportfile[index],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 18.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'General Health',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'NunitoSans'),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            '8 files',
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'NunitoSans'),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 95.w,
+                    ),
+                    Image.asset(AssetsManager.vertical3dotsimage)
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );

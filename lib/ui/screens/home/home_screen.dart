@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/color_manager.dart';
+import 'package:medical_app/resources/style_manager.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/doctor_search_screen.dart';
 import 'package:medical_app/ui/screens/medicinesearch_screen.dart';
 import 'package:medical_app/ui/screens/profile_screen.dart';
@@ -15,13 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List smallcontainercolor = [
+  final List _smallcontainercolor = [
     ColorManager.lightblue,
     ColorManager.lightyellow,
     ColorManager.lightgreen,
     ColorManager.lightpink,
   ];
-  List bigcontainercolor = [
+  final List _bigcontainercolor = [
     ColorManager.darkblue,
     ColorManager.darkyellow,
     ColorManager.darkgreen,
@@ -42,51 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 28.w, top: 28.h, right: 20.w),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '👋 Hello!',
-                        style: TextStyle(
-                            fontFamily: 'NunitoSans',
-                            fontSize: 16.sp,
-                            color: ColorManager.hellotextcolor),
-                      ),
-                      Text(
-                        'Shahin Alam',
-                        style: TextStyle(
-                            fontFamily: 'NunitoSans',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 27.sp,
-                            color: ColorManager.hellotextcolor),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: 100.w,
-                  ),
-                  Stack(
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProfileScreen(),
-                              ),
-                            );
-                          },
-                          child: Image.asset(AssetsManager.profileimage)),
-                      Positioned(
-                        left: 25.h,
-                        child: Image.asset(AssetsManager.profiledot),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+              child: _userintro(context),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -99,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(left: 28.w, right: 28.w),
                 child: Text(
                   'Services',
-                  style: TextStyle(
+                  style: regularTextStyle(
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'NunitoSans',
@@ -107,56 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10.h, bottom: 15.h, left: 28.w),
-              child: Row(
-                children: [
-                  Container(
-                    height: 65.h,
-                    width: 330.w,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            right: 10.w,
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              if (index == 0) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DoctorSearchScreen(),
-                                    ));
-                              } else if (index == 1) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          MedicineSearchScreen(),
-                                    ));
-                              }
-                            },
-                            child: Container(
-                              height: 65.h,
-                              width: 65.w,
-                              decoration: BoxDecoration(
-                                color: smallcontainercolor[index],
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: image[index],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
+            _serviceCard(image, _smallcontainercolor),
             Padding(
               padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 15.h),
               child: Container(
@@ -169,48 +77,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 24.h, left: 20.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Get the Best',
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: ColorManager.darkblack,
-                                fontFamily: 'NunitoSans',
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            'Medical Service',
-                            style: TextStyle(
-                                fontSize: 20.sp,
-                                color: ColorManager.darkblack,
-                                fontFamily: 'NunitoSans',
-                                fontWeight: FontWeight.w700),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Text(
-                            'Lorem Ipsum is simply dummy',
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'NunitoSans',
-                                color: Color(0xff4A545E)),
-                          ),
-                          Text(
-                            'ext of the printing',
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'NunitoSans',
-                                color: Color(0xff4A545E)),
-                          )
-                        ],
+                      child: Container(
+                        width: 154.w,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Get the Best Medical Service',
+                              style: regularTextStyle(
+                                  fontSize: 20.sp,
+                                  color: ColorManager.darkblack,
+                                  fontFamily: 'NunitoSans',
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            buildSizedBoxSpacer(
+                              height: 5.h,
+                            ),
+                            Text(
+                              'Lorem Ipsum is simply dummy ext of the printing',
+                              style: regularTextStyle(
+                                  fontSize: 11.sp,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'NunitoSans',
+                                  color: Color(0xff4A545E)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(
+                    buildSizedBoxSpacer(
                       width: 20.w,
                     ),
                     Container(
@@ -234,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            buildSizedBoxSpacer(
               height: 20.h,
             ),
             Align(
@@ -243,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(left: 28.w),
                 child: Text(
                   'Upcoming Appointments',
-                  style: TextStyle(
+                  style: regularTextStyle(
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'NunitoSans',
@@ -251,122 +146,67 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 15.h, left: 28.w),
-              child: Row(
-                children: [
-                  Container(
-                    height: 100.h,
-                    width: 329.w,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            right: 12.w,
-                          ),
-                          child: Container(
-                              height: 100.h,
-                              width: 258.w,
-                              decoration: BoxDecoration(
-                                color: bigcontainercolor[index],
-                                borderRadius: BorderRadius.circular(28.r),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 8.h, right: 12.w),
-                                    child: Container(
-                                      height: 70.h,
-                                      width: 60.w,
-                                      decoration: BoxDecoration(
-                                        color: smallcontainercolor[index],
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '12',
-                                            style: TextStyle(
-                                                fontSize: 20.sp,
-                                                fontFamily: 'NunitoSans',
-                                                fontWeight: FontWeight.w800,
-                                                color: ColorManager.white),
-                                          ),
-                                          Text('Tue',
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  fontFamily: 'NunitoSans',
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.white)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 10.h),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 140.w,
-                                              bottom: 5.h,
-                                              top: 10.h,
-                                              right: 20.w),
-                                          child: Image.asset(
-                                              AssetsManager.horozontal3dots),
-                                        ),
-                                        Text(
-                                          '09:30 AM',
-                                          style: TextStyle(
-                                            color: ColorManager.white,
-                                            fontSize: 12.sp,
-                                            fontFamily: 'NunitoSans',
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Dr. Mim Akhter',
-                                          style: TextStyle(
-                                            color: ColorManager.white,
-                                            fontSize: 16.sp,
-                                            fontFamily: 'NunitoSans',
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Depression',
-                                          style: TextStyle(
-                                            color: ColorManager.white,
-                                            fontSize: 10.sp,
-                                            fontFamily: 'NunitoSans',
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
+            _upoinmentcard(_bigcontainercolor, _smallcontainercolor)
           ],
         ),
       )),
     );
   }
 }
+
+SizedBox buildSizedBoxSpacer({double? height, double? width}) {
+  return SizedBox(
+    height: height,
+    width: width,
+  );
+}
+
+Widget _userintro(context) => Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '👋 Hello!',
+              style: TextStyle(
+                  fontFamily: 'NunitoSans',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: ColorManager.hellotextcolor),
+            ),
+            Text(
+              'Shahin Alam',
+              style: regularTextStyle(
+                  fontFamily: 'NunitoSans',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 27.sp,
+                  color: ColorManager.hellotextcolor),
+            )
+          ],
+        ),
+        buildSizedBoxSpacer(
+          width: 100.w,
+        ),
+        Stack(
+          children: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                child: Image.asset(AssetsManager.profileimage)),
+            Positioned(
+              left: 25.h,
+              child: Image.asset(AssetsManager.profiledot),
+            )
+          ],
+        ),
+      ],
+    );
 
 Widget searchtextfeild = TextFormField(
   decoration: InputDecoration(
@@ -383,7 +223,7 @@ Widget searchtextfeild = TextFormField(
       child: Image.asset(AssetsManager.sufiximage),
     ),
     hintText: 'Search medical..',
-    hintStyle: TextStyle(
+    hintStyle: regularTextStyle(
         fontSize: 12.sp,
         fontFamily: 'NunitoSans',
         color: ColorManager.searchiconcolor),
@@ -397,3 +237,158 @@ Widget searchtextfeild = TextFormField(
         borderSide: BorderSide(color: ColorManager.searchcolor)),
   ),
 );
+Widget _serviceCard(image, smallcontainercolor) => Padding(
+      padding: EdgeInsets.only(top: 10.h, bottom: 15.h, left: 28.w),
+      child: Row(
+        children: [
+          Container(
+            height: 65.h,
+            width: 330.w,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    right: 10.w,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (index == 0) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DoctorSearchScreen(),
+                            ));
+                      } else if (index == 1) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MedicineSearchScreen(),
+                            ));
+                      }
+                    },
+                    child: Container(
+                      height: 65.h,
+                      width: 65.w,
+                      decoration: BoxDecoration(
+                        color: smallcontainercolor[index],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: image[index],
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+Widget _upoinmentcard(bigcontainercolor, smallcontainercolor) => Padding(
+      padding: EdgeInsets.only(top: 15.h, left: 28.w),
+      child: Row(
+        children: [
+          Container(
+            height: 100.h,
+            width: 329.w,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    right: 12.w,
+                  ),
+                  child: Container(
+                      height: 100.h,
+                      width: 258.w,
+                      decoration: BoxDecoration(
+                        color: bigcontainercolor[index],
+                        borderRadius: BorderRadius.circular(28.r),
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.h, right: 12.w),
+                            child: Container(
+                              height: 70.h,
+                              width: 60.w,
+                              decoration: BoxDecoration(
+                                color: smallcontainercolor[index],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '12',
+                                    style: regularTextStyle(
+                                        fontSize: 20.sp,
+                                        fontFamily: 'NunitoSans',
+                                        fontWeight: FontWeight.w800,
+                                        color: ColorManager.white),
+                                  ),
+                                  Text('Tue',
+                                      style: regularTextStyle(
+                                          fontSize: 14.sp,
+                                          fontFamily: 'NunitoSans',
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorManager.white)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 140.w,
+                                      bottom: 5.h,
+                                      top: 10.h,
+                                      right: 20.w),
+                                  child: Image.asset(
+                                      AssetsManager.horozontal3dots),
+                                ),
+                                Text(
+                                  '09:30 AM',
+                                  style: regularTextStyle(
+                                    color: ColorManager.white,
+                                    fontSize: 12.sp,
+                                    fontFamily: 'NunitoSans',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                Text(
+                                  'Dr. Mim Akhter',
+                                  style: regularTextStyle(
+                                    color: ColorManager.white,
+                                    fontSize: 16.sp,
+                                    fontFamily: 'NunitoSans',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  'Depression',
+                                  style: regularTextStyle(
+                                    color: ColorManager.white,
+                                    fontSize: 10.sp,
+                                    fontFamily: 'NunitoSans',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      )),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );

@@ -23,7 +23,7 @@ class _NewTableCalenderState extends State<NewTableCalender> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TableCalendar(
-  
+        rowHeight: 45,
         daysOfWeekVisible: false,
         headerStyle: HeaderStyle(
           formatButtonVisible: false,
@@ -46,17 +46,26 @@ class _NewTableCalenderState extends State<NewTableCalender> {
           ),
         ),
         calendarStyle: CalendarStyle(
+          todayDecoration:const BoxDecoration(
+           // borderRadius: BorderRadius.circular(10.r),
+           shape: BoxShape.circle,
+            color: Color(0xff1C6BA4),
+          ),
           todayTextStyle: TextStyle(
               color: Color(0xffFFFFFF),
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
-          // selectedDecoration: BoxDecoration(
-          //   color: Color(0xff1C6BA4),
-          //   shape: BoxShape.rectangle,
-          //   borderRadius: BorderRadius.circular(10.r),
-          // ),
-          
+          selectedDecoration:const BoxDecoration(
+            color: Color(0xff1C6BA4),
+            shape: BoxShape.circle,
+            //borderRadius: BorderRadius.circular(10.r),
+          ),
+          selectedTextStyle: TextStyle(
+              color: Color(0xffFFFFFF),
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: 15.sp),
         ),
         focusedDay: _focusedDay,
         firstDay: DateTime.utc(2020, 10, 20),
@@ -66,7 +75,6 @@ class _NewTableCalenderState extends State<NewTableCalender> {
           return isSameDay(_selectedDay, day);
         },
         onDaySelected: (selectedDay, focusedDay) {
-          Container(height: 100,width: 100,color: Colors.blue,);
           if (!isSameDay(_selectedDay, selectedDay)) {
             setState(() {
               _selectedDay = selectedDay;

@@ -16,6 +16,7 @@ class MakeAppoinmentScreen extends StatefulWidget {
 }
 
 class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
+  int _myindex = 0;
   DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
   @override
@@ -24,7 +25,8 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 40.h,bottom: 10.h),
+            padding: EdgeInsets.only(
+                left: 28.w, right: 28.w, top: 40.h, bottom: 10.h),
             child: Row(
               children: [
                 Container(
@@ -53,195 +55,200 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
             ),
           ),
           Container(
-            height: 300.h,
-            width: 322.w,
-           // color: Colors.amber,
-            child: NewTableCalender()
-          ),
-
-          
+              height: 300.h,
+              width: 322.w,
+              // color: Colors.amber,
+              child: NewTableCalender()),
+          displaybottomcontainer(context)
         ],
       ),
     );
   }
 }
+
 Widget displaybottomcontainer(BuildContext context) => Container(
-            height: 311.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: Color(0xff1C6BA4),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.w),
-                    topRight: Radius.circular(30.w))),
-            child: Padding(
-              padding: EdgeInsets.only(left: 30.w, top: 40.h, right: 30.w),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Time',
-                      style: TextStyle(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: 'NunitoSans',
-                          color: Color(0xffFFFFFF)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xff1C6BA4),
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: const Color(0xffFFFFFF))),
-                        child: Text(
-                          '09:30 AM',
-                          style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xffE09F1F),
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: const Color(0xffFFFFFF))),
-                        child: Text(
-                          '10:30 AM',
-                          style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xff1C6BA4),
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: const Color(0xffFFFFFF))),
-                        child: Text(
-                          '11:00 AM',
-                          style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xff1C6BA4),
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: const Color(0xffFFFFFF))),
-                        child: Text(
-                          '11:30 AM',
-                          style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xff1C6BA4),
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: const Color(0xffFFFFFF))),
-                        child: Text(
-                          '12:00 AM',
-                          style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xff1C6BA4),
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: const Color(0xffFFFFFF))),
-                        child: Text(
-                          '12:30 AM',
-                          style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffFFFFFF)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 45.h,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PaymentScreen(),
-                          ));
-                    },
-                    height: 46.h,
-                    minWidth: double.infinity,
-                    color: Color(0xffFFFFFF),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14.r)),
-                    child: Text(
-                      'Make Appointment',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15.sp,
-                          color: Color(0xff1C6BA4),
-                          fontFamily: 'NunitoSans'),
-                    ),
-                  )
-                ],
+      height: 300.h,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: Color(0xff1C6BA4),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.w), topRight: Radius.circular(30.w))),
+      child: Padding(
+        padding: EdgeInsets.only(left: 30.w, top: 40.h, right: 30.w),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Time',
+                style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'NunitoSans',
+                    color: Color(0xffFFFFFF)),
               ),
             ),
-          );
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+                height: 100.h,
+                width: double.infinity,
+                //color: Colors.pink,
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, mainAxisSpacing: 20.h,crossAxisSpacing: 10.w),
+                        itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return   GestureDetector(
+                        onTap: () {
+                          
+                        },
+                        child: Container(
+                                alignment: Alignment.center,
+                                 height: 42.h,
+                                // width: 42.w,
+                                decoration: BoxDecoration(
+                                    color: Color(0xff1C6BA4),
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    border: Border.all(color: const Color(0xffFFFFFF))),
+                                child: Text(
+                                  '09:30 AM',
+                                  style: TextStyle(
+                                      fontFamily: 'NunitoSans',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xffFFFFFF)),
+                                ),
+                              ),
+                      );
+                    },)
+                // ListView.builder(
+                //   scrollDirection: Axis.horizontal,
+                //   itemCount: 6,
+                //   itemBuilder: (context, index) {
+                // return  Padding(
+                //   padding:  EdgeInsets.only(right: 5.w),
+                //   child: Column(
+                //     children: [
+                //       Row(
+                //         children: [
+                //           Container(
+                //               alignment: Alignment.center,
+                //               height: 36.h,
+                //               width: 90.w,
+                //               decoration: BoxDecoration(
+                //                   color: Color(0xff1C6BA4),
+                //                   borderRadius: BorderRadius.circular(8.r),
+                //                   border: Border.all(color: const Color(0xffFFFFFF))),
+                //               child: Text(
+                //                 '09:30 AM',
+                //                 style: TextStyle(
+                //                     fontFamily: 'NunitoSans',
+                //                     fontSize: 14.sp,
+                //                     fontWeight: FontWeight.w700,
+                //                     color: Color(0xffFFFFFF)),
+                //               ),
+                //             ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // );
+                // },
+                // ),
+
+                ),
+            SizedBox(
+              height: 20.h,
+            ),
+            // Row(
+            //   children: [
+            //     Container(
+            //       alignment: Alignment.center,
+            //       height: 36.h,
+            //       width: 90.w,
+            //       decoration: BoxDecoration(
+            //           color: Color(0xff1C6BA4),
+            //           borderRadius: BorderRadius.circular(8.r),
+            //           border: Border.all(color: const Color(0xffFFFFFF))),
+            //       child: Text(
+            //         '11:30 AM',
+            //         style: TextStyle(
+            //             fontFamily: 'NunitoSans',
+            //             fontSize: 14.sp,
+            //             fontWeight: FontWeight.w700,
+            //             color: Color(0xffFFFFFF)),
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: 5.w,
+            //     ),
+            //     Container(
+            //       alignment: Alignment.center,
+            //       height: 36.h,
+            //       width: 90.w,
+            //       decoration: BoxDecoration(
+            //           color: Color(0xff1C6BA4),
+            //           borderRadius: BorderRadius.circular(8.r),
+            //           border: Border.all(color: const Color(0xffFFFFFF))),
+            //       child: Text(
+            //         '12:00 AM',
+            //         style: TextStyle(
+            //             fontFamily: 'NunitoSans',
+            //             fontSize: 14.sp,
+            //             fontWeight: FontWeight.w700,
+            //             color: Color(0xffFFFFFF)),
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: 5.w,
+            //     ),
+            //     Container(
+            //       alignment: Alignment.center,
+            //       height: 36.h,
+            //       width: 90.w,
+            //       decoration: BoxDecoration(
+            //           color: Color(0xff1C6BA4),
+            //           borderRadius: BorderRadius.circular(8.r),
+            //           border: Border.all(color: const Color(0xffFFFFFF))),
+            //       child: Text(
+            //         '12:30 AM',
+            //         style: TextStyle(
+            //             fontFamily: 'NunitoSans',
+            //             fontSize: 14.sp,
+            //             fontWeight: FontWeight.w700,
+            //             color: Color(0xffFFFFFF)),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            SizedBox(
+              height: 45.h,
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentScreen(),
+                    ));
+              },
+              height: 46.h,
+              minWidth: double.infinity,
+              color: Color(0xffFFFFFF),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14.r)),
+              child: Text(
+                'Make Appointment',
+                style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.sp,
+                    color: Color(0xff1C6BA4),
+                    fontFamily: 'NunitoSans'),
+              ),
+            )
+          ],
+        ),
+      ),
+    );

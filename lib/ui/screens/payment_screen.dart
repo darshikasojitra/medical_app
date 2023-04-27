@@ -4,20 +4,27 @@ import 'package:medical_app/ui/screens/message_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../resources/assets_manager.dart';
 
-class PaymentScreen extends StatefulWidget {
-  static const String id = 'PaymentScreen';
-  const PaymentScreen({super.key});
+  
+
+ class PaymentScreen extends StatefulWidget {
+static const String id = 'PaymentScreen';
+   PaymentScreen({super.key});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  final PageController _controller = PageController();
+final PageController _controller = PageController();
+
   bool paypalvalue = false;
+
   bool payoneervalue = false;
+
   bool visavalue = false;
+
   final List _cardcolor = [Color(0xff1C6BA4),Color(0xffE09F1F),Color(0xffF5E1E9)];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,3 +220,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 }
+ 
+
+
+

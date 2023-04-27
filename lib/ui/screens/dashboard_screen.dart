@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medical_app/resources/style_manager.dart';
 import 'package:medical_app/ui/screens/reports/report_screen.dart';
 import 'package:medical_app/ui/screens/schedule/schedule_screen.dart';
 
@@ -40,32 +42,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentIndex: _myIndex,
           unselectedItemColor: Color(0xff7B8D9E),
           selectedItemColor: Color(0xff1C6BA4),
-          items: const [
+          selectedLabelStyle: regularTextStyle(
+              color: Color(0xff1C6BA4),
+              fontSize: 12.sp,
+              fontFamily: 'NunitoSans',
+          ),
+          unselectedLabelStyle: regularTextStyle(
+              color: Color(0xff7B8D9E),
+              fontSize: 12.sp,
+              fontFamily: 'NunitoSans',
+          ),
+          items:  [
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_sharp,
-                size: 30,
+                size: 28.sp,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.calendar_month_sharp,
-                size: 28,
+                size: 28.sp,
               ),
               label: 'Schedule',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.medical_services_rounded,
-                size: 28,
+                size: 28.sp,
               ),
               label: 'Report',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.notifications,
-                size: 28,
+                size: 28.sp,
               ),
               label: 'Notification',
             ),
