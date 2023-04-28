@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/assets_manager.dart';
+import 'package:medical_app/resources/resources.dart';
 
 class MessageScreen extends StatefulWidget {
   static const String id = 'MessageScreen';
@@ -16,7 +16,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE4E9F1),
+      backgroundColor: ColorManager.bgcolor,
       body: Column(
         children: [
           _doctorProfile(context),
@@ -37,35 +37,38 @@ class _MessageScreenState extends State<MessageScreen> {
                           height: 75.h,
                           width: 235.w,
                           decoration: BoxDecoration(
-                              color: Color(0xff1C6BA4),
+                              color: ColorManager.darkblue,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(16.r),
                                   topRight: Radius.circular(16.r),
                                   bottomLeft: Radius.circular(16.r))),
                           child: Padding(
                             padding: EdgeInsets.only(
-                                left: 19.w, right: 38.w, bottom: 15.h, top: 17.h),
+                                left: 19.w,
+                                right: 38.w,
+                                bottom: 15.h,
+                                top: 17.h),
                             child: Text(
-                              'Hi shah, Can You tell me your problem?',
-                              style: TextStyle(
-                                  color: Color(0xffFFFFFF),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'NunitoSans'),
+                              StringManager.hishah,
+                              style: regularTextStyle(
+                                color: ColorManager.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(left: 100.w, right: 140.w, top: 5.h),
+                        padding: EdgeInsets.only(
+                            left: 100.w, right: 140.w, top: 5.h),
                         child: Text(
-                          'Thu 09:10 AM',
-                          style: TextStyle(
-                              color: Color.fromRGBO(25, 52, 105, 0.6),
-                              fontSize: 11.sp,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'NunitoSans'),
+                          StringManager.thu9_10AM,
+                          style: regularTextStyle(
+                            color: ColorManager.thucolor,
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -84,7 +87,7 @@ class _MessageScreenState extends State<MessageScreen> {
                               height: 72.h,
                               width: 235.w,
                               decoration: BoxDecoration(
-                                  color: Color(0xffFAF0DB),
+                                  color: ColorManager.lightyellow,
                                   borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(16.r),
                                       topRight: Radius.circular(16.r),
@@ -96,12 +99,12 @@ class _MessageScreenState extends State<MessageScreen> {
                                     bottom: 15.h,
                                     top: 17.h),
                                 child: Text(
-                                  'Sure I am suffering from skin allergies.',
-                                  style: TextStyle(
-                                      color: Color(0xff193469),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'NunitoSans'),
+                                  StringManager.sureiam,
+                                  style: regularTextStyle(
+                                    color: ColorManager.textcolor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
@@ -117,35 +120,38 @@ class _MessageScreenState extends State<MessageScreen> {
                           height: 75.h,
                           width: 235.w,
                           decoration: BoxDecoration(
-                              color: Color(0xff1C6BA4),
+                              color: ColorManager.darkblue,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(16.r),
                                   topRight: Radius.circular(16.r),
                                   bottomLeft: Radius.circular(16.r))),
                           child: Padding(
                             padding: EdgeInsets.only(
-                                left: 19.w, right: 38.w, bottom: 15.h, top: 17.h),
+                                left: 19.w,
+                                right: 38.w,
+                                bottom: 15.h,
+                                top: 17.h),
                             child: Text(
-                              'Can You Send a Photo of your skin?',
-                              style: TextStyle(
-                                  color: Color(0xffFFFFFF),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'NunitoSans'),
+                              StringManager.canyou,
+                              style: regularTextStyle(
+                                color: ColorManager.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(left: 100.w, right: 140.w, top: 5.h),
+                        padding: EdgeInsets.only(
+                            left: 100.w, right: 140.w, top: 5.h),
                         child: Text(
-                          'Thu 09:15 AM',
-                          style: TextStyle(
-                              color: Color.fromRGBO(25, 52, 105, 0.6),
-                              fontSize: 11.sp,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'NunitoSans'),
+                          StringManager.thu9_15AM,
+                          style: regularTextStyle(
+                            color: ColorManager.thucolor,
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -167,7 +173,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                   height: 55.h,
                                   width: 133.w,
                                   decoration: BoxDecoration(
-                                      color: Color(0xffFAF0DB),
+                                      color: ColorManager.lightyellow,
                                       borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(16.r),
                                           topRight: Radius.circular(16.r),
@@ -179,12 +185,12 @@ class _MessageScreenState extends State<MessageScreen> {
                                         bottom: 15.h,
                                         top: 17.h),
                                     child: Text(
-                                      "Yes Here it's",
-                                      style: TextStyle(
-                                          color: Color(0xff193469),
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'NunitoSans'),
+                                      StringManager.yeshereit,
+                                      style: regularTextStyle(
+                                        color: ColorManager.textcolor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -200,7 +206,9 @@ class _MessageScreenState extends State<MessageScreen> {
                     ],
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: 480.h,),
+                    padding: EdgeInsets.only(
+                      top: 480.h,
+                    ),
                     child: _sendmessage,
                   )
                 ],
@@ -217,16 +225,16 @@ Widget _doctorProfile(BuildContext context) => Container(
       height: 130.h,
       width: 450.w,
       decoration: BoxDecoration(
-        color: Color(0xffFFFFFF),
+        color: ColorManager.white,
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(24.r),
             bottomRight: Radius.circular(24.r)),
-        boxShadow: const [
+        boxShadow:  [
           BoxShadow(
             blurRadius: 7.0,
             spreadRadius: 7,
             offset: Offset(0, 2),
-            color: Color.fromRGBO(107, 134, 179, 0.25),
+            color: ColorManager.shadowcolor,
           ),
         ],
       ),
@@ -245,19 +253,19 @@ Widget _doctorProfile(BuildContext context) => Container(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Dr. Mim Akhter',
-                    style: TextStyle(
-                        color: Color(0xff0E1012),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'NunitoSans'),
+                    StringManager.drmim,
+                    style: regularTextStyle(
+                      color: ColorManager.darkblack,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Row(
                     children: [
                       Text(
-                        'Active Now',
+                        StringManager.activenow,
                         style: TextStyle(
-                            color: Color(0xff4A545E),
+                            color: ColorManager.settingiconcolor,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
                             fontFamily: 'NunitoSans'),
@@ -269,7 +277,7 @@ Widget _doctorProfile(BuildContext context) => Container(
                         height: 7.h,
                         width: 7.w,
                         decoration: BoxDecoration(
-                            color: Color(0xff27AE60),
+                            color: ColorManager.green,
                             borderRadius: BorderRadius.circular(7.r)),
                       )
                     ],
@@ -297,7 +305,7 @@ Widget _sendmessage = Container(
     //controller: _controller,
     decoration: InputDecoration(
       filled: true,
-      fillColor: Color(0xffFFFFFF),
+      fillColor: ColorManager.white,
       prefixIcon: Padding(
         padding: EdgeInsets.only(left: 10.w),
         child: Image.asset(
@@ -308,20 +316,19 @@ Widget _sendmessage = Container(
         padding: EdgeInsets.only(right: 10.w),
         child: Image.asset(AssetsManager.sendimage),
       ),
-      hintText: 'Write here..',
-      hintStyle: TextStyle(
+      hintText: StringManager.writehere,
+      hintStyle: regularTextStyle(
           fontSize: 17.sp,
           fontWeight: FontWeight.w400,
-          fontFamily: 'NunitoSans',
-          color: Color.fromRGBO(25, 52, 105, 0.6)),
+          color: ColorManager.thucolor),
       border: OutlineInputBorder(),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.r),
-        borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.25)),
+        borderSide: BorderSide(color: ColorManager.textfeildbordercolor),
       ),
       enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.25))),
+          borderSide: BorderSide(color: ColorManager.textfeildbordercolor)),
     ),
   ),
 );

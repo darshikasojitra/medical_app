@@ -1,10 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/ui/screens/profile_screen.dart';
+import 'package:medical_app/resources/style_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class NewTableCalender extends StatefulWidget {
@@ -23,16 +19,15 @@ class _NewTableCalenderState extends State<NewTableCalender> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TableCalendar(
-        rowHeight: 45,
+        rowHeight: 30.h,
         daysOfWeekVisible: false,
         headerStyle: HeaderStyle(
           formatButtonVisible: false,
           titleCentered: true,
-          titleTextStyle: TextStyle(
+          titleTextStyle: regularTextStyle(
             color: Color(0xff0E1012),
             fontSize: 34.sp,
             fontWeight: FontWeight.w800,
-            fontFamily: 'NunitoSans',
           ),
           leftChevronIcon: Icon(
             Icons.chevron_left,
@@ -46,22 +41,20 @@ class _NewTableCalenderState extends State<NewTableCalender> {
           ),
         ),
         calendarStyle: CalendarStyle(
-          todayDecoration:const BoxDecoration(
-           // borderRadius: BorderRadius.circular(10.r),
-           shape: BoxShape.circle,
+          todayDecoration: const BoxDecoration(
+            shape: BoxShape.circle,
             color: Color(0xff1C6BA4),
           ),
-          todayTextStyle: TextStyle(
+          todayTextStyle: regularTextStyle(
               color: Color(0xffFFFFFF),
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
-          selectedDecoration:const BoxDecoration(
+          selectedDecoration: const BoxDecoration(
             color: Color(0xff1C6BA4),
             shape: BoxShape.circle,
-            //borderRadius: BorderRadius.circular(10.r),
           ),
-          selectedTextStyle: TextStyle(
+          selectedTextStyle: regularTextStyle(
               color: Color(0xffFFFFFF),
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
@@ -84,7 +77,6 @@ class _NewTableCalenderState extends State<NewTableCalender> {
         },
         onFormatChanged: (format) {
           if (_calendarFormat != format) {
-           
             setState(() {
               _calendarFormat = format;
             });
@@ -93,7 +85,6 @@ class _NewTableCalenderState extends State<NewTableCalender> {
         onPageChanged: (focusedDay) {
           _focusedDay = focusedDay;
         },
-       
       ),
     );
   }

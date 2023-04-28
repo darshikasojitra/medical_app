@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/assets_manager.dart';
+import 'package:medical_app/resources/resources.dart';
 
 class NotoficationScreen extends StatelessWidget {
   static const String id = 'NotoficationScreen';
@@ -8,24 +8,24 @@ class NotoficationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List _color = const [
-      Color(0xffDCEDF9),
-      Color.fromRGBO(241, 230, 234, 0.97),
-      Color(0xffFAF0DB),
-      Color(0xffD6F6FF),
-      Color(0xffF2E3E9),
+     List color = [
+      ColorManager.lightblue,
+      ColorManager.rgbpink,
+      ColorManager.lightyellow,
+      ColorManager.lightgreen,
+      ColorManager.lightpink,
     ];
     final List _text = [
-      '3 Schedules!',
-      '14 Messages',
-      'Medicine',
-      'Vaccine Update',
-      'App Update'
+      StringManager.schedule3,
+      StringManager.messages14,
+      StringManager.medicine,
+      StringManager.vaccineupdate,
+      StringManager.appupdate,
     ];
     final List _image = [
       Image.asset(
         AssetsManager.scheduleimage,
-        color: Color(0xff1C6BA4),
+        color: ColorManager.darkblue,
       ),
       Image.asset(AssetsManager.messageimage),
       Image.asset(AssetsManager.medicineimage),
@@ -39,12 +39,12 @@ class NotoficationScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 45.h),
             child: Text(
-              'Notifications',
-              style: TextStyle(
-                  color: Color(0xff0E1012),
-                  fontSize: 27.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'NunitoSans'),
+              StringManager.notifications,
+              style: regularTextStyle(
+                color: ColorManager.darkblue,
+                fontSize: 27.sp,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           Padding(
@@ -64,9 +64,9 @@ class NotoficationScreen extends StatelessWidget {
                       height: 83.h,
                       width: 320.w,
                       decoration: BoxDecoration(
-                          color: Color(0xffFFFFFF),
+                          color: ColorManager.white,
                           borderRadius: BorderRadius.circular(24.r),
-                          border: Border.all(color: Color(0xffD7DDEA))),
+                          border: Border.all(color: ColorManager.bordercolor)),
                       child: Row(
                         children: [
                           Padding(
@@ -75,7 +75,7 @@ class NotoficationScreen extends StatelessWidget {
                               height: 47.h,
                               width: 54.w,
                               decoration: BoxDecoration(
-                                  color: _color[index],
+                                  color: color[index],
                                   borderRadius: BorderRadius.circular(18.r)),
                               child: _image[index],
                             ),
@@ -87,18 +87,18 @@ class NotoficationScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   _text[index],
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'NunitoSans'),
+                                  style: regularTextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                                 Text(
-                                  'Check your schedule Today',
-                                  style: TextStyle(
-                                      color: Color(0xff7B8D9E),
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'NunitoSans'),
+                                  StringManager.checkyourschedule,
+                                  style: regularTextStyle(
+                                    color: ColorManager.symptomscolor,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 )
                               ],
                             ),

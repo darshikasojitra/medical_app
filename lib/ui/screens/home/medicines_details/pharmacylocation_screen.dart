@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/assets_manager.dart';
-import 'package:flutter_google_street_view/flutter_google_street_view.dart';
 
 class PharmacyLocationScreen extends StatelessWidget {
   static const String id = 'PharmacyLocationScreen';
@@ -17,16 +16,16 @@ class PharmacyLocationScreen extends StatelessWidget {
           width: 370.w,
           fit: BoxFit.cover,
         ),
-         Positioned(
-              top: 335.h,
-              left: 114.w,
-              right: 206.w,
-              child: Image.asset(
-                AssetsManager.locationarrowimage,
-                height: 54.h,
-                width: 54.w,
-              )),
-         _pharmacylocation,
+        Positioned(
+            top: 335.h,
+            left: 114.w,
+            right: 206.w,
+            child: Image.asset(
+              AssetsManager.locationarrowimage,
+              height: 54.h,
+              width: 54.w,
+            )),
+        _pharmacylocation,
       ],
     );
   }

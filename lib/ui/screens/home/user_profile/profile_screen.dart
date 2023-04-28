@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../resources/assets_manager.dart';
+import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'ProfileScreen';
@@ -14,53 +15,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final List _icons = [
     Icon(
       Icons.settings_sharp,
-      color: Color(0xff4A545E),
+      color: ColorManager.settingiconcolor,
       size: 25.sp,
     ),
     Icon(
       Icons.privacy_tip,
-      color: Color(0xff4A545E),
+      color: ColorManager.settingiconcolor,
       size: 25.sp,
     ),
     Icon(
       Icons.payment_sharp,
-      color: Color(0xff4A545E),
+      color: ColorManager.settingiconcolor,
       size: 25.sp,
     ),
     Icon(
       Icons.payment,
-      color: Color(0xff4A545E),
+      color: ColorManager.settingiconcolor,
       size: 25.sp,
     )
   ];
   final List _textlist = [
-    'Account Settings',
-    'Privacy Policy ',
-    'Payment Settings',
-    'Payment Settings'
+    StringManager.accountsettings,
+    StringManager.privacypolicy,
+    StringManager.paymentmethod,
+    StringManager.paymentmethod
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff1C6BA4),
+      backgroundColor: ColorManager.darkblue,
       body: Padding(
-        padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 55.h),
+        padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 45.h),
         child: Column(
           children: [
             Align(
               alignment: Alignment.topLeft,
               child: Container(
-                height: 40.h,
-                width: 40.w,
+                height: 38.h,
+                width: 42.w,
                 decoration: BoxDecoration(
-                    color: Color(0xff1C6BA4),
+                    color: ColorManager.darkblue,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Color(0xffD7DEEA))),
+                    border: Border.all(color: ColorManager.bordercolor)),
                 child: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Image.asset(
                       AssetsManager.arrowimage,
-                      color: Color(0xffFFFFFF),
+                      color: ColorManager.white,
                     )),
               ),
             ),
@@ -72,21 +73,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   Image.asset(AssetsManager.profilepageimage),
+                  buildSizedBoxSpacer(height: 20.h),
                   Text(
-                    'Shahin Alam',
-                    style: TextStyle(
-                        fontFamily: 'NunitoSans',
+                    StringManager.sahinalam,
+                    style: regularTextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xffFFFFFF)),
+                        color: ColorManager.white),
                   ),
                   Text(
-                    'Ui Designer',
-                    style: TextStyle(
-                        fontFamily: 'NunitoSans',
+                    StringManager.uidesigner,
+                    style: regularTextStyle(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xffFFFFFF)),
+                        color: ColorManager.white),
                   )
                 ],
               ),
@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 55.h,
                             width: 335.w,
                             decoration: BoxDecoration(
-                                color: Color(0xffFFFFFF),
+                                color: ColorManager.white,
                                 borderRadius: BorderRadius.circular(12.r)),
                             child: Padding(
                               padding: EdgeInsets.only(left: 10.w),
@@ -121,11 +121,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                   Text(
                                     _textlist[index],
-                                    style: TextStyle(
-                                        fontFamily: 'NunitoSans',
+                                    style: regularTextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
-                                        color: Color(0xff0E1012)),
+                                        color: ColorManager.darkblack),
                                   )
                                 ],
                               ),
@@ -142,19 +141,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Icon(
                         Icons.logout,
-                        color: Color(0xffBECADA),
-                        size: 28,
+                        color: ColorManager.logoutcolor,
+                        size: 28.sp,
                       ),
                       SizedBox(
-                        width: 5.w,
+                        width: 20.w,
                       ),
                       Text(
-                        'Log Out',
-                        style: TextStyle(
-                            fontFamily: 'NunitoSans',
+                        StringManager.logout,
+                        style: regularTextStyle(
                             fontSize: 17.sp,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xffBECADA)),
+                            color: ColorManager.logoutcolor),
                       )
                     ],
                   ),

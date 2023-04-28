@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/assets_manager.dart';
-import 'package:medical_app/ui/screens/calendar.dart';
-import 'package:medical_app/ui/screens/payment_screen.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/appoinments/calendar.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/appoinments/payment_screen.dart';
+import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
 class MakeAppoinmentScreen extends StatefulWidget {
   static const String id = 'MakeAppoinmentScreen';
@@ -30,12 +28,12 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
             child: Row(
               children: [
                 Container(
-                  height: 40.h,
-                  width: 40.w,
+                  height: 38.h,
+                  width: 42.w,
                   decoration: BoxDecoration(
-                      color: Color(0xffFFFFFF),
+                      color: ColorManager.white,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Color(0xffD7DEEA))),
+                      border: Border.all(color: ColorManager.bordercolor)),
                   child: GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: Image.asset(AssetsManager.arrowimage)),
@@ -44,12 +42,11 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
                   width: 60.w,
                 ),
                 Text(
-                  'Appointment',
-                  style: TextStyle(
+                  StringManager.appointment,
+                  style: regularTextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w700,
-                      fontFamily: 'NunitoSans',
-                      color: Color(0xff0E1012)),
+                      color: ColorManager.darkblack),
                 ),
               ],
             ),
@@ -57,7 +54,7 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
           Container(
               height: 300.h,
               width: 322.w,
-              // color: Colors.amber,
+             
               child: NewTableCalender()),
           displaybottomcontainer(context)
         ],
@@ -70,7 +67,7 @@ Widget displaybottomcontainer(BuildContext context) => Container(
       height: 300.h,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Color(0xff1C6BA4),
+          color: ColorManager.darkblue,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.w), topRight: Radius.circular(30.w))),
       child: Padding(
@@ -80,12 +77,11 @@ Widget displaybottomcontainer(BuildContext context) => Container(
             Align(
               alignment: Alignment.topLeft,
               child: Text(
-                'Time',
-                style: TextStyle(
+                StringManager.time,
+                style: regularTextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w800,
-                    fontFamily: 'NunitoSans',
-                    color: Color(0xffFFFFFF)),
+                    color: ColorManager.white),
               ),
             ),
             SizedBox(
@@ -96,33 +92,33 @@ Widget displaybottomcontainer(BuildContext context) => Container(
                 width: double.infinity,
                 //color: Colors.pink,
                 child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3, mainAxisSpacing: 20.h,crossAxisSpacing: 10.w),
-                        itemCount: 6,
-                    itemBuilder: (context, index) {
-                      return   GestureDetector(
-                        onTap: () {
-                          
-                        },
-                        child: Container(
-                                alignment: Alignment.center,
-                                 height: 42.h,
-                                // width: 42.w,
-                                decoration: BoxDecoration(
-                                    color: Color(0xff1C6BA4),
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    border: Border.all(color: const Color(0xffFFFFFF))),
-                                child: Text(
-                                  '09:30 AM',
-                                  style: TextStyle(
-                                      fontFamily: 'NunitoSans',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xffFFFFFF)),
-                                ),
-                              ),
-                      );
-                    },)
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 20.h,
+                      crossAxisSpacing: 10.w),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 42.h,
+                        // width: 42.w,
+                        decoration: BoxDecoration(
+                            color: ColorManager.darkblue,
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: ColorManager.white)),
+                        child: Text(
+                          StringManager.time9_30,
+                          style: regularTextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white),
+                        ),
+                      ),
+                    );
+                  },
+                )
                 // ListView.builder(
                 //   scrollDirection: Axis.horizontal,
                 //   itemCount: 6,
@@ -226,28 +222,22 @@ Widget displaybottomcontainer(BuildContext context) => Container(
             SizedBox(
               height: 45.h,
             ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PaymentScreen(),
-                    ));
-              },
+            CustomButtons(
+              onPressed: (() {
+                Navigator.pushNamed(context, PaymentScreen.id);
+              }),
               height: 46.h,
               minWidth: double.infinity,
-              color: Color(0xffFFFFFF),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.r)),
+              color: ColorManager.white,
               child: Text(
-                'Make Appointment',
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.sp,
-                    color: Color(0xff1C6BA4),
-                    fontFamily: 'NunitoSans'),
+                StringManager.makeappointment,
+                style: regularTextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14.sp,
+                  color: ColorManager.darkblue,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

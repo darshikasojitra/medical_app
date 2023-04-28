@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/assets_manager.dart';
+import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class ReportScreen extends StatelessWidget {
@@ -9,11 +9,11 @@ class ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List _containercolor = [
-      Color(0xffDCEDF9),
-      Color(0xffD6FFF3),
+    final List containercolor = [
+      ColorManager.lightblue,
+      ColorManager.reportcontainercolor,
     ];
-    final List _reportfile = [
+    final List reportfile = [
       Image.asset(AssetsManager.bluereportimage),
       Image.asset(AssetsManager.greenreportimage)
     ];
@@ -27,19 +27,19 @@ class ReportScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Report',
-                    style: TextStyle(
-                        color: Color(0xff0E1012),
-                        fontSize: 27.sp,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'NunitoSans'),
+                    StringManager.report,
+                    style: regularTextStyle(
+                      color: ColorManager.darkblack,
+                      fontSize: 27.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   buildSizedBoxSpacer(
                     width: 200.w,
                   ),
                   Image.asset(
                     AssetsManager.horozontal3dots,
-                    color: Color(0xff4A545E),
+                    color: ColorManager.settingiconcolor,
                   ),
                 ],
               ),
@@ -50,7 +50,7 @@ class ReportScreen extends StatelessWidget {
                 height: 130.h,
                 width: 375.w,
                 decoration: BoxDecoration(
-                    color: const Color(0xffDCEDF9),
+                    color: ColorManager.lightblue,
                     borderRadius: BorderRadius.circular(20.r)),
                 child: Row(
                   children: [
@@ -60,11 +60,10 @@ class ReportScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Heart Rate',
-                            style: TextStyle(
+                            StringManager.heartrate,
+                            style: regularTextStyle(
                                 fontSize: 14.sp,
-                                color: Color(0xff0E1012),
-                                fontFamily: 'NunitoSans',
+                                color: ColorManager.darkblack,
                                 fontWeight: FontWeight.w400),
                           ),
                           buildSizedBoxSpacer(
@@ -90,7 +89,7 @@ class ReportScreen extends StatelessWidget {
                     height: 110.h,
                     width: 150.w,
                     decoration: BoxDecoration(
-                        color: const Color(0xffF5E1E9),
+                        color: ColorManager.bloodcolor,
                         borderRadius: BorderRadius.circular(24.r)),
                     child: Padding(
                       padding: EdgeInsets.only(left: 20.w),
@@ -110,7 +109,7 @@ class ReportScreen extends StatelessWidget {
                                 ),
                                 Image.asset(
                                   AssetsManager.horozontal3dots,
-                                  color: const Color(0xff4A545E),
+                                  color: ColorManager.settingiconcolor,
                                 ),
                               ],
                             ),
@@ -119,19 +118,21 @@ class ReportScreen extends StatelessWidget {
                             height: 13.h,
                           ),
                           Text(
-                            'Blood Group',
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'NunitoSans'),
+                            StringManager.bloodgroup,
+                            style: regularTextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.black
+                            ),
                           ),
                           Text(
-                            'A+',
-                            style: TextStyle(
-                                fontSize: 25.sp,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'NunitoSans'),
-                          )
+                            StringManager.aplus,
+                            style: regularTextStyle(
+                              fontSize: 25.sp,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.black
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -143,7 +144,7 @@ class ReportScreen extends StatelessWidget {
                     height: 110.h,
                     width: 150.w,
                     decoration: BoxDecoration(
-                        color: const Color(0xffFAF0DB),
+                        color: ColorManager.lightyellow,
                         borderRadius: BorderRadius.circular(24.r)),
                     child: Padding(
                       padding: EdgeInsets.only(left: 18.w, top: 20.h),
@@ -156,7 +157,7 @@ class ReportScreen extends StatelessWidget {
                           ),
                           Image.asset(
                             AssetsManager.horozontal3dots,
-                            color: const Color(0xff4A545E),
+                            color: ColorManager.settingiconcolor,
                           ),
                         ],
                       ),
@@ -168,15 +169,15 @@ class ReportScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 25.w, top: 25.w),
               child: Text(
-                'Lattest Report',
-                style: TextStyle(
-                    fontSize: 17.sp,
-                    color: Color(0xff0E1012),
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'NunitoSans'),
+                StringManager.lattestreport,
+                style: regularTextStyle(
+                  fontSize: 17.sp,
+                  color: ColorManager.darkblack,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-            _latestReport(_reportfile, _containercolor)
+            _latestReport(reportfile, containercolor)
           ],
         ),
       ),
@@ -199,9 +200,9 @@ Widget _latestReport(reportfile, containercolor) => Padding(
                 height: 73.h,
                 width: 320.w,
                 decoration: BoxDecoration(
-                    color: Color(0xffFFFFFF),
+                    color: ColorManager.white,
                     borderRadius: BorderRadius.circular(28.r),
-                    border: Border.all(color: Color(0xffD7DDEA))),
+                    border: Border.all(color: ColorManager.reportbordercolor)),
                 child: Row(
                   children: [
                     Padding(
@@ -221,21 +222,23 @@ Widget _latestReport(reportfile, containercolor) => Padding(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'General Health',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'NunitoSans'),
+                            StringManager.generalhealth,
+                            style: regularTextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.darkblack
+                            ),
                           ),
                           SizedBox(
                             height: 5.h,
                           ),
                           Text(
-                            '8 files',
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'NunitoSans'),
+                            StringManager.files8,
+                            style: regularTextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: ColorManager.settingiconcolor
+                            ),
                           )
                         ],
                       ),

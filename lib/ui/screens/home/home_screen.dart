@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/color_manager.dart';
-import 'package:medical_app/resources/style_manager.dart';
+import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/doctor_search_screen.dart';
-import 'package:medical_app/ui/screens/medicinesearch_screen.dart';
-import 'package:medical_app/ui/screens/profile_screen.dart';
-import '../../../resources/assets_manager.dart';
+import 'package:medical_app/ui/screens/home/medicines_details/medicinesearch_screen.dart';
+import 'package:medical_app/ui/screens/home/user_profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'HomeScreen';
@@ -55,80 +53,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 28.w, right: 28.w),
                 child: Text(
-                  'Services',
+                  StringManager.services,
                   style: regularTextStyle(
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w700,
-                      fontFamily: 'NunitoSans',
                       color: ColorManager.hellotextcolor),
                 ),
               ),
             ),
             _serviceCard(image, _smallcontainercolor),
-            Padding(
-              padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 15.h),
-              child: Container(
-                height: 140.h,
-                width: 400.w,
-                decoration: BoxDecoration(
-                    color: ColorManager.lightblue,
-                    borderRadius: BorderRadius.circular(24.r)),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 24.h, left: 20.w),
-                      child: Container(
-                        width: 154.w,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Get the Best Medical Service',
-                              style: regularTextStyle(
-                                  fontSize: 20.sp,
-                                  color: ColorManager.darkblack,
-                                  fontFamily: 'NunitoSans',
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            buildSizedBoxSpacer(
-                              height: 5.h,
-                            ),
-                            Text(
-                              'Lorem Ipsum is simply dummy ext of the printing',
-                              style: regularTextStyle(
-                                  fontSize: 11.sp,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'NunitoSans',
-                                  color: Color(0xff4A545E)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    buildSizedBoxSpacer(
-                      width: 20.w,
-                    ),
-                    Container(
-                      height: 145.h,
-                      width: 116.w,
-                      decoration: BoxDecoration(
-                          // color: Colors.pink,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(28.r))),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 0.h),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset(
-                            AssetsManager.physicianimage,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            _medicalServicecard,
             buildSizedBoxSpacer(
               height: 20.h,
             ),
@@ -137,11 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 28.w),
                 child: Text(
-                  'Upcoming Appointments',
+                  StringManager.upcomingappointments,
                   style: regularTextStyle(
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w700,
-                      fontFamily: 'NunitoSans',
                       color: ColorManager.darkblack),
                 ),
               ),
@@ -167,17 +100,15 @@ Widget _userintro(context) => Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '👋 Hello!',
-              style: TextStyle(
-                  fontFamily: 'NunitoSans',
+              StringManager.hello,
+              style: regularTextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: ColorManager.hellotextcolor),
             ),
             Text(
-              'Shahin Alam',
+              StringManager.sahinalam,
               style: regularTextStyle(
-                  fontFamily: 'NunitoSans',
                   fontWeight: FontWeight.w700,
                   fontSize: 27.sp,
                   color: ColorManager.hellotextcolor),
@@ -191,12 +122,7 @@ Widget _userintro(context) => Row(
           children: [
             GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, ProfileScreen.id);
                 },
                 child: Image.asset(AssetsManager.profileimage)),
             Positioned(
@@ -210,7 +136,6 @@ Widget _userintro(context) => Row(
 
 Widget searchtextfeild = TextFormField(
   decoration: InputDecoration(
-    // contentPadding: EdgeInsets.only(left: 15.w,right: 15.w),
     filled: true,
     fillColor: ColorManager.searchcolor,
     prefixIcon: Padding(
@@ -222,12 +147,10 @@ Widget searchtextfeild = TextFormField(
       padding: EdgeInsets.only(right: 20.w, top: 10.h, bottom: 10.h),
       child: Image.asset(AssetsManager.sufiximage),
     ),
-    hintText: 'Search medical..',
-    hintStyle: regularTextStyle(
-        fontSize: 12.sp,
-        fontFamily: 'NunitoSans',
-        color: ColorManager.searchiconcolor),
-    border: OutlineInputBorder(),
+    hintText: StringManager.searchmedical,
+    hintStyle:
+        regularTextStyle(fontSize: 12.sp, color: ColorManager.searchiconcolor),
+    border: const OutlineInputBorder(),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(18.r),
       borderSide: BorderSide(color: ColorManager.searchcolor),
@@ -255,17 +178,9 @@ Widget _serviceCard(image, smallcontainercolor) => Padding(
                   child: GestureDetector(
                     onTap: () {
                       if (index == 0) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DoctorSearchScreen(),
-                            ));
+                        Navigator.pushNamed(context, DoctorSearchScreen.id);
                       } else if (index == 1) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MedicineSearchScreen(),
-                            ));
+                        Navigator.pushNamed(context, MedicineSearchScreen.id);
                       }
                     },
                     child: Container(
@@ -285,6 +200,69 @@ Widget _serviceCard(image, smallcontainercolor) => Padding(
         ],
       ),
     );
+
+Widget _medicalServicecard = Padding(
+  padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 15.h),
+  child: Container(
+    height: 140.h,
+    width: 400.w,
+    decoration: BoxDecoration(
+        color: ColorManager.lightblue,
+        borderRadius: BorderRadius.circular(24.r)),
+    child: Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 24.h, left: 20.w),
+          child: Container(
+            width: 154.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  StringManager.bestmedicalservice,
+                  style: regularTextStyle(
+                      fontSize: 20.sp,
+                      color: ColorManager.darkblack,
+                      fontWeight: FontWeight.w700),
+                ),
+                buildSizedBoxSpacer(
+                  height: 5.h,
+                ),
+                Text(
+                  StringManager.loremipsum,
+                  style: regularTextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: ColorManager.settingiconcolor),
+                ),
+              ],
+            ),
+          ),
+        ),
+        buildSizedBoxSpacer(
+          width: 20.w,
+        ),
+        Container(
+          height: 145.h,
+          width: 116.w,
+          decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.only(bottomRight: Radius.circular(28.r))),
+          child: Padding(
+            padding: EdgeInsets.only(top: 0.h),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset(
+                AssetsManager.physicianimage,
+              ),
+            ),
+          ),
+        )
+      ],
+    ),
+  ),
+);
+
 Widget _upoinmentcard(bigcontainercolor, smallcontainercolor) => Padding(
       padding: EdgeInsets.only(top: 15.h, left: 28.w),
       child: Row(
@@ -293,6 +271,7 @@ Widget _upoinmentcard(bigcontainercolor, smallcontainercolor) => Padding(
             height: 100.h,
             width: 329.w,
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: 4,
               itemBuilder: (context, index) {
@@ -322,17 +301,15 @@ Widget _upoinmentcard(bigcontainercolor, smallcontainercolor) => Padding(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '12',
+                                    StringManager.text12,
                                     style: regularTextStyle(
                                         fontSize: 20.sp,
-                                        fontFamily: 'NunitoSans',
                                         fontWeight: FontWeight.w800,
                                         color: ColorManager.white),
                                   ),
-                                  Text('Tue',
+                                  Text(StringManager.tue,
                                       style: regularTextStyle(
                                           fontSize: 14.sp,
-                                          fontFamily: 'NunitoSans',
                                           fontWeight: FontWeight.w600,
                                           color: ColorManager.white)),
                                 ],
@@ -354,29 +331,26 @@ Widget _upoinmentcard(bigcontainercolor, smallcontainercolor) => Padding(
                                       AssetsManager.horozontal3dots),
                                 ),
                                 Text(
-                                  '09:30 AM',
+                                  StringManager.time9_30,
                                   style: regularTextStyle(
                                     color: ColorManager.white,
                                     fontSize: 12.sp,
-                                    fontFamily: 'NunitoSans',
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 Text(
-                                  'Dr. Mim Akhter',
+                                  StringManager.drmim,
                                   style: regularTextStyle(
                                     color: ColorManager.white,
                                     fontSize: 16.sp,
-                                    fontFamily: 'NunitoSans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 Text(
-                                  'Depression',
+                                  StringManager.depression,
                                   style: regularTextStyle(
                                     color: ColorManager.white,
                                     fontSize: 10.sp,
-                                    fontFamily: 'NunitoSans',
                                     fontWeight: FontWeight.w400,
                                   ),
                                 )

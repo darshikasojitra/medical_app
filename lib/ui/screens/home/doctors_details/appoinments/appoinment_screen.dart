@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
-import 'package:medical_app/ui/screens/makeappoinement_screen.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/appoinments/makeappoinement_screen.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
 class AppoinmentScreen extends StatelessWidget {
   static const String id = 'AppoinmentScreen';
@@ -31,23 +32,22 @@ class AppoinmentScreen extends StatelessWidget {
               TextFormField(
                 maxLines: 7,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 23.w, top: 23.h),
+                  contentPadding: EdgeInsets.only(left: 23.w, top: 28.h),
                   filled: true,
-                  fillColor: Color(0xffD7DEEA),
-                  hintText: 'Write your symptoms..',
-                  hintStyle: TextStyle(
+                  fillColor: ColorManager.bordercolor,
+                  hintText: StringManager.writesymptoms,
+                  hintStyle: regularTextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'NunitoSans',
-                      color: Color(0xff7B8D9E)),
-                  border: OutlineInputBorder(),
+                      color: ColorManager.symptomscolor),
+                  border:const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: Color(0xffEEF6FC)),
+                    borderSide: BorderSide(color: ColorManager.searchcolor),
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Color(0xffEEF6FC))),
+                      borderSide: BorderSide(color: ColorManager.searchcolor)),
                 ),
               ),
               buildSizedBoxSpacer(
@@ -57,28 +57,22 @@ class AppoinmentScreen extends StatelessWidget {
               buildSizedBoxSpacer(
                 height: 40.h,
               ),
-              MaterialButton(
+              CustomButtons(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MakeAppoinmentScreen(),
-                      ));
+                  Navigator.pushNamed(context, MakeAppoinmentScreen.id);
                 },
                 height: 46.h,
                 minWidth: double.infinity,
-                color: Color(0xff1C6BA4),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14.r)),
+                color: ColorManager.darkblue,
                 child: Text(
-                  'Book Now',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15.sp,
-                      color: Color(0xffFFFFFF),
-                      fontFamily: 'NunitoSans'),
+                  StringManager.booknow,
+                  style: regularTextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.sp,
+                    color: ColorManager.white,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -90,42 +84,39 @@ class AppoinmentScreen extends StatelessWidget {
 Widget _appbar(context) => Row(
       children: [
         Container(
-          height: 40.h,
-          width: 40.w,
+          height: 38.h,
+          width: 42.w,
           decoration: BoxDecoration(
-              color: Color(0xffFFFFFF),
+              color: ColorManager.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Color(0xffD7DEEA))),
+              border: Border.all(color: ColorManager.bordercolor)),
           child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Image.asset(AssetsManager.arrowimage)),
         ),
         buildSizedBoxSpacer(
-          width: 200.w,
+          width: 198.w,
         ),
         Text(
-          '\$',
-          style: TextStyle(
+          StringManager.dollar,
+          style: regularTextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
-              fontFamily: 'NunitoSans',
-              color: Color(0xff0C1115)),
+              color: ColorManager.dollarsigncolor),
         ),
         Text(
-          '12',
-          style: TextStyle(
+          StringManager.text12,
+          style: regularTextStyle(
               fontSize: 24.sp,
               fontWeight: FontWeight.w800,
-              fontFamily: 'NunitoSans',
-              color: Color(0xff0C1115)),
+              color: ColorManager.dollarsigncolor),
         ),
         Text(
-          '/Ap.',
-          style: TextStyle(
+          StringManager.ap,
+          style: regularTextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,
-              fontFamily: 'NunitoSans',
-              color: Color(0xff0C1115)),
+              color: ColorManager.dollarsigncolor),
         )
       ],
     );
@@ -133,20 +124,20 @@ Widget _appbar(context) => Row(
 Widget _doctorIntro = Column(
   children: [
     Text(
-      'Dr. Mim Akhter',
-      style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 19.sp,
-          color: Color(0xff0E1012),
-          fontFamily: 'NunitoSans'),
+      StringManager.drmim,
+      style: regularTextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 19.sp,
+        color: ColorManager.darkblack,
+      ),
     ),
     Text(
-      'Cardiologist in apolo hospital',
-      style: TextStyle(
-          fontWeight: FontWeight.w400,
-          fontSize: 12.sp,
-          color: Color(0xff4A545E),
-          fontFamily: 'NunitoSans'),
+      StringManager.cardiologistinapolohospital,
+      style: regularTextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 12.sp,
+        color: ColorManager.settingiconcolor,
+      ),
     ),
     Padding(
       padding: EdgeInsets.only(left: 90.w, top: 7.h),
@@ -158,23 +149,23 @@ Widget _doctorIntro = Column(
             width: 5.w,
           ),
           Text(
-            '4.5',
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15.sp,
-                color: Color(0xff0E1012),
-                fontFamily: 'NunitoSans'),
+            StringManager.text45,
+            style: regularTextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 15.sp,
+              color: ColorManager.darkblack,
+            ),
           ),
           buildSizedBoxSpacer(
             width: 5.w,
           ),
           Text(
-            '(17 reviews)',
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 13.sp,
-                color: Color(0xff4A545E),
-                fontFamily: 'NunitoSans'),
+            StringManager.review17,
+            style: regularTextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 13.sp,
+              color: ColorManager.settingiconcolor,
+            ),
           ),
         ],
       ),
@@ -186,7 +177,7 @@ Widget _scheduleContainer = Container(
   height: 70.h,
   width: 300.w,
   decoration: BoxDecoration(
-    color: Color(0xffFFFFFF),
+    color: ColorManager.white,
     border: Border.all(color: Color(0xffD7DEEA)),
     borderRadius: BorderRadius.circular(24.r),
   ),
@@ -198,7 +189,7 @@ Widget _scheduleContainer = Container(
           height: 46.h,
           width: 52.w,
           decoration: BoxDecoration(
-            color: Color(0xffDCEDF9),
+            color: ColorManager.lightblue,
             borderRadius: BorderRadius.circular(16.r),
           ),
           child: Image.asset(AssetsManager.detailscreenclock),
@@ -209,20 +200,20 @@ Widget _scheduleContainer = Container(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Schedule',
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 12.sp,
-                color: Color(0xff7B8D9E),
-                fontFamily: 'NunitoSans'),
+            StringManager.schedule,
+            style: regularTextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 12.sp,
+              color: ColorManager.symptomscolor,
+            ),
           ),
           Text(
-            '6 PM - 9 PM',
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15.sp,
-                color: Color(0xff0E1012),
-                fontFamily: 'NunitoSans'),
+            StringManager.sixtonine,
+            style: regularTextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 15.sp,
+              color: ColorManager.darkblack,
+            ),
           )
         ],
       ),
