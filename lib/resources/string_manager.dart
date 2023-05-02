@@ -1,5 +1,6 @@
 class StringManager {
   //home screen
+  static const String home = 'Home';
   static const String hello = '👋 Hello!';
   static const String sahinalam = 'Shahin Alam';
   static const String searchmedical = 'Search medical..';
@@ -109,7 +110,7 @@ class StringManager {
 //payment screen
   static const String paymentmethod = 'Payment Method';
   static const String availablebalance = 'Available balance';
-  static const String text357899 = '3,578.99';
+  static const String text357899 = '\$3,578.99';
   static const String text51750000 = '5172 4567 8888 0000';
   static const String selectoption = 'Select Option';
   static const String Continue = 'Continue';

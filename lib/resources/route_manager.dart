@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../ui/screens/reports/report_screen.dart';
-import '../ui/screens/home/doctors_details/appoinments/appoinment_screen.dart';
+import '../ui/screens/home/doctors_details/appointments/appointment_screen.dart';
 import '../ui/screens/dashboard_screen.dart';
 import '../ui/screens/home/doctors_details/doctor_search_screen.dart';
 import '../ui/screens/home/doctors_details/doctordetails_screen.dart';
 import '../ui/screens/home/home_screen.dart';
-import '../ui/screens/home/doctors_details/appoinments/makeappoinement_screen.dart';
+import '../ui/screens/home/doctors_details/appointments/makeappointement_screen.dart';
 import '../ui/screens/home/medicines_details/medicinesearch_screen.dart';
-import '../ui/screens/home/doctors_details/appoinments/message_screen.dart';
+import '../ui/screens/home/doctors_details/appointments/message_screen.dart';
 import '../ui/screens/notifications/notification_screen.dart';
-import '../ui/screens/home/doctors_details/appoinments/payment_screen.dart';
-import '../ui/screens/home/medicines_details/pharmacylocation_screen.dart';
+import '../ui/screens/home/doctors_details/appointments/payment_screen.dart';
 import '../ui/screens/home/user_profile/profile_screen.dart';
 import '../ui/screens/schedule/schedule_screen.dart';
 
@@ -26,7 +25,7 @@ final Map<String, WidgetBuilder> routes = {
   MessageScreen.id: (context) => const MessageScreen(),
   NotoficationScreen.id: (context) => const NotoficationScreen(),
   PaymentScreen.id: (context) => PaymentScreen(),
-  PharmacyLocationScreen.id: (context) => const PharmacyLocationScreen(),
+  //PharmacyLocationScreen.id: (context) => const PharmacyLocationScreen(),
   ProfileScreen.id: (context) => const ProfileScreen(),
   ScheduleScreen.id: (context) => const ScheduleScreen(),
   ReportScreen.id: (context) => const ReportScreen(),

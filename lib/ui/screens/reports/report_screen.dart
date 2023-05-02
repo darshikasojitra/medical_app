@@ -81,91 +81,7 @@ class ReportScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 20.h),
-              child: Row(
-                children: [
-                  Container(
-                    height: 110.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                        color: ColorManager.bloodcolor,
-                        borderRadius: BorderRadius.circular(24.r)),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: 20.h,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(AssetsManager.bloodimage),
-                                SizedBox(
-                                  width: 85.w,
-                                ),
-                                Image.asset(
-                                  AssetsManager.horozontal3dots,
-                                  color: ColorManager.settingiconcolor,
-                                ),
-                              ],
-                            ),
-                          ),
-                          buildSizedBoxSpacer(
-                            height: 13.h,
-                          ),
-                          Text(
-                            StringManager.bloodgroup,
-                            style: regularTextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.black
-                            ),
-                          ),
-                          Text(
-                            StringManager.aplus,
-                            style: regularTextStyle(
-                              fontSize: 25.sp,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.black
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  buildSizedBoxSpacer(
-                    width: 10.w,
-                  ),
-                  Container(
-                    height: 110.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                        color: ColorManager.lightyellow,
-                        borderRadius: BorderRadius.circular(24.r)),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 18.w, top: 20.h),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(AssetsManager.weightimage),
-                          SizedBox(
-                            width: 50.w,
-                          ),
-                          Image.asset(
-                            AssetsManager.horozontal3dots,
-                            color: ColorManager.settingiconcolor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _booldGroupContainer,
             Padding(
               padding: EdgeInsets.only(left: 25.w, top: 25.w),
               child: Text(
@@ -185,13 +101,97 @@ class ReportScreen extends StatelessWidget {
   }
 }
 
+Widget _booldGroupContainer = Padding(
+  padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 20.h),
+  child: Row(
+    children: [
+      Container(
+        height: 110.h,
+        width: 150.w,
+        decoration: BoxDecoration(
+            color: ColorManager.bloodcolor,
+            borderRadius: BorderRadius.circular(24.r)),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 20.h,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(AssetsManager.bloodimage),
+                    SizedBox(
+                      width: 85.w,
+                    ),
+                    Image.asset(
+                      AssetsManager.horozontal3dots,
+                      color: ColorManager.settingiconcolor,
+                    ),
+                  ],
+                ),
+              ),
+              buildSizedBoxSpacer(
+                height: 13.h,
+              ),
+              Text(
+                StringManager.bloodgroup,
+                style: regularTextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: ColorManager.black),
+              ),
+              Text(
+                StringManager.aplus,
+                style: regularTextStyle(
+                    fontSize: 25.sp,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.black),
+              ),
+            ],
+          ),
+        ),
+      ),
+      buildSizedBoxSpacer(
+        width: 10.w,
+      ),
+      Container(
+        height: 110.h,
+        width: 150.w,
+        decoration: BoxDecoration(
+            color: ColorManager.lightyellow,
+            borderRadius: BorderRadius.circular(24.r)),
+        child: Padding(
+          padding: EdgeInsets.only(left: 18.w, top: 20.h),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(AssetsManager.weightimage),
+              SizedBox(
+                width: 50.w,
+              ),
+              Image.asset(
+                AssetsManager.horozontal3dots,
+                color: ColorManager.settingiconcolor,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  ),
+);
+
 Widget _latestReport(reportfile, containercolor) => Padding(
       padding: EdgeInsets.only(left: 25.w, right: 25.w),
-      child: Container(
+      child: SizedBox(
         width: 350.w,
         height: 200.h,
         child: ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemCount: reportfile.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -224,26 +224,24 @@ Widget _latestReport(reportfile, containercolor) => Padding(
                           Text(
                             StringManager.generalhealth,
                             style: regularTextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.darkblack
-                            ),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.darkblack),
                           ),
-                          SizedBox(
+                          buildSizedBoxSpacer(
                             height: 5.h,
                           ),
                           Text(
                             StringManager.files8,
                             style: regularTextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.settingiconcolor
-                            ),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.settingiconcolor),
                           )
                         ],
                       ),
                     ),
-                    SizedBox(
+                    buildSizedBoxSpacer(
                       width: 95.w,
                     ),
                     Image.asset(AssetsManager.vertical3dotsimage)

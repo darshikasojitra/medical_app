@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )),
               ),
             ),
-            SizedBox(
+            buildSizedBoxSpacer(
               height: 40.h,
             ),
             Align(
@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   Image.asset(AssetsManager.profilepageimage),
-                  buildSizedBoxSpacer(height: 20.h),
+                  buildSizedBoxSpacer(height: 17.h),
                   Text(
                     StringManager.sahinalam,
                     style: regularTextStyle(
@@ -91,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            buildSizedBoxSpacer(
               height: 15.h,
             ),
             Column(
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Row(
                                 children: [
                                   _icons[index],
-                                  SizedBox(
+                                  buildSizedBoxSpacer(
                                     width: 15.w,
                                   ),
                                   Text(
@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 90.w, top: 35.h),
+                  padding: EdgeInsets.only(left: 90.w, top: 27.h),
                   child: Row(
                     children: [
                       Icon(
@@ -144,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: ColorManager.logoutcolor,
                         size: 28.sp,
                       ),
-                      SizedBox(
+                      buildSizedBoxSpacer(
                         width: 20.w,
                       ),
                       Text(

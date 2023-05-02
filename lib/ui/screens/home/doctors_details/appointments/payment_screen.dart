@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appoinments/message_screen.dart';
-import 'package:medical_app/widgets/common_widget/custombutton.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/appointments/message_screen.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:medical_app/widgets/common_widget/common_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       onTap: () => Navigator.pop(context),
                       child: Image.asset(AssetsManager.arrowimage)),
                 ),
-                SizedBox(
+                buildSizedBoxSpacer(
                   width: 60.w,
                 ),
                 Text(
@@ -64,7 +65,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 height: 150.h,
                 width: 360.w,
                 child: ListView.builder(
-                  physics:const BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
                   controller: _controller,
@@ -89,15 +90,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     style: regularTextStyle(
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.w500,
-                                        color: ColorManager.white),
+                                        color: ColorManager.balancetextcolor),
                                   ),
-                                  SizedBox(
+                                  buildSizedBoxSpacer(
                                     width: 80.w,
                                   ),
                                   Image.asset(AssetsManager.visacardimage)
                                 ],
                               ),
-                              SizedBox(
+                              buildSizedBoxSpacer(
                                 height: 5.h,
                               ),
                               Text(
@@ -107,7 +108,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     fontWeight: FontWeight.w600,
                                     color: ColorManager.white),
                               ),
-                              SizedBox(
+                              buildSizedBoxSpacer(
                                 height: 25.h,
                               ),
                               Text(
@@ -115,7 +116,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 style: regularTextStyle(
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.w500,
-                                    color: ColorManager.bordercolor),
+                                    color: ColorManager.numcolor),
                               )
                             ],
                           ),
@@ -127,13 +128,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ],
           ),
-          SizedBox(
+          buildSizedBoxSpacer(
             height: 25.h,
           ),
           SmoothPageIndicator(
             controller: _controller,
             count: 3,
-            effect:  SlideEffect(
+            effect: SlideEffect(
               activeDotColor: ColorManager.darkblue,
               dotHeight: 8,
               dotColor: ColorManager.dotcolor,
@@ -157,57 +158,42 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         color: ColorManager.darkblack),
                   ),
                 ),
-                SizedBox(
+                buildSizedBoxSpacer(
                   height: 35.h,
                 ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: paypalvalue,
-                      activeColor: ColorManager.darkblue,
-                      onChanged: ((newvalue) {
-                        setState(() {
-                          paypalvalue = newvalue!;
-                        });
-                      }),
-                    ),
-                    Image.asset(AssetsManager.paypalimage)
-                  ],
-                ),
-                SizedBox(
+                CustomCheckBox(
+                    label: Image.asset(AssetsManager.paypalimage),
+                    padding: EdgeInsets.only(left: 5.w),
+                    value: paypalvalue,
+                    onChanged: ((newvalue) {
+                      setState(() {
+                        paypalvalue = newvalue;
+                      });
+                    })),
+                buildSizedBoxSpacer(
                   height: 15.h,
                 ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: payoneervalue,
-                      activeColor: ColorManager.darkblue,
-                      onChanged: ((newvalue) {
-                        setState(() {
-                          payoneervalue = newvalue!;
-                        });
-                      }),
-                    ),
-                    Image.asset(AssetsManager.payoneerimage)
-                  ],
-                ),
-                SizedBox(
+                CustomCheckBox(
+                    label: Image.asset(AssetsManager.payoneerimage),
+                    padding: EdgeInsets.only(left: 5.w),
+                    value: payoneervalue,
+                    onChanged: ((newvalue) {
+                      setState(() {
+                        payoneervalue = newvalue;
+                      });
+                    })),
+                buildSizedBoxSpacer(
                   height: 15.h,
                 ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: visavalue,
-                      activeColor: ColorManager.darkblue,
-                      onChanged: ((newvalue) {
-                        setState(() {
-                          visavalue = newvalue!;
-                        });
-                      }),
-                    ),
-                    Image.asset(AssetsManager.visaimage)
-                  ],
-                ),
+                CustomCheckBox(
+                    label: Image.asset(AssetsManager.visaimage),
+                    padding: EdgeInsets.only(left: 5.w),
+                    value: visavalue,
+                    onChanged: ((newvisavalue) {
+                      setState(() {
+                        visavalue = newvisavalue;
+                      });
+                    })),
                 SizedBox(
                   height: 60.h,
                 ),

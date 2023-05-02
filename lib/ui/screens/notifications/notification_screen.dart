@@ -15,14 +15,14 @@ class NotoficationScreen extends StatelessWidget {
       ColorManager.lightgreen,
       ColorManager.lightpink,
     ];
-    final List _text = [
+    final List text = [
       StringManager.schedule3,
       StringManager.messages14,
       StringManager.medicine,
       StringManager.vaccineupdate,
       StringManager.appupdate,
     ];
-    final List _image = [
+    final List image = [
       Image.asset(
         AssetsManager.scheduleimage,
         color: ColorManager.darkblue,
@@ -41,7 +41,7 @@ class NotoficationScreen extends StatelessWidget {
             child: Text(
               StringManager.notifications,
               style: regularTextStyle(
-                color: ColorManager.darkblue,
+                color: ColorManager.darkblack,
                 fontSize: 27.sp,
                 fontWeight: FontWeight.w700,
               ),
@@ -49,12 +49,12 @@ class NotoficationScreen extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(left: 25.w, right: 25.w),
-            child: Container(
+            child: SizedBox(
               width: 320.w,
               height: 520.h,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: _text.length,
+                itemCount: text.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(
@@ -77,7 +77,7 @@ class NotoficationScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: color[index],
                                   borderRadius: BorderRadius.circular(18.r)),
-                              child: _image[index],
+                              child: image[index],
                             ),
                           ),
                           Padding(
@@ -86,7 +86,7 @@ class NotoficationScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _text[index],
+                                  text[index],
                                   style: regularTextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,

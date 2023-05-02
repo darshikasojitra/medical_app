@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/resources/style_manager.dart';
+import 'package:medical_app/resources/resources.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 class NewTableCalender extends StatefulWidget {
   const NewTableCalender({super.key});
@@ -19,43 +20,44 @@ class _NewTableCalenderState extends State<NewTableCalender> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TableCalendar(
-        rowHeight: 30.h,
+        rowHeight: 35.h,
         daysOfWeekVisible: false,
         headerStyle: HeaderStyle(
+          titleTextFormatter: (date, locale) => DateFormat.MMMM(locale).format(_focusedDay).toString(),
           formatButtonVisible: false,
           titleCentered: true,
           titleTextStyle: regularTextStyle(
-            color: Color(0xff0E1012),
+            color: ColorManager.darkblack,
             fontSize: 34.sp,
             fontWeight: FontWeight.w800,
           ),
           leftChevronIcon: Icon(
             Icons.chevron_left,
-            color: Color(0xff4A545E),
+            color: ColorManager.settingiconcolor,
             size: 30.sp,
           ),
           rightChevronIcon: Icon(
             Icons.chevron_right,
-            color: Color(0xff4A545E),
+            color: ColorManager.settingiconcolor,
             size: 30.sp,
           ),
         ),
         calendarStyle: CalendarStyle(
-          todayDecoration: const BoxDecoration(
+          todayDecoration:  BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xff1C6BA4),
+            color: ColorManager.darkblue,
           ),
           todayTextStyle: regularTextStyle(
-              color: Color(0xffFFFFFF),
+              color: ColorManager.white,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
-          selectedDecoration: const BoxDecoration(
-            color: Color(0xff1C6BA4),
+          selectedDecoration:  BoxDecoration(
+            color: ColorManager.darkblue,
             shape: BoxShape.circle,
           ),
           selectedTextStyle: regularTextStyle(
-              color: Color(0xffFFFFFF),
+              color: ColorManager.white,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),

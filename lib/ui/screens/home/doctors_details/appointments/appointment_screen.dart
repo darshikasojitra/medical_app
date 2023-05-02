@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appoinments/makeappoinement_screen.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointments.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
@@ -95,7 +95,7 @@ Widget _appbar(context) => Row(
               child: Image.asset(AssetsManager.arrowimage)),
         ),
         buildSizedBoxSpacer(
-          width: 198.w,
+          width: 195.w,
         ),
         Text(
           StringManager.dollar,

@@ -21,7 +21,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
     ];
     final List colors = [
       ColorManager.darkblue,
-      ColorManager.doctorcontainercolor,
+      ColorManager.rgbpink,
       ColorManager.lightyellow
     ];
     final List calendertime = [

@@ -54,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Icons.home_sharp,
                 size: 28.sp,
               ),
-              label: 'Home',
+              label: StringManager.home,
             ),
             BottomNavigationBarItem(
               icon: Icon(

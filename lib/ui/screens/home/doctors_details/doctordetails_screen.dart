@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appoinments/appoinment_screen.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointment_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
@@ -28,7 +28,7 @@ class DoctorDetailScreen extends StatelessWidget {
           children: [
             appbarContainer(context),
             Padding(
-              padding: EdgeInsets.only(top: 70.h, left: 25.w, right: 25.w),
+              padding: EdgeInsets.only(top: 75.h, left: 25.w, right: 25.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -78,7 +78,7 @@ class DoctorDetailScreen extends StatelessWidget {
 }
 
 Widget appbarContainer(context) => Container(
-      height: 210,
+      height: 165.h,
       width: double.infinity,
       color: ColorManager.darkblue,
       child: Padding(
@@ -137,7 +137,7 @@ Widget appbarContainer(context) => Container(
 
 Widget _threeCard(firsttext, secondtext) => Row(
       children: [
-        Container(
+        SizedBox(
           height: 80.h,
           width: 305.w,
           child: ListView.builder(

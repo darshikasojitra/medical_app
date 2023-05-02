@@ -32,6 +32,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     StringManager.mon,
     StringManager.tue,
   ];
+  Future<void> _dateIndexMethod(index) async {
+    setState(() {
+      _dateIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               Text(
                 StringManager.schedule,
                 style: regularTextStyle(
-                  color: Color(0xff0E1012),
+                  color: ColorManager.darkblack,
                   fontWeight: FontWeight.w700,
                   fontSize: 27.sp,
                 ),
@@ -62,8 +67,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         ),
         Padding(
           padding: EdgeInsets.only(left: 25.w),
-          child: Container(
-            height: 60.h,
+          child: SizedBox(
+            height: 65.h,
             width: 350.w,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
@@ -73,18 +78,14 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 return Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _dateIndex = index;
-                      });
-                    },
+                    onTap: () => _dateIndexMethod(index),
                     child: Container(
-                      height: 84.h,
+                      height: 90.h,
                       width: 60.w,
                       decoration: BoxDecoration(
                         color: _dateIndex == index
-                            ? Color(0xff1C6BA4)
-                            : Color(0xffDCEDF9),
+                            ? ColorManager.darkblue
+                            : ColorManager.lightblue,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
@@ -93,11 +94,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           Text(
                             date[index],
                             style: regularTextStyle(
-                                fontSize: 18.sp,
+                                fontSize: 19.sp,
                                 fontWeight: FontWeight.w800,
                                 color: _dateIndex == index
-                                    ? Color(0xffFFFFFF)
-                                    : Color(0xff253141)),
+                                    ? ColorManager.white
+                                    : ColorManager.hellotextcolor),
                           ),
                           Text(
                             day[index],
@@ -105,8 +106,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
                                 color: _dateIndex == index
-                                    ? Color(0xffFFFFFF)
-                                    : Color(0xff253141)),
+                                    ? ColorManager.white
+                                    : ColorManager.hellotextcolor),
                           ),
                         ],
                       ),

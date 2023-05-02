@@ -21,9 +21,10 @@ class ColorManager {
   static Color bloodcolor = const Color(0xffF5E1E9);
   static Color reportcontainercolor = const Color(0xffD6FFF3);
   static Color rgbpink = const Color.fromRGBO(241, 230, 234, 0.97);
+  static Color smallcontainercolor = const Color.fromRGBO(255, 255, 255, 0.14);
 
 //schedule screen
-  static Color doctorcontainercolor = const Color.fromRGBO(241, 230, 234, 0.97);
+  static Color doctorcontainercolor = const Color.fromRGBO(255, 255, 255, 0.65);
   static Color schedulecolor = const Color(0xff7D96B5);
 
   //profile screen
@@ -41,7 +42,8 @@ class ColorManager {
 
   //payment screen
   static Color dotcolor = const Color.fromRGBO(28, 107, 164, 0.3);
-
+  static Color balancetextcolor = const Color.fromRGBO(255, 255, 255, 0.7);
+  static Color numcolor = const Color.fromRGBO(255, 255, 255, 0.64);
   //message screen
   static Color bgcolor = const Color(0xffE4E9F1);
   static Color thucolor = const Color.fromRGBO(25, 52, 105, 0.6);

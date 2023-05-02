@@ -17,6 +17,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
   final List _categoryimage = [
     Image.asset(
       AssetsManager.dentistimage,
+      color: ColorManager.darkblack,
     ),
     Image.asset(AssetsManager.surgeonimage),
     Image.asset(AssetsManager.allergistimage),
@@ -35,7 +36,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500.h,
       child: Center(
         child: Padding(
@@ -69,72 +70,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
               buildSizedBoxSpacer(
                 height: 20.h,
               ),
-              Row(
-                children: [
-                  Container(
-                    height: 92.h,
-                    width: 310.w,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(left: 8.w),
-                          child: Container(
-                            height: 92.h,
-                            width: 67.w,
-                            decoration: BoxDecoration(
-                                color: ColorManager.white,
-                                borderRadius: BorderRadius.circular(20.r),
-                                border: Border.all(
-                                    color: _myindex == index
-                                        ? ColorManager.darkblue
-                                        : ColorManager.bordercolor)),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(bottom: 8.h, top: 8.h),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _myindex = index;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 54.h,
-                                      width: 54.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(16.r),
-                                        border: Border.all(
-                                            color: _myindex == index
-                                                ? ColorManager.darkblue
-                                                : ColorManager.bordercolor),
-                                        color: _myindex == index
-                                            ? ColorManager.darkblue
-                                            : ColorManager.white,
-                                      ),
-                                      child: _categoryimage[index],
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  _categorytext[index],
-                                  style: regularTextStyle(
-                                      fontSize: 11.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.settingiconcolor),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
+              _categoriesText(),
               buildSizedBoxSpacer(
                 height: 20.h,
               ),
@@ -156,7 +92,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                   Image.asset(AssetsManager.switchimage),
                 ],
               ),
-              SizedBox(
+              buildSizedBoxSpacer(
                 height: 30..h,
               ),
               Align(
@@ -172,52 +108,12 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
               buildSizedBoxSpacer(
                 height: 20.h,
               ),
-              Container(
-                height: 25.h,
-                width: 300.w,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _yeartext.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 8.w),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _yerindex = index;
-                          });
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 25.h,
-                          width: 90.w,
-                          decoration: BoxDecoration(
-                              color: _yerindex == index
-                                  ? ColorManager.darkblue
-                                  : ColorManager.white,
-                              borderRadius: BorderRadius.circular(8.r),
-                              border:
-                                  Border.all(color: ColorManager.logoutcolor)),
-                          child: Text(
-                            _yeartext[index],
-                            style: regularTextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w700,
-                                color: _yerindex == index
-                                    ? ColorManager.white
-                                    : ColorManager.symptomscolor),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              _expContainer(),
               buildSizedBoxSpacer(
-                height: 20.h,
+                height: 30.h,
               ),
               CustomButtons(
-                onPressed: () {},
+                onPressed: () => Navigator.pop(context),
                 height: 46.h,
                 minWidth: double.infinity,
                 color: ColorManager.darkblue,
@@ -236,4 +132,112 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
       ),
     );
   }
+
+  Widget _categoriesText() => Row(
+        children: [
+          SizedBox(
+            height: 82.h,
+            width: 310.w,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(right: 14.w),
+                  child: Container(
+                    height: 92.h,
+                    width: 67.w,
+                    decoration: BoxDecoration(
+                        color: ColorManager.white,
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(
+                            color: _myindex == index
+                                ? ColorManager.darkblue
+                                : ColorManager.bordercolor)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8.h, top: 5.h),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _myindex = index;
+                              });
+                            },
+                            child: Container(
+                              height: 46.h,
+                              width: 52.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.r),
+                                border: Border.all(
+                                    color: _myindex == index
+                                        ? ColorManager.darkblue
+                                        : ColorManager.bordercolor),
+                                color: _myindex == index
+                                    ? ColorManager.darkblue
+                                    : ColorManager.white,
+                              ),
+                              child: _categoryimage[index],
+                            ),
+                          ),
+                        ),
+                        Text(
+                          _categorytext[index],
+                          style: regularTextStyle(
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w600,
+                              color: _myindex == index
+                                  ? ColorManager.darkblue
+                                  : ColorManager.settingiconcolor),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      );
+
+  Widget _expContainer() => SizedBox(
+        height: 30.h,
+        width: 300.w,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: _yeartext.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(right: 8.w),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _yerindex = index;
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 25.h,
+                  width: 90.w,
+                  decoration: BoxDecoration(
+                      color: _yerindex == index
+                          ? ColorManager.darkblue
+                          : ColorManager.white,
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: ColorManager.logoutcolor)),
+                  child: Text(
+                    _yeartext[index],
+                    style: regularTextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        color: _yerindex == index
+                            ? ColorManager.white
+                            : ColorManager.symptomscolor),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      );
 }

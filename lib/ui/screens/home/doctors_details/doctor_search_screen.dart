@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/bottomsheet_container.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/doctordetails_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/doctors_details.dart';
 
 class DoctorSearchScreen extends StatefulWidget {
   static const String id = 'DoctorSearchScreen';
@@ -81,7 +80,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               ),
             ),
           ),
-          Padding(
+          Container(
             padding: EdgeInsets.only(left: 25.w, right: 25.w),
             child: Row(
               children: [
@@ -107,11 +106,12 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               ],
             ),
           ),
-          Padding(
-              padding: EdgeInsets.only(
-                left: 25.w,
-              ),
-              child: _popularDoctorContainer(_populardoctorimage, _doctorname))
+          // Padding(
+          //     padding: EdgeInsets.only(
+          //       left: 25.w,
+          //     ),
+          //     child:
+          _popularDoctorContainer(_populardoctorimage, _doctorname)
         ],
       ),
     ));
@@ -131,7 +131,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                 child: Image.asset(AssetsManager.arrowimage)),
           ),
           buildSizedBoxSpacer(
-            width: 85.w,
+            width: 77.w,
           ),
           Text(
             StringManager.doctor,
@@ -142,7 +142,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             ),
           ),
           buildSizedBoxSpacer(
-            width: 78.w,
+            width: 77.w,
           ),
           Container(
             height: 38.h,
@@ -180,13 +180,13 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 
 Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
       height: 340.h,
-      width: 350.w,
+      width: 370.w,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: populardoctorimage.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: EdgeInsets.only(bottom: 17.h),
+            padding: EdgeInsets.only(bottom: 17.h, left: 25.w),
             child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, DoctorDetailScreen.id);

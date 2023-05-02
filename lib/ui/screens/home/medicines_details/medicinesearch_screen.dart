@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/medicines_details/pharmacylocation_screen.dart';
+import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
 class MedicineSearchScreen extends StatefulWidget {
@@ -29,29 +29,29 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
           child: Row(
             children: [
               Container(
-                height: 40.h,
-                width: 40.w,
+                height: 38.h,
+                width: 42.w,
                 decoration: BoxDecoration(
-                    color: Color(0xffFFFFFF),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Color(0xffD7DEEA))),
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(16.r),
+                    border: Border.all(color: ColorManager.bordercolor)),
                 child: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Image.asset(AssetsManager.arrowimage)),
               ),
-              SizedBox(
+              buildSizedBoxSpacer(
                 width: 35.w,
               ),
               Image.asset(AssetsManager.locationimage),
-              SizedBox(
+              buildSizedBoxSpacer(
                 width: 10.w,
               ),
               Text(
-                'Dhanmondi, Dhaka',
+                StringManager.dhanmondidhaka,
                 style: regularTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 16.sp,
-                  color: Color(0xff0E1012),
+                  color: ColorManager.darkblack,
                 ),
               )
             ],
@@ -64,7 +64,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
             style: regularTextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 17.sp,
-              color: Color(0xff0E1012),
+              color: ColorManager.darkblack,
             ),
           ),
         ),
@@ -72,7 +72,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
           padding: EdgeInsets.only(
             left: 25.w,
           ),
-          child: Container(
+          child: SizedBox(
             height: 150.h,
             width: 450.w,
             child: ListView.builder(
@@ -86,7 +86,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
                     height: 150.h,
                     width: 130.w,
                     decoration: BoxDecoration(
-                      color: Color(0xffFFFFFF),
+                      color: ColorManager.white,
                       borderRadius: BorderRadius.circular(16.r),
                     ),
                     child: Column(
@@ -102,10 +102,10 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
                                 style: regularTextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 12.sp,
-                                  color: Color(0xff0E1012),
+                                  color: ColorManager.darkblack,
                                 ),
                               ),
-                              SizedBox(
+                              buildSizedBoxSpacer(
                                 height: 3.h,
                               ),
                               Text(
@@ -113,10 +113,10 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
                                 style: regularTextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10.sp,
-                                  color: Color(0xff4A545E),
+                                  color: ColorManager.settingiconcolor,
                                 ),
                               ),
-                              SizedBox(
+                              buildSizedBoxSpacer(
                                 height: 3.h,
                               ),
                               _starandsearch
@@ -141,7 +141,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
             style: regularTextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 24.sp,
-              color: Color(0xff0E1012),
+              color: ColorManager.darkblack,
             ),
           ),
         ),
@@ -155,7 +155,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
                 style: regularTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 13.sp,
-                  color: Color(0xff4A545E),
+                  color: ColorManager.settingiconcolor,
                 ),
               ),
               Text(
@@ -163,7 +163,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
                 style: regularTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 13.sp,
-                  color: Color(0xff4A545E),
+                  color: ColorManager.settingiconcolor,
                 ),
               ),
             ],
@@ -173,22 +173,16 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
         Padding(
             padding: EdgeInsets.only(left: 72.w, right: 62.w),
             child: CustomButtons(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PharmacyLocationScreen(),
-                    ));
-              },
+              onPressed: (){},
               height: 46.h,
               minWidth: double.infinity,
-              color: Color(0xff1C6BA4),
+              color: ColorManager.darkblue,
               child: Text(
                 StringManager.Continue,
                 style: regularTextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 15.sp,
-                  color: Color(0xffFFFFFF),
+                  color: ColorManager.white,
                 ),
               ),
             ))
@@ -204,7 +198,7 @@ Widget _starandsearch = Row(
       height: 12.h,
       width: 12.w,
     ),
-    SizedBox(
+    buildSizedBoxSpacer(
       width: 4.w,
     ),
     Text(
@@ -212,10 +206,10 @@ Widget _starandsearch = Row(
       style: regularTextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 12.sp,
-        color: Color(0xff0E1012),
+        color: ColorManager.darkblack,
       ),
     ),
-    SizedBox(
+    buildSizedBoxSpacer(
       width: 8.w,
     ),
     Text(
@@ -223,23 +217,23 @@ Widget _starandsearch = Row(
       style: regularTextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 12.sp,
-        color: Color(0xff4A545E),
+        color: ColorManager.settingiconcolor,
       ),
     ),
   ],
 );
 
 Widget _uploadPrescriptionContainer = Padding(
-  padding: EdgeInsets.only(left: 72.w, right: 62.w, bottom: 30.h),
+  padding: EdgeInsets.only(left: 72.w, right: 62.w, bottom: 35.h),
   child: Container(
-    height: 130.h,
-    width: 264.w,
+    height: 140.h,
+    width: 270.w,
     decoration: BoxDecoration(
-      color: Color(0xffE4E9F1),
+      color: ColorManager.bgcolor,
       borderRadius: BorderRadius.circular(24.r),
     ),
     child: Padding(
-      padding: EdgeInsets.only(left: 30.w, right: 20.w, top: 30.h),
+      padding: EdgeInsets.only(left: 30.w, right: 20.w, top: 27.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -249,13 +243,13 @@ Widget _uploadPrescriptionContainer = Padding(
                 height: 55.h,
                 width: 65.w,
                 decoration: BoxDecoration(
-                  color: Color(0xffFFFFFF),
+                  color: ColorManager.white,
                   borderRadius: BorderRadius.circular(18.r),
                 ),
                 child: Image.asset(AssetsManager.bluelinkimage,
-                    color: Color(0xff1C6BA4)),
+                    color: ColorManager.darkblue),
               ),
-              SizedBox(
+              buildSizedBoxSpacer(
                 height: 10.h,
               ),
               Text(
@@ -263,12 +257,12 @@ Widget _uploadPrescriptionContainer = Padding(
                 style: regularTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12.sp,
-                  color: Color(0xff0E1012),
+                  color: ColorManager.darkblack,
                 ),
               )
             ],
           ),
-          SizedBox(
+          buildSizedBoxSpacer(
             width: 30.w,
           ),
           Column(
@@ -277,12 +271,12 @@ Widget _uploadPrescriptionContainer = Padding(
                 height: 55.h,
                 width: 65.w,
                 decoration: BoxDecoration(
-                  color: Color(0xffFFFFFF),
+                  color: ColorManager.white,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Image.asset(AssetsManager.uploadimage),
               ),
-              SizedBox(
+              buildSizedBoxSpacer(
                 height: 10.h,
               ),
               Text(
@@ -290,7 +284,7 @@ Widget _uploadPrescriptionContainer = Padding(
                 style: regularTextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12.sp,
-                  color: Color(0xff0E1012),
+                  color: ColorManager.darkblack,
                 ),
               )
             ],
