@@ -5,7 +5,10 @@ import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class MessageScreen extends StatefulWidget {
   static const String id = 'MessageScreen';
-  const MessageScreen({super.key});
+  final Image populardoctorimage;
+  final String doctorname;
+  const MessageScreen(
+      {super.key, required this.populardoctorimage, required this.doctorname});
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -19,7 +22,8 @@ class _MessageScreenState extends State<MessageScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _doctorProfile(context),
+            _doctorProfile(
+                context, widget.populardoctorimage, widget.doctorname),
             buildSizedBoxSpacer(
               height: 15.h,
             ),
@@ -49,7 +53,8 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 }
 
-Widget _doctorProfile(BuildContext context) => Container(
+Widget _doctorProfile(BuildContext context, populardoctorimage, doctorname) =>
+    Container(
       height: 120.h,
       width: 450.w,
       decoration: BoxDecoration(
@@ -70,18 +75,20 @@ Widget _doctorProfile(BuildContext context) => Container(
         padding: EdgeInsets.only(left: 25.w, top: 25.h),
         child: Row(
           children: [
-            Image.asset(
-              AssetsManager.detailscreendrimage,
-              height: 44.h,
-              width: 44.w,
-            ),
+            Container(
+                height: 44.h,
+                width: 40.w,
+                decoration:
+                    BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r)),
+                child: populardoctorimage),
             Padding(
-              padding: EdgeInsets.only(left: 15.w, top: 32.h),
+              padding: EdgeInsets.only(left: 10.w, top: 32.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    StringManager.drmim,
+                    doctorname,
                     style: regularTextStyle(
                       color: ColorManager.darkblack,
                       fontSize: 14.sp,
@@ -113,14 +120,14 @@ Widget _doctorProfile(BuildContext context) => Container(
                 ],
               ),
             ),
-            buildSizedBoxSpacer(
-              width: 130.w,
-            ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Image.asset(AssetsManager.crossimage))
+            Padding(
+              padding: EdgeInsets.only(left: 150.w, right: 10.w),
+              child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Image.asset(
+                    AssetsManager.crossimage,
+                  )),
+            )
           ],
         ),
       ),

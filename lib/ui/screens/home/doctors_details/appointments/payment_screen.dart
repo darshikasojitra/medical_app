@@ -8,7 +8,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PaymentScreen extends StatefulWidget {
   static const String id = 'PaymentScreen';
-  PaymentScreen({super.key});
+  final Image populardoctorimage;
+  final String doctorname;
+  const PaymentScreen(
+      {super.key, required this.populardoctorimage, required this.doctorname});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -141,7 +144,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               dotWidth: 8,
             ),
           ),
-          SizedBox(
+          buildSizedBoxSpacer(
             height: 45.h,
           ),
           Padding(
@@ -194,12 +197,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         visavalue = newvisavalue;
                       });
                     })),
-                SizedBox(
+                buildSizedBoxSpacer(
                   height: 60.h,
                 ),
                 CustomButtons(
                   onPressed: (() {
-                    Navigator.pushNamed(context, MessageScreen.id);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MessageScreen(
+                            populardoctorimage: widget.populardoctorimage,
+                            doctorname: widget.doctorname,
+                          ),
+                        ));
+                    //Navigator.pushNamed(context, MessageScreen.id);
                   }),
                   height: 46.h,
                   minWidth: double.infinity,

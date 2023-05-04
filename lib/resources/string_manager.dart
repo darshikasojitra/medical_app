@@ -1,4 +1,22 @@
 class StringManager {
+//login and sign up
+static const String login = 'Login';
+static const String signup = 'Sign Up';
+static const String welcome = 'Welocome';
+static const String welcomeback = 'Welcome Back,';
+static const String signuptocontinue = 'Sign up to continue';
+static const String logintocontinue = 'Login to continue';
+static const String enteremail = 'Entaer Email';
+static const String enterpassword = 'Entaer password';
+static const String enterphnno = 'Entaer Phone Number';
+static const String enterusername = 'Enter Username';
+static const String male = 'Male';
+static const String female = 'Female';
+static const String forgotpassword = 'Forgot Password?';
+static const String facebook = 'Facebook';
+static const String google = 'Google';
+static const String orsigninwith = 'or signin with';
+static const String orsignupwith = 'or signup with';
   //home screen
   static const String home = 'Home';
   static const String hello = '👋 Hello!';

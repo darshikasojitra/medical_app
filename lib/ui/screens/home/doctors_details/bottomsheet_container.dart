@@ -68,7 +68,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                 ),
               ),
               buildSizedBoxSpacer(
-                height: 20.h,
+                height: 15.h,
               ),
               _categoriesText(),
               buildSizedBoxSpacer(
@@ -93,7 +93,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                 ],
               ),
               buildSizedBoxSpacer(
-                height: 30..h,
+                height: 25..h,
               ),
               Align(
                 alignment: Alignment.centerLeft,
@@ -112,17 +112,20 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
               buildSizedBoxSpacer(
                 height: 30.h,
               ),
-              CustomButtons(
-                onPressed: () => Navigator.pop(context),
-                height: 46.h,
-                minWidth: double.infinity,
-                color: ColorManager.darkblue,
-                child: Text(
-                  StringManager.apply,
-                  style: regularTextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15.sp,
-                    color: ColorManager.white,
+              Padding(
+                padding: EdgeInsets.only(bottom: 10.h),
+                child: CustomButtons(
+                  onPressed: () => Navigator.pop(context),
+                  height: 46.h,
+                  minWidth: double.infinity,
+                  color: ColorManager.darkblue,
+                  child: Text(
+                    StringManager.apply,
+                    style: regularTextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15.sp,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ),
               )

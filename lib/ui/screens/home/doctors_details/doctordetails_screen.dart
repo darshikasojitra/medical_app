@@ -7,7 +7,11 @@ import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
 class DoctorDetailScreen extends StatelessWidget {
   static const String id = 'DoctorDetailScreen';
-  const DoctorDetailScreen({super.key});
+
+  const DoctorDetailScreen(this.populardoctorimage, this.doctorname,
+      {super.key});
+  final Image populardoctorimage;
+  final String doctorname;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,13 @@ class DoctorDetailScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
                     child: CustomButtons(
                       onPressed: () {
-                        Navigator.pushNamed(context, AppoinmentScreen.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AppoinmentScreen(
+                                  populardoctorimage, doctorname),
+                            ));
+                        // Navigator.pushNamed(context, AppoinmentScreen.id);
                       },
                       height: 46.h,
                       minWidth: double.infinity,
@@ -71,7 +81,7 @@ class DoctorDetailScreen extends StatelessWidget {
             )
           ],
         ),
-        _doctorIntro,
+        _doctorIntro(doctorname, populardoctorimage),
       ],
     ));
   }
@@ -121,7 +131,7 @@ Widget appbarContainer(context) => Container(
                 decoration: BoxDecoration(
                     color: ColorManager.darkblue,
                     borderRadius: BorderRadius.circular(16.r),
-                    border: Border.all(color: Color(0xffD7DEEA))),
+                    border: Border.all(color: ColorManager.bordercolor)),
                 child: GestureDetector(
                     onTap: () {},
                     child: Image.asset(
@@ -275,48 +285,50 @@ Widget _availabilitycard = Padding(
   ),
 );
 
-Widget _doctorIntro = Positioned(
-  left: 25.w,
-  right: 25.w,
-  top: 120.h,
-  child: Container(
-    height: 90.h,
-    width: 319.w,
-    decoration: BoxDecoration(
-      color: ColorManager.white,
-      borderRadius: BorderRadius.circular(28.r),
-    ),
-    child: Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.all(14.w),
-          child: Image.asset(AssetsManager.detailscreendrimage),
+Widget _doctorIntro(doctorname, populardoctorimage) => Positioned(
+      left: 25.w,
+      right: 25.w,
+      top: 120.h,
+      child: Container(
+        height: 90.h,
+        width: 319.w,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(28.r),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: 22.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                StringManager.drmim,
-                style: regularTextStyle(
-                  color: ColorManager.darkblack,
-                  fontSize: 19.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(14.w),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(23.r),
+                  child: populardoctorimage),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    doctorname,
+                    style: regularTextStyle(
+                      color: ColorManager.darkblack,
+                      fontSize: 19.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    StringManager.cardiologistinapolohospital,
+                    style: regularTextStyle(
+                      color: ColorManager.settingiconcolor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                ],
               ),
-              Text(
-                StringManager.cardiologistinapolohospital,
-                style: regularTextStyle(
-                  color: ColorManager.settingiconcolor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );

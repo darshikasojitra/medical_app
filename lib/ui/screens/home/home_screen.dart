@@ -253,11 +253,14 @@ Widget _medicalServicecard = Padding(
           width: 16.w,
         ),
         ClipRRect(
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.r),),
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20.r),
+          ),
           child: Align(
             alignment: Alignment.bottomRight,
             child: Image.asset(
-              AssetsManager.physicianimage,height: 125.h,
+              AssetsManager.physicianimage,
+              height: 125.h,
               fit: BoxFit.fill,
             ),
           ),
@@ -269,105 +272,103 @@ Widget _medicalServicecard = Padding(
 
 Widget _upoinmentcard(bigcontainercolor, smallcontainercolor, date, day) =>
     Padding(
-      padding: EdgeInsets.only(top: 15.h, left: 28.w),
-      child: Row(
-        children: [
-          SizedBox(
-            height: 100.h,
-            width: 329.w,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    right: 12.w,
+      padding: EdgeInsets.only(
+        top: 15.h,
+      ),
+      child: Container(
+        height: 100.h,
+        width: double.infinity,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: 4,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: index == 0
+                  ? EdgeInsets.only(left: 28.w, right: 15.w)
+                  : EdgeInsets.only(right: 12.w),
+              child: Container(
+                  height: 100.h,
+                  width: 265.w,
+                  decoration: BoxDecoration(
+                    color: bigcontainercolor[index],
+                    borderRadius: BorderRadius.circular(28.r),
                   ),
-                  child: Container(
-                      height: 100.h,
-                      width: 265.w,
-                      decoration: BoxDecoration(
-                        color: bigcontainercolor[index],
-                        borderRadius: BorderRadius.circular(28.r),
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.h, right: 12.w),
-                            child: Container(
-                              height: 75.h,
-                              width: 63.w,
-                              decoration: BoxDecoration(
-                                color: smallcontainercolor[index],
-                                borderRadius: BorderRadius.circular(21.r),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    date[index],
-                                    style: regularTextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w800,
-                                        color: ColorManager.white),
-                                  ),
-                                  Text(day[index],
-                                      style: regularTextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.white)),
-                                ],
-                              ),
-                            ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 8.h, right: 12.w),
+                        child: Container(
+                          height: 75.h,
+                          width: 63.w,
+                          decoration: BoxDecoration(
+                            color: smallcontainercolor[index],
+                            borderRadius: BorderRadius.circular(21.r),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10.h),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 143.w,
-                                      bottom: 5.h,
-                                      top: 5.h,
-                                      right: 20.w),
-                                  child: Image.asset(
-                                      AssetsManager.horozontal3dots),
-                                ),
-                                Text(
-                                  StringManager.time9_30,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                date[index],
+                                style: regularTextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w800,
+                                    color: ColorManager.white),
+                              ),
+                              Text(day[index],
                                   style: regularTextStyle(
-                                    color: ColorManager.white,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                Text(
-                                  StringManager.drmim,
-                                  style: regularTextStyle(
-                                    color: ColorManager.white,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Text(
-                                  StringManager.depression,
-                                  style: regularTextStyle(
-                                    color: ColorManager.doctorcontainercolor,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.white)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 143.w,
+                                  bottom: 5.h,
+                                  top: 5.h,
+                                  right: 20.w),
+                              child: Image.asset(AssetsManager.horozontal3dots),
                             ),
-                          )
-                        ],
-                      )),
-                );
-              },
-            ),
-          )
-        ],
+                            Text(
+                              StringManager.time9_30,
+                              style: regularTextStyle(
+                                color: ColorManager.white,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              StringManager.drmim,
+                              style: regularTextStyle(
+                                color: ColorManager.white,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              StringManager.depression,
+                              style: regularTextStyle(
+                                color: ColorManager.doctorcontainercolor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )),
+            );
+          },
+        ),
       ),
     );

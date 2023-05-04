@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/route_manager.dart';
+import 'package:medical_app/ui/screens/login/login_screen.dart';
 import 'ui/screens/dashboard_screen.dart';
 
 void main() {
@@ -18,9 +19,10 @@ class MedicalApp extends StatelessWidget {
       builder: (context, child) {
         return  MaterialApp(
         title: 'Medical App',
-        //home: const DashboardScreen(),
-        initialRoute: DashboardScreen.id,
-        routes: routes,
+        //home: const LoginScreen(),
+         initialRoute: LoginScreen.id,
+        // //DashboardScreen.id,
+         routes: routes,
       );
       },
     );

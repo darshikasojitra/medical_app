@@ -26,7 +26,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     Image.asset(AssetsManager.firstdoctorimage),
     Image.asset(AssetsManager.seconddoctorimage),
     Image.asset(AssetsManager.thirddoctorimage),
-    Image.asset(AssetsManager.fourthdoctorimage),
+    //Image.asset(AssetsManager.fourthdoctorimage),
   ];
 
   final List _doctorname = [
@@ -55,7 +55,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             child: searchtextfeild,
           ),
           Padding(
-            padding: EdgeInsets.only(left: 25.w),
+            padding: EdgeInsets.only(left: 25.w, bottom: 15.h),
             child: Text(
               StringManager.livedoctors,
               style: regularTextStyle(
@@ -65,23 +65,25 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 15.h, left: 25.w, bottom: 30.h),
-            child: Container(
-              height: 75.h,
-              width: 350.w,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: _livedoctorimage.length,
-                itemBuilder: (context, index) {
-                  return _livedoctorimage[index];
-                },
-              ),
+          Container(
+            height: 75.h,
+            width: double.infinity,
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: _livedoctorimage.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: index == 0
+                      ? EdgeInsets.only(left: 25.w)
+                      : EdgeInsets.only(left: 0.w),
+                  child: Container(child: _livedoctorimage[index]),
+                );
+              },
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 25.w, right: 25.w),
+            padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 25.w),
             child: Row(
               children: [
                 Text(
@@ -106,11 +108,6 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               ],
             ),
           ),
-          // Padding(
-          //     padding: EdgeInsets.only(
-          //       left: 25.w,
-          //     ),
-          //     child:
           _popularDoctorContainer(_populardoctorimage, _doctorname)
         ],
       ),
@@ -179,7 +176,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 }
 
 Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
-      height: 340.h,
+      height: 350.h,
       width: 370.w,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
@@ -189,12 +186,18 @@ Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
             padding: EdgeInsets.only(bottom: 17.h, left: 25.w),
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, DoctorDetailScreen.id);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DoctorDetailScreen(
+                          populardoctorimage[index], doctorname[index]),
+                    ));
+                //Navigator.pushNamed(context, DoctorDetailScreen.id);
               },
               child: Row(
                 children: [
                   populardoctorimage[index],
-                  SizedBox(
+                  buildSizedBoxSpacer(
                     width: 20.w,
                   ),
                   Column(
@@ -208,6 +211,7 @@ Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
                           color: ColorManager.darkblack,
                         ),
                       ),
+                      buildSizedBoxSpacer(height: 3.h),
                       Text(
                         StringManager.cardiologistinapolohospital,
                         style: regularTextStyle(
@@ -216,6 +220,7 @@ Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
                           color: ColorManager.settingiconcolor,
                         ),
                       ),
+                      buildSizedBoxSpacer(height: 7.h),
                       _starandsearch
                     ],
                   )

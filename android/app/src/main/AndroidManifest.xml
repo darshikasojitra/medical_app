@@ -4,8 +4,8 @@
         android:label="medical_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <!-- <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDk9C-esmK5cjuuE4EzxVZU_pTngvTXzc0"/> -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBhNNR_JhSs6DCrB_JeYzYxeJNZRgIwEr4"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -7,8 +7,12 @@ import 'package:medical_app/ui/screens/home/doctors_details/appointments/appoint
 
 class MakeAppoinmentScreen extends StatefulWidget {
   static const String id = 'MakeAppoinmentScreen';
-  const MakeAppoinmentScreen({super.key});
+  final Image populardoctorimage;
+  final String doctorname;
+  const MakeAppoinmentScreen(
+      {super.key, required this.populardoctorimage, required this.doctorname});
 
+  //final String doctorname;
   @override
   State<MakeAppoinmentScreen> createState() => _MakeAppoinmentScreenState();
 }
@@ -24,6 +28,7 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     StringManager.time12_30
   ];
   final DateTime _focusedDay = DateTime.now();
+
   Future<void> _selectTime(index) async {
     setState(() {
       _myindex = index;
@@ -66,8 +71,9 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
           ),
           SizedBox(
               height: 274.h, width: 322.w, child: const NewTableCalender()),
-              //buildSizedBoxSpacer(height: 5.h),
-          displaybottomcontainer(context, _selectTime, _myindex, _time)
+          //buildSizedBoxSpacer(height: 5.h),
+          displaybottomcontainer(context, _selectTime, _myindex, _time,
+              widget.populardoctorimage, widget.doctorname)
         ],
       ),
     );
@@ -75,7 +81,13 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
 }
 
 Widget displaybottomcontainer(
-        BuildContext context, selectTime, myindex, time) =>
+  BuildContext context,
+  selectTime,
+  myindex,
+  time,
+  populardoctorimage,
+  doctorname,
+) =>
     Container(
       height: 318.h,
       width: double.infinity,
@@ -145,7 +157,15 @@ Widget displaybottomcontainer(
               ),
               child: CustomButtons(
                 onPressed: (() {
-                  Navigator.pushNamed(context, PaymentScreen.id);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentScreen(
+                          populardoctorimage: populardoctorimage,
+                          doctorname: doctorname,
+                        ),
+                      ));
+                  //Navigator.pushNamed(context, PaymentScreen.id);
                 }),
                 height: 46.h,
                 minWidth: double.infinity,

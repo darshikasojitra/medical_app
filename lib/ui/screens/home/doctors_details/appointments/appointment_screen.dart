@@ -7,7 +7,13 @@ import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
 class AppoinmentScreen extends StatelessWidget {
   static const String id = 'AppoinmentScreen';
-  const AppoinmentScreen({super.key});
+  const AppoinmentScreen(
+    this.populardoctorimage,
+    this.doctorname, {
+    super.key,
+  });
+  final Image populardoctorimage;
+  final String doctorname;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +27,12 @@ class AppoinmentScreen extends StatelessWidget {
               buildSizedBoxSpacer(
                 height: 40.h,
               ),
-              Image.asset(AssetsManager.drmim),
+              populardoctorimage,
+              //Image.asset(AssetsManager.drmim),
               buildSizedBoxSpacer(
                 height: 20.h,
               ),
-              _doctorIntro,
+              _doctorIntro(doctorname),
               buildSizedBoxSpacer(
                 height: 35.h,
               ),
@@ -40,7 +47,7 @@ class AppoinmentScreen extends StatelessWidget {
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                       color: ColorManager.symptomscolor),
-                  border:const OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: ColorManager.searchcolor),
@@ -59,7 +66,15 @@ class AppoinmentScreen extends StatelessWidget {
               ),
               CustomButtons(
                 onPressed: () {
-                  Navigator.pushNamed(context, MakeAppoinmentScreen.id);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MakeAppoinmentScreen(
+                          populardoctorimage: populardoctorimage,
+                          doctorname: doctorname,
+                        ),
+                      ));
+                  // Navigator.pushNamed(context, MakeAppoinmentScreen.id);
                 },
                 height: 46.h,
                 minWidth: double.infinity,
@@ -121,57 +136,57 @@ Widget _appbar(context) => Row(
       ],
     );
 
-Widget _doctorIntro = Column(
-  children: [
-    Text(
-      StringManager.drmim,
-      style: regularTextStyle(
-        fontWeight: FontWeight.w700,
-        fontSize: 19.sp,
-        color: ColorManager.darkblack,
-      ),
-    ),
-    Text(
-      StringManager.cardiologistinapolohospital,
-      style: regularTextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 12.sp,
-        color: ColorManager.settingiconcolor,
-      ),
-    ),
-    Padding(
-      padding: EdgeInsets.only(left: 90.w, top: 7.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(AssetsManager.starimage),
-          buildSizedBoxSpacer(
-            width: 5.w,
+Widget _doctorIntro(doctorname) => Column(
+      children: [
+        Text(
+          doctorname,
+          style: regularTextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 19.sp,
+            color: ColorManager.darkblack,
           ),
-          Text(
-            StringManager.text45,
-            style: regularTextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 15.sp,
-              color: ColorManager.darkblack,
-            ),
+        ),
+        Text(
+          StringManager.cardiologistinapolohospital,
+          style: regularTextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 12.sp,
+            color: ColorManager.settingiconcolor,
           ),
-          buildSizedBoxSpacer(
-            width: 5.w,
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 90.w, top: 7.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(AssetsManager.starimage),
+              buildSizedBoxSpacer(
+                width: 5.w,
+              ),
+              Text(
+                StringManager.text45,
+                style: regularTextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                  color: ColorManager.darkblack,
+                ),
+              ),
+              buildSizedBoxSpacer(
+                width: 5.w,
+              ),
+              Text(
+                StringManager.review17,
+                style: regularTextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13.sp,
+                  color: ColorManager.settingiconcolor,
+                ),
+              ),
+            ],
           ),
-          Text(
-            StringManager.review17,
-            style: regularTextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 13.sp,
-              color: ColorManager.settingiconcolor,
-            ),
-          ),
-        ],
-      ),
-    )
-  ],
-);
+        )
+      ],
+    );
 
 Widget _scheduleContainer = Container(
   height: 70.h,
