@@ -146,7 +146,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
   }
 }
 
-Widget _pharmacyContainer(pharmaimage) => Container(
+Widget _pharmacyContainer(pharmaimage) => SizedBox(
       height: 160.h,
       width: double.infinity,
       child: ListView.builder(

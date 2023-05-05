@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Column(
               children: [
-                Container(
+                SizedBox(
                   height: 350.h,
                   width: 335.w,
                   child: ListView.builder(

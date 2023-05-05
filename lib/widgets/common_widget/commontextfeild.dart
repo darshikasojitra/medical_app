@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 
 class CustomTextFeild extends StatelessWidget {
-  TextEditingController? controller;
-  String? labelText;
-  String? hintText;
-  Widget? prefixIcon;
-  Widget? suffixIcon;
-  String? Function(dynamic value) validator;
+  final TextEditingController? controller;
+  final String? labelText;
+  final String? hintText;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final String? Function(dynamic value) validator;
   final bool obscureText;
-  CustomTextFeild(
+  const CustomTextFeild(
       {super.key,
       this.hintText,
       this.labelText,
@@ -27,7 +27,7 @@ class CustomTextFeild extends StatelessWidget {
       autofocus: false,
       controller: controller,
       decoration: InputDecoration(
-        border:  OutlineInputBorder(
+        border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(35.r),
             borderSide: BorderSide(color: ColorManager.bordercolor)),
         focusedBorder: OutlineInputBorder(
@@ -36,8 +36,8 @@ class CustomTextFeild extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(35.r),
             borderSide: BorderSide(color: ColorManager.bordercolor)),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: regularTextStyle(
           color: ColorManager.settingiconcolor,

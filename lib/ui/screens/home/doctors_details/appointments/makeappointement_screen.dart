@@ -26,7 +26,6 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     StringManager.time12_00,
     StringManager.time12_30
   ];
-  final DateTime _focusedDay = DateTime.now();
 
   Future<void> _selectTime(index) async {
     setState(() {
@@ -90,7 +89,7 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
 }
 
 Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
-        populardoctorimage, doctorname, _showPaymentScreen) =>
+        populardoctorimage, doctorname, showPaymentScreen) =>
     Container(
       height: 318.h,
       width: double.infinity,
@@ -159,7 +158,7 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
               ),
               child: CustomButtons(
                 onPressed: () =>
-                    _showPaymentScreen(populardoctorimage, doctorname),
+                    showPaymentScreen(populardoctorimage, doctorname),
                 height: 46.h,
                 minWidth: double.infinity,
                 color: ColorManager.white,

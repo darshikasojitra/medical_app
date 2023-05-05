@@ -180,7 +180,7 @@ Widget _appBar(context) => Row(
       ],
     );
 
-Widget _creditCard(controller, cardcolor) => Container(
+Widget _creditCard(controller, cardcolor) => SizedBox(
       height: 150.h,
       width: 360.w,
       child: ListView.builder(

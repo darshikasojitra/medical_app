@@ -125,7 +125,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 }
 
 _selectDate(BuildContext context) async {
-  final DateTime? selected = await showDatePicker(
+  showDatePicker(
     context: context,
     initialDate: DateTime.now(),
     firstDate: DateTime(2010),

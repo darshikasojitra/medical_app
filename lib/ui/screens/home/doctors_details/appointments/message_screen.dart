@@ -15,7 +15,7 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ class _MessageScreenState extends State<MessageScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 500.h,
                       child: ListView(
                         physics: const BouncingScrollPhysics(),

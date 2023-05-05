@@ -11,9 +11,15 @@ class DoctorsSchedule extends StatefulWidget {
 }
 
 class _DoctorsScheduleState extends State<DoctorsSchedule> {
+  int _cardIndex = 0;
+  void _selectIndex(index) {
+    setState(() {
+      _cardIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    int cardIndex = 0;
     final List doctorsimages = [
       Image.asset(AssetsManager.zimimage),
       Image.asset(AssetsManager.shahinimage),
@@ -39,15 +45,10 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
       StringManager.drshahin,
       StringManager.drmim,
     ];
-    void _selectIndex(index) {
-      setState(() {
-        cardIndex = index;
-      });
-    }
 
     return Padding(
       padding: EdgeInsets.only(left: 25.w, right: 25.w),
-      child: Container(
+      child: SizedBox(
         height: 450.h,
         width: double.infinity,
         child: ListView.builder(
@@ -72,13 +73,13 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                         width: 10.w,
                       ),
                       Text(
-                        '- - - - - - - - - - - - - - - - - - - - - - - - - - - -',
+                        StringManager.dash,
                         style: regularTextStyle(
                           color: ColorManager.schedulecolor,
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w700,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -111,7 +112,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                                       EdgeInsets.only(left: 200.w, bottom: 5.w),
                                   child: Image.asset(
                                     AssetsManager.horozontal3dots,
-                                    color: cardIndex == index
+                                    color: _cardIndex == index
                                         ? ColorManager.white
                                         : ColorManager.black,
                                   ),
@@ -119,7 +120,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                                 Text(
                                   calendertime[index],
                                   style: regularTextStyle(
-                                    color: cardIndex == index
+                                    color: _cardIndex == index
                                         ? ColorManager.white
                                         : ColorManager.black,
                                     fontSize: 14.sp,
@@ -129,7 +130,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                                 Text(
                                   drname[index],
                                   style: regularTextStyle(
-                                    color: cardIndex == index
+                                    color: _cardIndex == index
                                         ? ColorManager.white
                                         : ColorManager.darkblack,
                                     fontSize: 17.sp,
@@ -139,7 +140,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                                 Text(
                                   StringManager.cardiologist,
                                   style: regularTextStyle(
-                                    color: cardIndex == index
+                                    color: _cardIndex == index
                                         ? ColorManager.white
                                         : ColorManager.black,
                                     fontSize: 12.sp,

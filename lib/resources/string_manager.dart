@@ -42,6 +42,7 @@ class StringManager {
 
   //schedule screen
   static const String schedule = 'Schedule';
+  static const String dash = '- - - - - - - - - - - - - - - - - - - - - - - - - - - -';
   static const String text13 = '13';
   static const String text14 = '14';
   static const String text15 = '15';

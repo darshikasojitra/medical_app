@@ -239,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: EdgeInsets.only(top: 20.h),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Container(
+          child: SizedBox(
             height: 400.h,
             child: Form(
               key: _signupfromKey,
@@ -392,7 +392,7 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 AnimatedPositioned _bottomContainer(bool showShadow, isSignup, context,
-    loginformkey, signupformkey, _showDashboardScreen) {
+    loginformkey, signupformkey, showDashboardScreen) {
   return AnimatedPositioned(
     duration: const Duration(microseconds: 700),
     curve: Curves.bounceInOut,
@@ -418,7 +418,7 @@ AnimatedPositioned _bottomContainer(bool showShadow, isSignup, context,
         ),
         child: GestureDetector(
           onTap: () =>
-              _showDashboardScreen(isSignup, loginformkey, signupformkey),
+              showDashboardScreen(isSignup, loginformkey, signupformkey),
           child: !(showShadow)
               ? Container(
                   decoration: BoxDecoration(

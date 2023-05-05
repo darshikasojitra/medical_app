@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButtons extends StatefulWidget {
-  double? height;
-  Color? color;
-  Widget? child;
-  double? minWidth;
-  void Function() onPressed;
-  CustomButtons(
+  final double? height;
+  final Color? color;
+  final Widget? child;
+  final double? minWidth;
+  final void Function() onPressed;
+  const CustomButtons(
       {super.key,
       this.height,
       this.color,

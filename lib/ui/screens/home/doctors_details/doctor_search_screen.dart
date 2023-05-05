@@ -91,7 +91,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 75.h,
             width: double.infinity,
             child: ListView.builder(
@@ -188,7 +188,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 
 Widget _popularDoctorContainer(
         populardoctorimage, doctorname, showDoctorScreen) =>
-    Container(
+    SizedBox(
       height: 350.h,
       width: 370.w,
       child: ListView.builder(

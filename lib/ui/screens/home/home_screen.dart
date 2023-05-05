@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _serviceMethod(index) async {
+    Future<void> serviceMethod(index) async {
       if (index == 0) {
         Navigator.pushNamed(context, DoctorSearchScreen.id);
       } else if (index == 1) {
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            _serviceCard(image, smallcontainercolor, _serviceMethod),
+            _serviceCard(image, smallcontainercolor, serviceMethod),
             _medicalServicecard,
             Align(
               alignment: Alignment.topLeft,
@@ -275,7 +275,7 @@ Widget _upoinmentcard(bigcontainercolor, smallcontainercolor, date, day) =>
       padding: EdgeInsets.only(
         top: 15.h,
       ),
-      child: Container(
+      child: SizedBox(
         height: 100.h,
         width: double.infinity,
         child: ListView.builder(

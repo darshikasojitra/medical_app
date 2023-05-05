@@ -192,7 +192,7 @@ Widget _scheduleContainer = Container(
   width: 300.w,
   decoration: BoxDecoration(
     color: ColorManager.white,
-    border: Border.all(color: Color(0xffD7DEEA)),
+    border: Border.all(color: ColorManager.bordercolor),
     borderRadius: BorderRadius.circular(24.r),
   ),
   child: Row(

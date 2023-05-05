@@ -25,13 +25,14 @@ class DoctorDetailScreen extends StatelessWidget {
       StringManager.yr10,
       StringManager.rating467
     ];
-    Future<void> _showAppoinmentScreen() async {
+    Future<void> showAppoinmentScreen() async {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                AppoinmentScreen(populardoctorimage, doctorname),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              AppoinmentScreen(populardoctorimage, doctorname),
+        ),
+      );
     }
 
     return Scaffold(
@@ -63,7 +64,7 @@ class DoctorDetailScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
                     child: CustomButtons(
-                      onPressed: () => _showAppoinmentScreen(),
+                      onPressed: () => showAppoinmentScreen(),
                       height: 46.h,
                       minWidth: double.infinity,
                       color: ColorManager.darkblue,
@@ -199,7 +200,7 @@ Widget _threeCard(firsttext, secondtext) => Row(
 
 Widget _aboutText = Padding(
   padding: EdgeInsets.only(left: 10.w, right: 25.w, bottom: 10.h),
-  child: Container(
+  child: SizedBox(
     height: 110.h,
     width: 319.w,
     child: Column(
@@ -214,7 +215,7 @@ Widget _aboutText = Padding(
         ),
         Padding(
           padding: EdgeInsets.only(right: 60.w, top: 8.h),
-          child: Container(
+          child: SizedBox(
             height: 70,
             width: 319,
             child: Text(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/route_manager.dart';
 import 'package:medical_app/ui/screens/login/login_screen.dart';
-import 'ui/screens/dashboard_screen.dart';
 
 void main() {
   runApp(const MedicalApp());
