@@ -14,6 +14,16 @@ class AppoinmentScreen extends StatelessWidget {
   });
   final Image populardoctorimage;
   final String doctorname;
+  Future<void> _showMakeAppoinmentScreen(context) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MakeAppoinmentScreen(
+            populardoctorimage: populardoctorimage,
+            doctorname: doctorname,
+          ),
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,6 @@ class AppoinmentScreen extends StatelessWidget {
                 height: 40.h,
               ),
               populardoctorimage,
-              //Image.asset(AssetsManager.drmim),
               buildSizedBoxSpacer(
                 height: 20.h,
               ),
@@ -65,17 +74,7 @@ class AppoinmentScreen extends StatelessWidget {
                 height: 40.h,
               ),
               CustomButtons(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MakeAppoinmentScreen(
-                          populardoctorimage: populardoctorimage,
-                          doctorname: doctorname,
-                        ),
-                      ));
-                  // Navigator.pushNamed(context, MakeAppoinmentScreen.id);
-                },
+                onPressed: () => _showMakeAppoinmentScreen(context),
                 height: 46.h,
                 minWidth: double.infinity,
                 color: ColorManager.darkblue,

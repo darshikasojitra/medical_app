@@ -25,6 +25,15 @@ class DoctorDetailScreen extends StatelessWidget {
       StringManager.yr10,
       StringManager.rating467
     ];
+    Future<void> _showAppoinmentScreen() async {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                AppoinmentScreen(populardoctorimage, doctorname),
+          ));
+    }
+
     return Scaffold(
         body: Stack(
       children: [
@@ -54,15 +63,7 @@ class DoctorDetailScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
                     child: CustomButtons(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AppoinmentScreen(
-                                  populardoctorimage, doctorname),
-                            ));
-                        // Navigator.pushNamed(context, AppoinmentScreen.id);
-                      },
+                      onPressed: () => _showAppoinmentScreen(),
                       height: 46.h,
                       minWidth: double.infinity,
                       color: ColorManager.darkblue,

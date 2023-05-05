@@ -66,6 +66,6 @@ class AssetsManager {
   static const String locationarrowimage = "$imagepath/locationarrow_image.png";
   static const String searchimage = "$imagepath/search_image.png";
   static const String homeimage = "$imagepath/home_image.png";
-  static const String facebookimage = "$imagepath/facebook.png";
-  static const String googleimage = "$imagepath/google_plus.png";
+  static const String googleimage = "$imagepath/google.png";
+  
 }

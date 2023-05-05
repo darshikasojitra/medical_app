@@ -7,6 +7,7 @@ class CustomTextFeild extends StatelessWidget {
   String? labelText;
   String? hintText;
   Widget? prefixIcon;
+  Widget? suffixIcon;
   String? Function(dynamic value) validator;
   final bool obscureText;
   CustomTextFeild(
@@ -16,6 +17,7 @@ class CustomTextFeild extends StatelessWidget {
       this.controller,
       this.prefixIcon,
       required this.obscureText,
+      this.suffixIcon,
       required this.validator});
 
   @override
@@ -35,6 +37,7 @@ class CustomTextFeild extends StatelessWidget {
             borderRadius: BorderRadius.circular(35.r),
             borderSide: BorderSide(color: ColorManager.bordercolor)),
             prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: regularTextStyle(
           color: ColorManager.settingiconcolor,

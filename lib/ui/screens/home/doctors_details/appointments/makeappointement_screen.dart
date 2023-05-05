@@ -12,7 +12,6 @@ class MakeAppoinmentScreen extends StatefulWidget {
   const MakeAppoinmentScreen(
       {super.key, required this.populardoctorimage, required this.doctorname});
 
-  //final String doctorname;
   @override
   State<MakeAppoinmentScreen> createState() => _MakeAppoinmentScreenState();
 }
@@ -33,6 +32,17 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     setState(() {
       _myindex = index;
     });
+  }
+
+  Future<void> _showPaymentScreen(populardoctorimage, doctorname) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentScreen(
+            populardoctorimage: populardoctorimage,
+            doctorname: doctorname,
+          ),
+        ));
   }
 
   @override
@@ -71,23 +81,16 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
           ),
           SizedBox(
               height: 274.h, width: 322.w, child: const NewTableCalender()),
-          //buildSizedBoxSpacer(height: 5.h),
           displaybottomcontainer(context, _selectTime, _myindex, _time,
-              widget.populardoctorimage, widget.doctorname)
+              widget.populardoctorimage, widget.doctorname, _showPaymentScreen)
         ],
       ),
     );
   }
 }
 
-Widget displaybottomcontainer(
-  BuildContext context,
-  selectTime,
-  myindex,
-  time,
-  populardoctorimage,
-  doctorname,
-) =>
+Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
+        populardoctorimage, doctorname, _showPaymentScreen) =>
     Container(
       height: 318.h,
       width: double.infinity,
@@ -115,7 +118,6 @@ Widget displaybottomcontainer(
             SizedBox(
                 height: 125.h,
                 width: 335.w,
-                //color: Colors.white,
                 child: GridView.builder(
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -156,17 +158,8 @@ Widget displaybottomcontainer(
                 top: 40.h,
               ),
               child: CustomButtons(
-                onPressed: (() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PaymentScreen(
-                          populardoctorimage: populardoctorimage,
-                          doctorname: doctorname,
-                        ),
-                      ));
-                  //Navigator.pushNamed(context, PaymentScreen.id);
-                }),
+                onPressed: () =>
+                    _showPaymentScreen(populardoctorimage, doctorname),
                 height: 46.h,
                 minWidth: double.infinity,
                 color: ColorManager.white,

@@ -34,6 +34,18 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
     StringManager.yr3_5,
     StringManager.yr10plus
   ];
+  Future<void> _selectMyIndex(index) async {
+    setState(() {
+      _myindex = index;
+    });
+  }
+
+  Future<void> _selectYearIndex(index) async {
+    setState(() {
+      _yerindex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -162,11 +174,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                         Padding(
                           padding: EdgeInsets.only(bottom: 8.h, top: 5.h),
                           child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _myindex = index;
-                              });
-                            },
+                            onTap: () => _selectMyIndex(index),
                             child: Container(
                               height: 46.h,
                               width: 52.w,
@@ -213,11 +221,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
             return Padding(
               padding: EdgeInsets.only(right: 8.w),
               child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _yerindex = index;
-                  });
-                },
+                onTap: () => _selectYearIndex(index),
                 child: Container(
                   alignment: Alignment.center,
                   height: 25.h,

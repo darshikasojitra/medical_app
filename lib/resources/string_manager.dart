@@ -1,22 +1,29 @@
 class StringManager {
 //login and sign up
-static const String login = 'Login';
-static const String signup = 'Sign Up';
-static const String welcome = 'Welocome';
-static const String welcomeback = 'Welcome Back,';
-static const String signuptocontinue = 'Sign up to continue';
-static const String logintocontinue = 'Login to continue';
-static const String enteremail = 'Entaer Email';
-static const String enterpassword = 'Entaer password';
-static const String enterphnno = 'Entaer Phone Number';
-static const String enterusername = 'Enter Username';
-static const String male = 'Male';
-static const String female = 'Female';
-static const String forgotpassword = 'Forgot Password?';
-static const String facebook = 'Facebook';
-static const String google = 'Google';
-static const String orsigninwith = 'or signin with';
-static const String orsignupwith = 'or signup with';
+  static const String login = 'Login';
+  static const String signup = 'Sign Up';
+  static const String welcome = 'Create Account';
+  static const String welcomeback = 'Welcome Back,';
+  static const String signuptocontinue = 'Sign up to continue';
+  static const String logintocontinue = 'Login to continue';
+  static const String enteremail = 'Enter Email';
+  static const String enterpassword = 'Enter Password';
+  static const String enterphnno = 'Enter Phone Number';
+  static const String enterusername = 'Enter Username';
+  static const String pleaseenteremail = 'Please enter email address';
+  static const String pleaseenterpassword = 'Please enter password';
+  static const String pleaseenterphnno = 'Please enter phone number';
+  static const String pleaseenterusername = 'Please enter username';
+  static const String male = 'Male';
+  static const String female = 'Female';
+  static const String forgotpassword = 'Forgot Password?';
+  static const String facebook = 'Facebook';
+  static const String google = 'Google';
+  static const String orsigninwith = 'or Login with';
+  static const String orsignupwith = 'or Sign up with';
+  static const String pleaseentervalidemail = 'Please enter valid email address';
+  static const String pleaseentervalidpassword = 'Enter password atleast 6 character';
+  static const String pleaseentervalidphnno = 'Please Enter valid phone number';
   //home screen
   static const String home = 'Home';
   static const String hello = '👋 Hello!';

@@ -124,7 +124,7 @@ Widget _booldGroupContainer = Padding(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(AssetsManager.bloodimage),
-                    SizedBox(
+                    buildSizedBoxSpacer(
                       width: 85.w,
                     ),
                     Image.asset(

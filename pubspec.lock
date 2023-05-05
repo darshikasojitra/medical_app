@@ -55,13 +55,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_google_street_view:
-    dependency: "direct main"
-    description:
-      name: flutter_google_street_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.3"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -69,13 +62,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
-    description:
-      name: flutter_plugin_android_lifecycle
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.13"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -88,11 +74,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_plugins:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   form_field_validator:
     dependency: "direct main"
     description:
@@ -100,13 +81,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  google_maps:
-    dependency: transitive
-    description:
-      name: google_maps
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.2.0"
   intl:
     dependency: transitive
     description:
@@ -114,27 +88,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.18.1"
-  js:
-    dependency: transitive
+  intl_phone_field:
+    dependency: "direct main"
     description:
-      name: js
+      name: intl_phone_field
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.4"
-  js_wrapping:
-    dependency: transitive
-    description:
-      name: js_wrapping
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.4"
-  kotlin_scope_function:
-    dependency: transitive
-    description:
-      name: kotlin_scope_function
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
+    version: "3.1.0"
   lints:
     dependency: transitive
     description:
@@ -170,13 +130,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
-  plugin_platform_interface:
-    dependency: transitive
-    description:
-      name: plugin_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.4"
   simple_gesture_detector:
     dependency: transitive
     description:
@@ -217,20 +170,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  stream_transform:
-    dependency: transitive
-    description:
-      name: stream_transform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
-  street_view_platform_interface:
-    dependency: transitive
-    description:
-      name: street_view_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.8"
   string_scanner:
     dependency: transitive
     description:
@@ -268,4 +207,4 @@ packages:
     version: "2.1.2"
 sdks:
   dart: ">=2.18.6 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=1.17.0"

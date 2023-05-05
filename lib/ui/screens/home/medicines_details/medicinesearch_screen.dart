@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/home.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
@@ -127,13 +126,7 @@ class _MedicineSearchScreenState extends State<MedicineSearchScreen> {
           Padding(
             padding: EdgeInsets.only(left: 55.w, right: 55.w),
             child: CustomButtons(
-              onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => PharmacyLocationScreen(),
-                //     ));
-              },
+              onPressed: () {},
               height: 46.h,
               minWidth: double.infinity,
               color: ColorManager.darkblue,

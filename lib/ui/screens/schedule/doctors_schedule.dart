@@ -39,13 +39,19 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
       StringManager.drshahin,
       StringManager.drmim,
     ];
+    void _selectIndex(index) {
+      setState(() {
+        cardIndex = index;
+      });
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: 25.w, right: 25.w),
       child: Container(
         height: 450.h,
         width: double.infinity,
         child: ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemCount: 3,
           itemBuilder: (context, index) {
             return Column(
@@ -77,11 +83,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      cardIndex = index;
-                    });
-                  },
+                  onTap: () => _selectIndex(index),
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 10.h),
                     child: Container(

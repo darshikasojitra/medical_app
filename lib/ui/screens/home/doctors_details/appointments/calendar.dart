@@ -12,10 +12,30 @@ class NewTableCalender extends StatefulWidget {
 }
 
 class _NewTableCalenderState extends State<NewTableCalender> {
-  daypredicate() {}
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  Future<void> _showSelectedDay(selectedDay, focusedDay) async {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+      });
+    }
+  }
+
+  Future<void> _showCalenderFormat(format) async {
+    if (_calendarFormat != format) {
+      setState(() {
+        _calendarFormat = format;
+      });
+    }
+  }
+
+  Future<void> _showFocusDay(focusedDay) async {
+    _focusedDay = focusedDay;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +43,8 @@ class _NewTableCalenderState extends State<NewTableCalender> {
         rowHeight: 35.h,
         daysOfWeekVisible: false,
         headerStyle: HeaderStyle(
-          titleTextFormatter: (date, locale) => DateFormat.MMMM(locale).format(_focusedDay).toString(),
+          titleTextFormatter: (date, locale) =>
+              DateFormat.MMMM(locale).format(_focusedDay).toString(),
           formatButtonVisible: false,
           titleCentered: true,
           titleTextStyle: regularTextStyle(
@@ -43,7 +64,7 @@ class _NewTableCalenderState extends State<NewTableCalender> {
           ),
         ),
         calendarStyle: CalendarStyle(
-          todayDecoration:  BoxDecoration(
+          todayDecoration: BoxDecoration(
             shape: BoxShape.circle,
             color: ColorManager.darkblue,
           ),
@@ -52,7 +73,7 @@ class _NewTableCalenderState extends State<NewTableCalender> {
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
-          selectedDecoration:  BoxDecoration(
+          selectedDecoration: BoxDecoration(
             color: ColorManager.darkblue,
             shape: BoxShape.circle,
           ),
@@ -69,24 +90,10 @@ class _NewTableCalenderState extends State<NewTableCalender> {
         selectedDayPredicate: (day) {
           return isSameDay(_selectedDay, day);
         },
-        onDaySelected: (selectedDay, focusedDay) {
-          if (!isSameDay(_selectedDay, selectedDay)) {
-            setState(() {
-              _selectedDay = selectedDay;
-              _focusedDay = focusedDay;
-            });
-          }
-        },
-        onFormatChanged: (format) {
-          if (_calendarFormat != format) {
-            setState(() {
-              _calendarFormat = format;
-            });
-          }
-        },
-        onPageChanged: (focusedDay) {
-          _focusedDay = focusedDay;
-        },
+        onDaySelected: (selectedDay, focusedDay) =>
+            _showSelectedDay(selectedDay, focusedDay),
+        onFormatChanged: (format) => _showCalenderFormat(format),
+        onPageChanged: (focusedDay) => _showFocusDay(focusedDay),
       ),
     );
   }

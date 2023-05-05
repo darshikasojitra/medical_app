@@ -26,7 +26,6 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     Image.asset(AssetsManager.firstdoctorimage),
     Image.asset(AssetsManager.seconddoctorimage),
     Image.asset(AssetsManager.thirddoctorimage),
-    //Image.asset(AssetsManager.fourthdoctorimage),
   ];
 
   final List _doctorname = [
@@ -34,6 +33,33 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     StringManager.drjon,
     StringManager.drzim
   ];
+  Future<void> _showBottomSheet() async {
+    setState(() {
+      showModalBottomSheet<void>(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.w),
+            topRight: Radius.circular(30.w),
+          ),
+        ),
+        backgroundColor: ColorManager.white,
+        builder: (BuildContext context) {
+          return const BottomsheetContainer();
+        },
+      );
+    });
+  }
+
+  Future<void> _showDoctorScreen(populardoctorimage, doctorname, index) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              DoctorDetailScreen(populardoctorimage[index], doctorname[index]),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +134,8 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               ],
             ),
           ),
-          _popularDoctorContainer(_populardoctorimage, _doctorname)
+          _popularDoctorContainer(
+              _populardoctorimage, _doctorname, _showDoctorScreen)
         ],
       ),
     ));
@@ -149,23 +176,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(color: ColorManager.bordercolor)),
             child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.w),
-                          topRight: Radius.circular(30.w),
-                        ),
-                      ),
-                      backgroundColor: ColorManager.white,
-                      builder: (BuildContext context) {
-                        return BottomsheetContainer();
-                      },
-                    );
-                  });
-                },
+                onTap: () => _showBottomSheet(),
                 child: Image.asset(
                   AssetsManager.linkimage,
                   color: ColorManager.darkblack,
@@ -175,7 +186,9 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
       );
 }
 
-Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
+Widget _popularDoctorContainer(
+        populardoctorimage, doctorname, showDoctorScreen) =>
+    Container(
       height: 350.h,
       width: 370.w,
       child: ListView.builder(
@@ -185,15 +198,8 @@ Widget _popularDoctorContainer(populardoctorimage, doctorname) => Container(
           return Padding(
             padding: EdgeInsets.only(bottom: 17.h, left: 25.w),
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DoctorDetailScreen(
-                          populardoctorimage[index], doctorname[index]),
-                    ));
-                //Navigator.pushNamed(context, DoctorDetailScreen.id);
-              },
+              onTap: () =>
+                  showDoctorScreen(populardoctorimage, doctorname, index),
               child: Row(
                 children: [
                   populardoctorimage[index],

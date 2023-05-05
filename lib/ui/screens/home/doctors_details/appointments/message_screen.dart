@@ -15,6 +15,7 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class _MessageScreenState extends State<MessageScreen> {
                 ),
               ),
             ),
-            _sendmessage
+            _sendmessage(_controller),
           ],
         ),
       ),
@@ -79,8 +80,7 @@ Widget _doctorProfile(BuildContext context, populardoctorimage, doctorname) =>
                 height: 44.h,
                 width: 40.w,
                 decoration:
-                    BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r)),
+                    BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
                 child: populardoctorimage),
             Padding(
               padding: EdgeInsets.only(left: 10.w, top: 32.h),
@@ -296,16 +296,15 @@ Widget _chat = Column(
   ],
 );
 
-Widget _sendmessage = Container(
+Widget _sendmessage(controller) => Container(
   padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 5.h),
   height: 50.h,
   width: 340.w,
   child: TextFormField(
-    //controller: _controller,
+    controller: controller,
     decoration: InputDecoration(
       filled: true,
       fillColor: ColorManager.white,
-      //contentPadding: EdgeInsets.only(left: 5.w),
       prefixIcon: Padding(
         padding: EdgeInsets.only(left: 5.w),
         child: Image.asset(

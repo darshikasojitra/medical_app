@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/dashboard_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
@@ -18,6 +19,39 @@ class _LoginScreenState extends State<LoginScreen> {
   final _signupfromKey = GlobalKey<FormState>();
   bool _isSignup = true;
   bool _isaMale = true;
+  bool _passwordVisible = false;
+  Future<void> _showpassword() async {
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
+  }
+
+  Future<void> _showLogin(value) async {
+    setState(() {
+      _isSignup = value;
+    });
+  }
+
+  Future<void> _showmale(value) async {
+    setState(() {
+      _isaMale = value;
+    });
+  }
+
+  Future<void> _showDashboardScreen(
+      isSignup, loginformkey, signupformkey) async {
+    if (!isSignup) {
+      if (loginformkey.currentState!.validate()) {
+        Navigator.pushNamed(context, DashboardScreen.id);
+      }
+    }
+    if (isSignup) {
+      if (signupformkey.currentState!.validate()) {
+        Navigator.pushNamed(context, DashboardScreen.id);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-          _bottomContainer(
-              true, _isSignup, context, _loginfromKey, _signupfromKey),
+          _bottomContainer(true, _isSignup, context, _loginfromKey,
+              _signupfromKey, _showDashboardScreen),
           AnimatedPositioned(
             duration: const Duration(microseconds: 700),
             curve: Curves.bounceInOut,
@@ -70,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
               curve: Curves.bounceInOut,
               padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
               margin: EdgeInsets.symmetric(horizontal: 20.w),
-              height: _isSignup ? 360.h : 260.h,
+              height: _isSignup ? 360.h : 250.h,
               width: 320.w,
               decoration: BoxDecoration(
                 color: ColorManager.white,
@@ -98,8 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          _bottomContainer(
-              false, _isSignup, context, _loginfromKey, _signupfromKey),
+          _bottomContainer(false, _isSignup, context, _loginfromKey,
+              _signupfromKey, _showDashboardScreen),
           _orSignupWith(_isSignup),
         ],
       ),
@@ -110,11 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
-            onTap: () {
-              setState(() {
-                _isSignup = false;
-              });
-            },
+            onTap: () => _showLogin(false),
             child: Column(
               children: [
                 Text(
@@ -136,11 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              setState(() {
-                _isSignup = true;
-              });
-            },
+            onTap: () => _showLogin(true),
             child: Column(
               children: [
                 Text(
@@ -180,11 +206,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   validator: Validator.emailValidator),
               buildSizedBoxSpacer(height: 14.h),
               CustomTextFeild(
-                  obscureText: true,
+                  obscureText: !_passwordVisible,
                   hintText: StringManager.enterpassword,
                   prefixIcon: Icon(
                     Icons.lock_outline,
                     color: ColorManager.schedulecolor,
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: ColorManager.searchiconcolor,
+                    ),
+                    onPressed: () => _showpassword(),
                   ),
                   validator: Validator.passValidator),
               Align(
@@ -194,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         StringManager.forgotpassword,
                         style: regularTextStyle(
-                            color: ColorManager.symptomscolor, fontSize: 12.sp),
+                            color: ColorManager.schedulecolor, fontSize: 14.sp,fontWeight: FontWeight.w500),
                       )))
             ],
           ),
@@ -229,34 +264,55 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: Validator.emailValidator),
                   buildSizedBoxSpacer(height: 10.h),
                   CustomTextFeild(
-                      obscureText: true,
+                      obscureText: !_passwordVisible,
                       prefixIcon: Icon(
                         Icons.lock,
                         color: ColorManager.schedulecolor,
                       ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: ColorManager.searchiconcolor,
+                        ),
+                        onPressed: () => _showpassword(),
+                      ),
                       hintText: StringManager.enterpassword,
                       validator: Validator.passValidator),
                   buildSizedBoxSpacer(height: 10.h),
-                  CustomTextFeild(
-                      obscureText: false,
-                      prefixIcon: Icon(
-                        Icons.phone_outlined,
-                        color: ColorManager.schedulecolor,
-                      ),
+                  IntlPhoneField(
+                    flagsButtonPadding: EdgeInsets.only(left: 10.w),
+                    dropdownIconPosition: IconPosition.trailing,
+                    decoration: InputDecoration(
                       hintText: StringManager.enterphnno,
-                      validator: Validator.phnNoValidator),
+                      hintStyle: regularTextStyle(
+                        color: ColorManager.settingiconcolor,
+                        fontSize: 13.sp,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: ColorManager.bordercolor),
+                          borderRadius: BorderRadius.circular(35.r)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: ColorManager.bordercolor),
+                          borderRadius: BorderRadius.circular(35.r)),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: ColorManager.bordercolor),
+                          borderRadius: BorderRadius.circular(35.r)),
+                    ),
+                    initialCountryCode: 'IN',
+                    
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         top: 13.h, left: 20.w, right: 20.w, bottom: 5.h),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isaMale = true;
-                            });
-                          },
+                          onTap: () => _showmale(true),
                           child: Row(
                             children: [
                               Container(
@@ -290,11 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         buildSizedBoxSpacer(width: 20.w),
                         GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isaMale = false;
-                            });
-                          },
+                          onTap: () => _showmale(false),
                           child: Row(
                             children: [
                               Container(
@@ -339,14 +391,14 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 }
 
-AnimatedPositioned _bottomContainer(
-    bool showShadow, isSignup, context, loginformkey, signupformkey) {
+AnimatedPositioned _bottomContainer(bool showShadow, isSignup, context,
+    loginformkey, signupformkey, _showDashboardScreen) {
   return AnimatedPositioned(
     duration: const Duration(microseconds: 700),
     curve: Curves.bounceInOut,
     left: 0,
     right: 0,
-    top: isSignup ? 510.h : 410.h,
+    top: isSignup ? 510.h : 400.h,
     child: Center(
       child: Container(
         padding: EdgeInsets.all(16.w),
@@ -365,18 +417,8 @@ AnimatedPositioned _bottomContainer(
           ],
         ),
         child: GestureDetector(
-          onTap: () {
-            if (!isSignup) {
-              if (loginformkey.currentState!.validate()) {
-                Navigator.pushNamed(context, DashboardScreen.id);
-              }
-            }
-            if (isSignup) {
-              if (signupformkey.currentState!.validate()) {
-                Navigator.pushNamed(context, DashboardScreen.id);
-              }
-            }
-          },
+          onTap: () =>
+              _showDashboardScreen(isSignup, loginformkey, signupformkey),
           child: !(showShadow)
               ? Container(
                   decoration: BoxDecoration(
@@ -406,63 +448,64 @@ AnimatedPositioned _bottomContainer(
 }
 
 Widget _orSignupWith(isSignup) => Positioned(
-      top: 585.h,
+      top: 590.h,
       left: 0,
       right: 0,
       child: Column(
         children: [
           isSignup
-              ? Text(StringManager.orsignupwith)
-              : Text(StringManager.orsignupwith),
+              ? Text(
+                  StringManager.orsignupwith,
+                  style: regularTextStyle(
+                      fontSize: 14.sp,
+                      color: ColorManager.darkblue,
+                      fontWeight: FontWeight.w400),
+                )
+              : Text(
+                  StringManager.orsigninwith,
+                  style: regularTextStyle(
+                      fontSize: 14.sp,
+                      color: ColorManager.darkblue,
+                      fontWeight: FontWeight.w400),
+                ),
           Padding(
-            padding: EdgeInsets.only(left: 60.w, top: 20.h, right: 20.w),
+            padding: EdgeInsets.only(
+                left: 130.w, top: 18.h, right: 100.w, bottom: 10.h),
             child: Row(
               children: [
-                MaterialButton(
-                  height: 30.h,
-                  minWidth: 70.w,
-                  onPressed: () {},
-                  color: ColorManager.darkblue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.r)),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AssetsManager.facebookimage,
-                        height: 25.h,
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 40.h,
+                    width: 45.w,
+                    decoration: BoxDecoration(
                         color: ColorManager.white,
+                        borderRadius: BorderRadius.circular(40.r)),
+                    child: Center(
+                      child: Icon(
+                        Icons.facebook,
+                        color: ColorManager.darkblue,
+                        size: 30.h,
                       ),
-                      //buildSizedBoxSpacer(width: 10.w),
-                      Text(
-                        StringManager.facebook,
-                        style: regularTextStyle(
-                            color: ColorManager.white, fontSize: 14.sp),
-                      )
-                    ],
+                    ),
                   ),
                 ),
-                buildSizedBoxSpacer(width: 30.w),
-                MaterialButton(
-                  height: 30.h,
-                  minWidth: 70.w,
-                  onPressed: () {},
-                  color: ColorManager.darkblue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.r)),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AssetsManager.googleimage,
-                        height: 30.h,
+                buildSizedBoxSpacer(width: 15.w),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 40.h,
+                    width: 45.w,
+                    decoration: BoxDecoration(
                         color: ColorManager.white,
+                        borderRadius: BorderRadius.circular(40.r)),
+                    child: Center(
+                      child: Image.asset(
+                        AssetsManager.googleimage,
+                        height: 22.h,
+                        //color: ColorManager.white,
                       ),
-                      buildSizedBoxSpacer(width: 5.w),
-                      Text(
-                        StringManager.google,
-                        style: regularTextStyle(
-                            color: ColorManager.white, fontSize: 14.sp),
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ],
