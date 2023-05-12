@@ -223,12 +223,14 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: EdgeInsets.only(top: 25.h),
         child: Form(
           key: _loginfromKey,
+           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               CustomTextFeild(
                   obscureText: false,
                   controller: _emailController,
                   hintText: StringManager.enteremail,
+                  labelText: 'Email',
                   prefixIcon: Icon(
                     Icons.email_outlined,
                     color: ColorManager.schedulecolor,
@@ -239,6 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: !_passwordVisible,
                   controller: _passwordController,
                   hintText: StringManager.enterpassword,
+                  labelText: 'Password',
                   prefixIcon: Icon(
                     Icons.lock_outline,
                     color: ColorManager.schedulecolor,
@@ -276,6 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 400.h,
             child: Form(
               key: _signupfromKey,
+               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   CustomTextFeild(
@@ -342,83 +346,83 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     initialCountryCode: 'IN',
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 13.h, left: 20.w, right: 20.w, bottom: 5.h),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => _showmale(true),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 8.w),
-                                height: 25.h,
-                                width: 30.w,
-                                decoration: BoxDecoration(
-                                    color: _isaMale
-                                        ? ColorManager.darkyellow
-                                        : ColorManager.white,
-                                    border: Border.all(
-                                        width: 1,
-                                        color: ColorManager.bordercolor),
-                                    borderRadius: BorderRadius.circular(15.r)),
-                                child: Icon(
-                                  Icons.boy_outlined,
-                                  color: _isaMale
-                                      ? ColorManager.white
-                                      : ColorManager.searchiconcolor,
-                                ),
-                              ),
-                              Text(
-                                StringManager.male,
-                                style: regularTextStyle(
-                                    fontSize: 12.sp,
-                                    color: ColorManager.settingiconcolor,
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
-                        ),
-                        buildSizedBoxSpacer(width: 20.w),
-                        GestureDetector(
-                          onTap: () => _showmale(false),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 8.w),
-                                height: 25.h,
-                                width: 30.w,
-                                decoration: BoxDecoration(
-                                    color: !(_isaMale)
-                                        ? ColorManager.darkyellow
-                                        : ColorManager.white,
-                                    border: Border.all(
-                                        width: 1,
-                                        color: !_isSignup
-                                            ? ColorManager.darkyellow
-                                            : ColorManager.bordercolor),
-                                    borderRadius: BorderRadius.circular(15.r)),
-                                child: Icon(
-                                  Icons.girl_outlined,
-                                  color: !_isaMale
-                                      ? ColorManager.white
-                                      : ColorManager.searchiconcolor,
-                                ),
-                              ),
-                              Text(
-                                StringManager.female,
-                                style: regularTextStyle(
-                                    fontSize: 12.sp,
-                                    color: ColorManager.settingiconcolor,
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )
+                  // Padding(
+                  //   padding: EdgeInsets.only(
+                  //       top: 13.h, left: 20.w, right: 20.w, bottom: 5.h),
+                  //   child: Row(
+                  //     children: [
+                  //       GestureDetector(
+                  //         onTap: () => _showmale(true),
+                  //         child: Row(
+                  //           children: [
+                  //             Container(
+                  //               margin: EdgeInsets.only(right: 8.w),
+                  //               height: 25.h,
+                  //               width: 30.w,
+                  //               decoration: BoxDecoration(
+                  //                   color: _isaMale
+                  //                       ? ColorManager.darkyellow
+                  //                       : ColorManager.white,
+                  //                   border: Border.all(
+                  //                       width: 1,
+                  //                       color: ColorManager.bordercolor),
+                  //                   borderRadius: BorderRadius.circular(15.r)),
+                  //               child: Icon(
+                  //                 Icons.boy_outlined,
+                  //                 color: _isaMale
+                  //                     ? ColorManager.white
+                  //                     : ColorManager.searchiconcolor,
+                  //               ),
+                  //             ),
+                  //             Text(
+                  //               StringManager.male,
+                  //               style: regularTextStyle(
+                  //                   fontSize: 12.sp,
+                  //                   color: ColorManager.settingiconcolor,
+                  //                   fontWeight: FontWeight.w500),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       buildSizedBoxSpacer(width: 20.w),
+                  //       GestureDetector(
+                  //         onTap: () => _showmale(false),
+                  //         child: Row(
+                  //           children: [
+                  //             Container(
+                  //               margin: EdgeInsets.only(right: 8.w),
+                  //               height: 25.h,
+                  //               width: 30.w,
+                  //               decoration: BoxDecoration(
+                  //                   color: !(_isaMale)
+                  //                       ? ColorManager.darkyellow
+                  //                       : ColorManager.white,
+                  //                   border: Border.all(
+                  //                       width: 1,
+                  //                       color: !_isSignup
+                  //                           ? ColorManager.darkyellow
+                  //                           : ColorManager.bordercolor),
+                  //                   borderRadius: BorderRadius.circular(15.r)),
+                  //               child: Icon(
+                  //                 Icons.girl_outlined,
+                  //                 color: !_isaMale
+                  //                     ? ColorManager.white
+                  //                     : ColorManager.searchiconcolor,
+                  //               ),
+                  //             ),
+                  //             Text(
+                  //               StringManager.female,
+                  //               style: regularTextStyle(
+                  //                   fontSize: 12.sp,
+                  //                   color: ColorManager.settingiconcolor,
+                  //                   fontWeight: FontWeight.w500),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
             ),

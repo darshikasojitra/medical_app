@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_app/ui/screens/login/login_screen.dart';
+import 'package:medical_app/ui/screens/splash/splash_screen.dart';
 import '../ui/screens/reports/report_screen.dart';
 import '../ui/screens/dashboard_screen.dart';
 import '../ui/screens/home/doctors_details/doctor_search_screen.dart';
@@ -11,6 +12,7 @@ import '../ui/screens/schedule/schedule_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   LoginScreen.id: (context) => const LoginScreen(),
+  SplashScreen.id: (context) => const SplashScreen(),
   HomeScreen.id: (context) => const HomeScreen(),
   DashboardScreen.id: (context) => DashboardScreen(),
   DoctorSearchScreen.id: (context) => const DoctorSearchScreen(),

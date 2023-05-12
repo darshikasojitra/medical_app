@@ -246,7 +246,7 @@ Widget _chat(url) => Column(
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
-                  reverse: false,
+                 // reverse: false,
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: snapshot.data!.docs.length,
