@@ -8,7 +8,8 @@ import 'notifications/notification_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const String id = 'DashboardScreen';
-  const DashboardScreen({super.key});
+ 
+   DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -17,7 +18,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _myIndex = 0;
   static List<Widget> widgetList = [
-    const HomeScreen(),
+     HomeScreen(),
     const ScheduleScreen(),
     const ReportScreen(),
     const NotoficationScreen(),

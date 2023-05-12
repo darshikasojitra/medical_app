@@ -37,7 +37,10 @@ class CustomCheckBox extends StatelessWidget {
                 },
               ),
             ),
-            label,
+            Padding(
+              padding:  EdgeInsets.only(left: 10.w),
+              child: label,
+            ),
           ],
         ),
       ),

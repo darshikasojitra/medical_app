@@ -1,7 +1,16 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:custom_clippers/custom_clippers.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+import '../../../../../services/auth_services.dart';
+import '../../../dashboard_screen.dart';
 
 class MessageScreen extends StatefulWidget {
   static const String id = 'MessageScreen';
@@ -14,7 +23,34 @@ class MessageScreen extends StatefulWidget {
   State<MessageScreen> createState() => _MessageScreenState();
 }
 
+final AuthServices _auth = AuthServices();
+var _collection = FirebaseFirestore.instance
+    .collection('chat')
+    .doc(_auth.getUser()!.uid)
+    .collection("messages");
+
 class _MessageScreenState extends State<MessageScreen> {
+  File? _imagefile;
+  PickedFile? pickedFile;
+  final ImagePicker _picker = ImagePicker();
+  String? url;
+  Future<void> _takephoto() async {
+    await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
+      if (xFile != null) {
+        _imagefile = File(xFile.path);
+        downloadURLExample();
+      }
+    });
+  }
+
+  Future<void> downloadURLExample() async {
+    String filename = Uuid().v1();
+    final ref =
+        FirebaseStorage.instance.ref().child('images').child("$filename.jpg");
+    var uploadTask = await ref.putFile(_imagefile!);
+    url = await uploadTask.ref.getDownloadURL();
+  }
+
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -26,19 +62,19 @@ class _MessageScreenState extends State<MessageScreen> {
             _doctorProfile(
                 context, widget.populardoctorimage, widget.doctorname),
             buildSizedBoxSpacer(
-              height: 15.h,
+              height: 0.h,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.h),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 500.h,
+                      height: 550.h,
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
                         children: [
-                          _chat,
+                          _chat(url),
                         ],
                       ),
                     ),
@@ -46,288 +82,280 @@ class _MessageScreenState extends State<MessageScreen> {
                 ),
               ),
             ),
-            _sendmessage(_controller),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: _sendmessage(
+                  _controller,
+                )),
           ],
         ),
       ),
     );
   }
+
+  Widget _doctorProfile(BuildContext context, populardoctorimage, doctorname) =>
+      Container(
+        height: 80.h,
+        width: 450.w,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 7.0,
+              spreadRadius: 7,
+              offset: const Offset(0, 2),
+              color: ColorManager.shadowcolor,
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 15.w, top: 20.h),
+          child: Row(
+            children: [
+              GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DashboardScreen(),
+                      )),
+                  child: Icon(
+                Icons.arrow_back_rounded,
+                size: 25.h,
+              )),
+              buildSizedBoxSpacer(
+                width: 15.w,
+              ),
+              Container(
+                  height: 44.h,
+                  width: 40.w,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
+                  child: populardoctorimage),
+              Padding(
+                padding: EdgeInsets.only(left: 10.w, top: 15.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      doctorname,
+                      style: regularTextStyle(
+                        color: ColorManager.darkblack,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          StringManager.activenow,
+                          style: regularTextStyle(
+                            color: ColorManager.settingiconcolor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        buildSizedBoxSpacer(
+                          width: 5.w,
+                        ),
+                        Container(
+                          height: 7.h,
+                          width: 7.w,
+                          decoration: BoxDecoration(
+                              color: ColorManager.green,
+                              borderRadius: BorderRadius.circular(7.r)),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              buildSizedBoxSpacer(width: 110.w),
+              Image.asset(AssetsManager.vediocall)
+            ],
+          ),
+        ),
+      );
+
+  Widget _sendmessage(controller) => Container(
+        padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 5.h),
+        height: 50.h,
+        width: 340.w,
+        child: TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: ColorManager.white,
+            prefixIcon: Padding(
+              padding: EdgeInsets.only(left: 5.w),
+              child: GestureDetector(
+                onTap: () async {
+                  await _takephoto();
+                },
+                child: Image.asset(
+                  AssetsManager.linkdataimage,
+                ),
+              ),
+            ),
+            suffixIcon: Padding(
+              padding: EdgeInsets.only(right: 3.w),
+              child: GestureDetector(
+                  onTap: () async {
+                    if(controller !=null){
+                       setState(() {
+                      _collection.doc().set({
+                        'messagecontent': url ?? controller.text,
+                        'messagetype':'sender',
+                        // 'receiver',
+                        'type': url != null ? 'img' : 'mesg',
+                        'time': DateTime.now(),
+                        'uid': _auth.getUser()!.uid
+                      });
+                      controller.clear();
+                    });
+                    }
+                   
+                  },
+                  child: Image.asset(AssetsManager.sendimage)),
+            ),
+            hintText: StringManager.writehere,
+            hintStyle: regularTextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.thucolor),
+            border: const OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: ColorManager.textfeildbordercolor),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.r),
+                borderSide:
+                    BorderSide(color: ColorManager.textfeildbordercolor)),
+          ),
+        ),
+      );
 }
 
-Widget _doctorProfile(BuildContext context, populardoctorimage, doctorname) =>
-    Container(
-      height: 120.h,
-      width: 450.w,
-      decoration: BoxDecoration(
-        color: ColorManager.white,
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(24.r),
-            bottomRight: Radius.circular(24.r)),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 7.0,
-            spreadRadius: 7,
-            offset: const Offset(0, 2),
-            color: ColorManager.shadowcolor,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(left: 25.w, top: 25.h),
-        child: Row(
-          children: [
-            Container(
-                height: 44.h,
-                width: 40.w,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
-                child: populardoctorimage),
-            Padding(
-              padding: EdgeInsets.only(left: 10.w, top: 32.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    doctorname,
-                    style: regularTextStyle(
-                      color: ColorManager.darkblack,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        StringManager.activenow,
-                        style: regularTextStyle(
-                          color: ColorManager.settingiconcolor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      buildSizedBoxSpacer(
-                        width: 5.w,
-                      ),
-                      Container(
-                        height: 7.h,
-                        width: 7.w,
-                        decoration: BoxDecoration(
-                            color: ColorManager.green,
-                            borderRadius: BorderRadius.circular(7.r)),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 150.w, right: 10.w),
-              child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Image.asset(
-                    AssetsManager.crossimage,
-                  )),
-            )
-          ],
-        ),
-      ),
-    );
-
-Widget _chat = Column(
-  children: [
-    Align(
-      alignment: Alignment.centerRight,
-      child: Container(
-        height: 75.h,
-        width: 235.w,
-        decoration: BoxDecoration(
-            color: ColorManager.darkblue,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.r),
-                topRight: Radius.circular(16.r),
-                bottomLeft: Radius.circular(16.r))),
-        child: Padding(
-          padding:
-              EdgeInsets.only(left: 19.w, right: 38.w, bottom: 15.h, top: 17.h),
-          child: Text(
-            StringManager.hishah,
-            style: regularTextStyle(
-              color: ColorManager.white,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsets.only(left: 100.w, right: 140.w, top: 5.h),
-      child: Text(
-        StringManager.thu9_10AM,
-        style: regularTextStyle(
-          color: ColorManager.thucolor,
-          fontSize: 11.sp,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    ),
-    buildSizedBoxSpacer(
-      height: 20.h,
-    ),
-    Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+Widget _chat(url) => Column(
       children: [
-        Image.asset(AssetsManager.profileimage),
-        buildSizedBoxSpacer(
-          width: 12.w,
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            height: 72.h,
-            width: 235.w,
-            decoration: BoxDecoration(
-                color: ColorManager.lightyellow,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(16.r),
-                    topRight: Radius.circular(16.r),
-                    bottomLeft: Radius.circular(16.r))),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: 19.w, right: 38.w, bottom: 15.h, top: 17.h),
-              child: Text(
-                StringManager.sureiam,
-                style: regularTextStyle(
-                  color: ColorManager.textcolor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-    buildSizedBoxSpacer(
-      height: 22.h,
-    ),
-    Align(
-      alignment: Alignment.centerRight,
-      child: Container(
-        height: 75.h,
-        width: 235.w,
-        decoration: BoxDecoration(
-            color: ColorManager.darkblue,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.r),
-                topRight: Radius.circular(16.r),
-                bottomLeft: Radius.circular(16.r))),
-        child: Padding(
-          padding:
-              EdgeInsets.only(left: 19.w, right: 38.w, bottom: 15.h, top: 20.h),
-          child: Text(
-            StringManager.canyou,
-            style: regularTextStyle(
-              color: ColorManager.white,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsets.only(left: 100.w, right: 140.w, top: 5.h),
-      child: Text(
-        StringManager.thu9_15AM,
-        style: regularTextStyle(
-          color: ColorManager.thucolor,
-          fontSize: 11.sp,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    ),
-    buildSizedBoxSpacer(
-      height: 17.h,
-    ),
-    Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Image.asset(AssetsManager.profileimage),
         SizedBox(
-          width: 12.w,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 55.h,
-                width: 133.w,
-                decoration: BoxDecoration(
-                    color: ColorManager.lightyellow,
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(16.r),
-                        topRight: Radius.circular(16.r),
-                        bottomLeft: Radius.circular(16.r))),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: 19.w, right: 28.w, bottom: 15.h, top: 17.h),
-                  child: Text(
-                    StringManager.yeshereit,
-                    style: regularTextStyle(
-                      color: ColorManager.textcolor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            buildSizedBoxSpacer(
-              height: 15.h,
-            ),
-            Image.asset(AssetsManager.skinimage),
-          ],
+          height: 600.h,
+          width: 350.w,
+          child: StreamBuilder(
+            stream: _collection.orderBy('time').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  reverse: false,
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    //DocumentSnapshot doc = snapshot.data!.docs.elementAt(index);
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          top: 15.h, left: 10.w, right: 10.w, bottom: 5.h),
+                      child: snapshot.data?.docs[index]['type'] == 'img'
+                          ? Align(
+                              alignment: snapshot.data!.docs[index]
+                                          ['messagetype'] ==
+                                      "sender"
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
+                              child: ClipPath(
+                                clipper: snapshot.data!.docs[index]
+                                            ['messagetype'] ==
+                                        "sender"
+                                    ? LowerNipMessageClipper(MessageType.send)
+                                    : UpperNipMessageClipper(
+                                        MessageType.receive),
+                                child: Container(
+                                  height: 100.h,
+                                  width: 200.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.r),
+                                    color: snapshot.data!.docs[index]
+                                                ['messagetype'] ==
+                                            "sender"
+                                        ? ColorManager.darkblue
+                                        : ColorManager.lightyellow,
+                                  ),
+                                  child: Image.network(
+                                    snapshot.data?.docs[index]
+                                        ['messagecontent'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Align(
+                              alignment: snapshot.data!.docs[index]
+                                          ['messagetype'] ==
+                                      "sender"
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
+                              child: ClipPath(
+                                clipper: snapshot.data!.docs[index]
+                                            ['messagetype'] ==
+                                        "sender"
+                                    ? LowerNipMessageClipper(MessageType.send)
+                                    : UpperNipMessageClipper(
+                                        MessageType.receive),
+                                child: Container(
+                                  height: 65.h,
+                                  width: 235.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.r),
+                                    color: snapshot.data!.docs[index]
+                                                ['messagetype'] ==
+                                            "sender"
+                                        ? ColorManager.darkblue
+                                        : ColorManager.lightyellow,
+                                  ),
+                                  child: Padding(
+                                    padding: snapshot.data!.docs[index]
+                                                ['messagetype'] ==
+                                            "sender"
+                                        ? EdgeInsets.only(
+                                            left: 10.w,
+                                            top: 10.h,
+                                            right: 20.w,
+                                            bottom: 10.h)
+                                        : EdgeInsets.only(
+                                            left: 20.w,
+                                            top: 15.h,
+                                            right: 20.w,
+                                            bottom: 10.h),
+                                    child: Text(
+                                      snapshot.data?.docs[index]
+                                          ['messagecontent'],
+                                      style: snapshot.data!.docs[index]
+                                                  ['messagetype'] ==
+                                              "sender"
+                                          ? regularTextStyle(
+                                              color: ColorManager.white,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w500,
+                                            )
+                                          : regularTextStyle(
+                                              color: ColorManager.textcolor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                    );
+                  },
+                );
+              }
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
         ),
       ],
-    ),
-  ],
-);
-
-Widget _sendmessage(controller) => Container(
-  padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 5.h),
-  height: 50.h,
-  width: 340.w,
-  child: TextFormField(
-    controller: controller,
-    decoration: InputDecoration(
-      filled: true,
-      fillColor: ColorManager.white,
-      prefixIcon: Padding(
-        padding: EdgeInsets.only(left: 5.w),
-        child: Image.asset(
-          AssetsManager.linkdataimage,
-        ),
-      ),
-      suffixIcon: Padding(
-        padding: EdgeInsets.only(right: 3.w),
-        child: Image.asset(AssetsManager.sendimage),
-      ),
-      hintText: StringManager.writehere,
-      hintStyle: regularTextStyle(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w400,
-          color: ColorManager.thucolor),
-      border: const OutlineInputBorder(),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12.r),
-        borderSide: BorderSide(color: ColorManager.textfeildbordercolor),
-      ),
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
-          borderSide: BorderSide(color: ColorManager.textfeildbordercolor)),
-    ),
-  ),
-);
+    );

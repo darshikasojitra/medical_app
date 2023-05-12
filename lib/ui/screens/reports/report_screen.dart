@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
@@ -165,17 +167,53 @@ Widget _booldGroupContainer = Padding(
             color: ColorManager.lightyellow,
             borderRadius: BorderRadius.circular(24.r)),
         child: Padding(
-          padding: EdgeInsets.only(left: 18.w, top: 20.h),
-          child: Row(
+          padding: EdgeInsets.only(left: 18.w, top: 20.h,right: 18.w),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(AssetsManager.weightimage),
-              SizedBox(
-                width: 50.w,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(AssetsManager.weightimage),
+                  SizedBox(
+                    width: 70.w,
+                  ),
+                  Image.asset(
+                    AssetsManager.horozontal3dots,
+                    color: ColorManager.settingiconcolor,
+                  ),
+                ],
               ),
-              Image.asset(
-                AssetsManager.horozontal3dots,
-                color: ColorManager.settingiconcolor,
+              buildSizedBoxSpacer(
+                height: 8.h,
+              ),
+              Text(
+                'Weight',
+                style: regularTextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: ColorManager.black),
+              ),
+              Row(
+                children: [
+                  Text(
+                    '80',
+                    style: regularTextStyle(
+                        fontSize: 25.sp,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.black),
+                  ),
+                  Text(
+                    ' Kg',
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontFeatures: [
+      FontFeature.subscripts(),
+    ],
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.black),
+                  ),
+                ],
               ),
             ],
           ),

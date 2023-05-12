@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/dashboard_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/common_widget.dart';
@@ -15,8 +16,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthServices _auth = AuthServices();
   final _loginfromKey = GlobalKey<FormState>();
   final _signupfromKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _phnnoController = TextEditingController();
+  bool isprocessing = false;
   bool _isSignup = true;
   bool _isaMale = true;
   bool _passwordVisible = false;
@@ -42,11 +49,33 @@ class _LoginScreenState extends State<LoginScreen> {
       isSignup, loginformkey, signupformkey) async {
     if (!isSignup) {
       if (loginformkey.currentState!.validate()) {
-        Navigator.pushNamed(context, DashboardScreen.id);
+        setState(() {
+          isprocessing = true;
+        });
+        final user = await _auth.signInUsingEmailPassword(
+            email: _emailController.text, password: _passwordController.text);
+        if (user != null) {
+          Navigator.push(context,MaterialPageRoute(builder: (context) => DashboardScreen(),));
+          //Navigator.pushNamed(context, DashboardScreen.id);
+          setState(() {
+            isprocessing = false;
+          });
+        }
       }
     }
     if (isSignup) {
+      setState(() {
+        isprocessing = true;
+      });
       if (signupformkey.currentState!.validate()) {
+        _auth.registerUsingEmailPassword(
+          name: _usernameController.text.trim(),
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        setState(() {
+          isprocessing = false;
+        });
         Navigator.pushNamed(context, DashboardScreen.id);
       }
     }
@@ -134,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           _bottomContainer(false, _isSignup, context, _loginfromKey,
               _signupfromKey, _showDashboardScreen),
-          _orSignupWith(_isSignup),
+          _orSignupWith(_isSignup, _auth, context),
         ],
       ),
     );
@@ -198,6 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               CustomTextFeild(
                   obscureText: false,
+                  controller: _emailController,
                   hintText: StringManager.enteremail,
                   prefixIcon: Icon(
                     Icons.email_outlined,
@@ -207,6 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
               buildSizedBoxSpacer(height: 14.h),
               CustomTextFeild(
                   obscureText: !_passwordVisible,
+                  controller: _passwordController,
                   hintText: StringManager.enterpassword,
                   prefixIcon: Icon(
                     Icons.lock_outline,
@@ -229,7 +260,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         StringManager.forgotpassword,
                         style: regularTextStyle(
-                            color: ColorManager.schedulecolor, fontSize: 14.sp,fontWeight: FontWeight.w500),
+                            color: ColorManager.schedulecolor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500),
                       )))
             ],
           ),
@@ -247,6 +280,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   CustomTextFeild(
                       obscureText: false,
+                      controller: _usernameController,
                       prefixIcon: Icon(
                         Icons.person_outlined,
                         color: ColorManager.schedulecolor,
@@ -256,6 +290,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   buildSizedBoxSpacer(height: 10.h),
                   CustomTextFeild(
                       obscureText: false,
+                      controller: _emailController,
                       prefixIcon: Icon(
                         Icons.email_outlined,
                         color: ColorManager.schedulecolor,
@@ -265,6 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   buildSizedBoxSpacer(height: 10.h),
                   CustomTextFeild(
                       obscureText: !_passwordVisible,
+                      controller: _passwordController,
                       prefixIcon: Icon(
                         Icons.lock,
                         color: ColorManager.schedulecolor,
@@ -284,6 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   IntlPhoneField(
                     flagsButtonPadding: EdgeInsets.only(left: 10.w),
                     dropdownIconPosition: IconPosition.trailing,
+                    controller: _phnnoController,
                     decoration: InputDecoration(
                       hintText: StringManager.enterphnno,
                       hintStyle: regularTextStyle(
@@ -304,7 +341,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(35.r)),
                     ),
                     initialCountryCode: 'IN',
-                    
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -447,7 +483,7 @@ AnimatedPositioned _bottomContainer(bool showShadow, isSignup, context,
   );
 }
 
-Widget _orSignupWith(isSignup) => Positioned(
+Widget _orSignupWith(isSignup, auth, context) => Positioned(
       top: 590.h,
       left: 0,
       right: 0,
@@ -492,7 +528,7 @@ Widget _orSignupWith(isSignup) => Positioned(
                 ),
                 buildSizedBoxSpacer(width: 15.w),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => auth.signup(context),
                   child: Container(
                     height: 40.h,
                     width: 45.w,

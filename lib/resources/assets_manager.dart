@@ -67,5 +67,8 @@ class AssetsManager {
   static const String searchimage = "$imagepath/search_image.png";
   static const String homeimage = "$imagepath/home_image.png";
   static const String googleimage = "$imagepath/google.png";
+   static const String paypal = "$imagepath/paypal.png";
+   static const String vediocall = "$imagepath/vediocall.png";
+    static const String payoneer = "$imagepath/payoneer.png";
   
 }

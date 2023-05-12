@@ -12,7 +12,7 @@ import '../ui/screens/schedule/schedule_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   LoginScreen.id: (context) => const LoginScreen(),
   HomeScreen.id: (context) => const HomeScreen(),
-  DashboardScreen.id: (context) => const DashboardScreen(),
+  DashboardScreen.id: (context) => DashboardScreen(),
   DoctorSearchScreen.id: (context) => const DoctorSearchScreen(),
   MedicineSearchScreen.id: (context) => const MedicineSearchScreen(),
   NotoficationScreen.id: (context) => const NotoficationScreen(),

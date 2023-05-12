@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointments.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/widgets/common_widget/custombutton.dart';
 
-class AppoinmentScreen extends StatelessWidget {
+import 'package:medical_app/widgets/common_widget/common_widget.dart';
+
+class AppoinmentScreen extends StatefulWidget {
   static const String id = 'AppoinmentScreen';
   const AppoinmentScreen(
     this.populardoctorimage,
@@ -14,13 +16,30 @@ class AppoinmentScreen extends StatelessWidget {
   });
   final Image populardoctorimage;
   final String doctorname;
+
+  @override
+  State<AppoinmentScreen> createState() => _AppoinmentScreenState();
+}
+
+List<String> list = <String>[
+  '10AM - 11AM',
+  '11AM - 12PM',
+  '6PM - 7PM',
+  '7PM - 8PM',
+  '8PM - 9PM'
+];
+
+class _AppoinmentScreenState extends State<AppoinmentScreen> {
+  String dropdownValue = list.first;
+ 
   Future<void> _showMakeAppoinmentScreen(context) async {
+    
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => MakeAppoinmentScreen(
-            populardoctorimage: populardoctorimage,
-            doctorname: doctorname,
+            populardoctorimage: widget.populardoctorimage,
+            doctorname: widget.doctorname,
           ),
         ));
   }
@@ -37,11 +56,11 @@ class AppoinmentScreen extends StatelessWidget {
               buildSizedBoxSpacer(
                 height: 40.h,
               ),
-              populardoctorimage,
+              widget.populardoctorimage,
               buildSizedBoxSpacer(
                 height: 20.h,
               ),
-              _doctorIntro(doctorname),
+              _doctorIntro(widget.doctorname),
               buildSizedBoxSpacer(
                 height: 35.h,
               ),
@@ -69,7 +88,7 @@ class AppoinmentScreen extends StatelessWidget {
               buildSizedBoxSpacer(
                 height: 30.h,
               ),
-              _scheduleContainer,
+              _scheduleContainer(),
               buildSizedBoxSpacer(
                 height: 40.h,
               ),
@@ -93,6 +112,60 @@ class AppoinmentScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _scheduleContainer() => Container(
+        height: 70.h,
+        width: 300.w,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          border: Border.all(color: ColorManager.bordercolor),
+          borderRadius: BorderRadius.circular(24.r),
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 15.w, right: 20.w),
+              child: Container(
+                height: 46.h,
+                width: 52.w,
+                decoration: BoxDecoration(
+                  color: ColorManager.lightblue,
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: Image.asset(AssetsManager.detailscreenclock),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  StringManager.schedule,
+                  style: regularTextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12.sp,
+                    color: ColorManager.symptomscolor,
+                  ),
+                ),
+                CommonDropDown(
+                  value: dropdownValue,
+                  onChanged: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                  },
+                  items: list.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }
 
 Widget _appbar(context) => Row(
@@ -186,55 +259,3 @@ Widget _doctorIntro(doctorname) => Column(
         )
       ],
     );
-
-Widget _scheduleContainer = Container(
-  height: 70.h,
-  width: 300.w,
-  decoration: BoxDecoration(
-    color: ColorManager.white,
-    border: Border.all(color: ColorManager.bordercolor),
-    borderRadius: BorderRadius.circular(24.r),
-  ),
-  child: Row(
-    children: [
-      Padding(
-        padding: EdgeInsets.only(left: 15.w, right: 20.w),
-        child: Container(
-          height: 46.h,
-          width: 52.w,
-          decoration: BoxDecoration(
-            color: ColorManager.lightblue,
-            borderRadius: BorderRadius.circular(16.r),
-          ),
-          child: Image.asset(AssetsManager.detailscreenclock),
-        ),
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            StringManager.schedule,
-            style: regularTextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 12.sp,
-              color: ColorManager.symptomscolor,
-            ),
-          ),
-          Text(
-            StringManager.sixtonine,
-            style: regularTextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 15.sp,
-              color: ColorManager.darkblack,
-            ),
-          )
-        ],
-      ),
-      buildSizedBoxSpacer(
-        width: 100.w,
-      ),
-      Image.asset(AssetsManager.detailscreenarrow)
-    ],
-  ),
-);

@@ -1,14 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home.dart';
+import 'doctors_details/doctor_search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String id = 'HomeScreen';
+  
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AuthServices _auth = AuthServices();
     Future<void> serviceMethod(index) async {
       if (index == 0) {
         Navigator.pushNamed(context, DoctorSearchScreen.id);
@@ -35,18 +40,7 @@ class HomeScreen extends StatelessWidget {
       ColorManager.lightgreen,
       ColorManager.lightpink,
     ];
-    final List appoinmentbigcontainercolor = [
-      ColorManager.darkblue,
-      ColorManager.lightyellow,
-      ColorManager.darkgreen,
-      ColorManager.darkpink,
-    ];
-    final List appoinmentsmallcontainercolor = [
-      ColorManager.smallcontainercolor,
-      ColorManager.darkyellow,
-      ColorManager.lightgreen,
-      ColorManager.lightpink,
-    ];
+
     final List image = [
       Image.asset(AssetsManager.doctorimage),
       Image.asset(AssetsManager.pillicon),
@@ -95,8 +89,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            _upoinmentcard(appoinmentbigcontainercolor,
-                appoinmentsmallcontainercolor, date, day)
+            _upoinmentcard(date, day,_auth)
           ],
         ),
       )),
@@ -270,105 +263,119 @@ Widget _medicalServicecard = Padding(
   ),
 );
 
-Widget _upoinmentcard(bigcontainercolor, smallcontainercolor, date, day) =>
-    Padding(
+Widget _upoinmentcard(date, day,auth) => Padding(
       padding: EdgeInsets.only(
         top: 15.h,
       ),
       child: SizedBox(
         height: 100.h,
         width: double.infinity,
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: index == 0
-                  ? EdgeInsets.only(left: 28.w, right: 15.w)
-                  : EdgeInsets.only(right: 12.w),
-              child: Container(
-                  height: 100.h,
-                  width: 265.w,
-                  decoration: BoxDecoration(
-                    color: bigcontainercolor[index],
-                    borderRadius: BorderRadius.circular(28.r),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 8.h, right: 12.w),
-                        child: Container(
-                          height: 75.h,
-                          width: 63.w,
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('user').doc(auth.getUser()!.uid).collection("appointment")
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if(snapshot.data!.docs.isEmpty){return Center(child: Text('No Appointments'),);}
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot doc = snapshot.data!.docs.elementAt(index);
+                    return Padding(
+                      padding: index == 0
+                          ? EdgeInsets.only(left: 28.w, right: 15.w)
+                          : EdgeInsets.only(right: 12.w),
+                      child: Container(
+                          height: 100.h,
+                          width: 265.w,
                           decoration: BoxDecoration(
-                            color: smallcontainercolor[index],
-                            borderRadius: BorderRadius.circular(21.r),
+                            color: ColorManager.darkblue,
+                            borderRadius: BorderRadius.circular(28.r),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Row(
                             children: [
-                              Text(
-                                date[index],
-                                style: regularTextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w800,
-                                    color: ColorManager.white),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 8.h, right: 12.w),
+                                child: Container(
+                                  height: 75.h,
+                                  width: 63.w,
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.smallcontainercolor,
+                                    borderRadius: BorderRadius.circular(21.r),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${doc['date']}',
+                                        style: regularTextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w800,
+                                            color: ColorManager.white),
+                                      ),
+                                      Text('${doc['day']}',
+                                          style: regularTextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.white)),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              Text(day[index],
-                                  style: regularTextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.white)),
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 143.w,
+                                          bottom: 5.h,
+                                          top: 5.h,
+                                          right: 20.w),
+                                      child: Image.asset(
+                                          AssetsManager.horozontal3dots),
+                                    ),
+                                    Text(
+                                      '${doc['time']}',
+                                      style: regularTextStyle(
+                                        color: ColorManager.white,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${doc['doctorname']}',
+                                      style: regularTextStyle(
+                                        color: ColorManager.white,
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      StringManager.depression,
+                                      style: regularTextStyle(
+                                        color:
+                                            ColorManager.doctorcontainercolor,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
                             ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 143.w,
-                                  bottom: 5.h,
-                                  top: 5.h,
-                                  right: 20.w),
-                              child: Image.asset(AssetsManager.horozontal3dots),
-                            ),
-                            Text(
-                              StringManager.time9_30,
-                              style: regularTextStyle(
-                                color: ColorManager.white,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              StringManager.drmim,
-                              style: regularTextStyle(
-                                color: ColorManager.white,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Text(
-                              StringManager.depression,
-                              style: regularTextStyle(
-                                color: ColorManager.doctorcontainercolor,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-            );
-          },
-        ),
+                          )),
+                    );
+                  },
+                );
+              }
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
       ),
     );

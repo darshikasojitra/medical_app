@@ -14,7 +14,11 @@ class DoctorSearchScreen extends StatefulWidget {
 
 class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
   bool light = true;
+   bool _seeall = false;
   final List _populardoctorimage = [
+    Image.asset(AssetsManager.drmim),
+    Image.asset(AssetsManager.drjon),
+    Image.asset(AssetsManager.drzim),
     Image.asset(AssetsManager.drmim),
     Image.asset(AssetsManager.drjon),
     Image.asset(AssetsManager.drzim)
@@ -30,6 +34,9 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 
   final List _doctorname = [
     StringManager.drmim,
+    StringManager.drjon,
+    StringManager.drzim,
+     StringManager.drmim,
     StringManager.drjon,
     StringManager.drzim
   ];
@@ -109,7 +116,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 25.w),
+            padding: EdgeInsets.only(left: 25.w, right: 20.w, top: 25.w),
             child: Row(
               children: [
                 Text(
@@ -121,21 +128,26 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                   ),
                 ),
                 buildSizedBoxSpacer(
-                  width: 145.w,
+                  width: 125.w,
                 ),
-                Text(
+                TextButton(onPressed: (){
+                  setState(() {
+                    _seeall = true;
+                  });
+                }, child: Text(
                   StringManager.seeall,
                   style: regularTextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 12.sp,
                     color: ColorManager.darkblue,
                   ),
-                ),
+                ),)
+                
               ],
             ),
           ),
           _popularDoctorContainer(
-              _populardoctorimage, _doctorname, _showDoctorScreen)
+              _populardoctorimage, _doctorname, _showDoctorScreen,_seeall)
         ],
       ),
     ));
@@ -187,13 +199,13 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 }
 
 Widget _popularDoctorContainer(
-        populardoctorimage, doctorname, showDoctorScreen) =>
+        populardoctorimage, doctorname, showDoctorScreen,seeall) =>
     SizedBox(
-      height: 350.h,
+      height: 370.h,
       width: 370.w,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: populardoctorimage.length,
+        itemCount: seeall==true?6:3,
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(bottom: 17.h, left: 25.w),

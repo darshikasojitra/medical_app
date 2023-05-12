@@ -35,7 +35,11 @@ class _NewTableCalenderState extends State<NewTableCalender> {
   Future<void> _showFocusDay(focusedDay) async {
     _focusedDay = focusedDay;
   }
-
+@override
+  void initState() {
+   print("selected days -- ${_selectedDay?.day}");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,10 +94,22 @@ class _NewTableCalenderState extends State<NewTableCalender> {
         selectedDayPredicate: (day) {
           return isSameDay(_selectedDay, day);
         },
-        onDaySelected: (selectedDay, focusedDay) =>
-            _showSelectedDay(selectedDay, focusedDay),
-        onFormatChanged: (format) => _showCalenderFormat(format),
-        onPageChanged: (focusedDay) => _showFocusDay(focusedDay),
+        onDaySelected: (selectedDay, focusedDay) {
+          if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+      });
+    }
+        },
+        onFormatChanged: (format) => {
+          if (_calendarFormat != format) {
+      setState(() {
+        _calendarFormat = format;
+      }),
+    }
+        },
+        onPageChanged: (focusedDay) =>  _focusedDay = focusedDay,
       ),
     );
   }

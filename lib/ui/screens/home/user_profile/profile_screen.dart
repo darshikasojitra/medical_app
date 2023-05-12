@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:medical_app/ui/screens/login/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'ProfileScreen';
@@ -12,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+   final AuthServices _auth = AuthServices();
   final List _icons = [
     Icon(
       Icons.settings_sharp,
@@ -40,6 +44,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     StringManager.paymentmethod,
     StringManager.paymentmethod
   ];
+  Future<void> _signout() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      await FirebaseAuth.instance.signOut();
+    }
+    if (mounted) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, LoginScreen.id, (route) => false);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,24 +150,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 90.w, top: 27.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        color: ColorManager.logoutcolor,
-                        size: 28.sp,
-                      ),
-                      buildSizedBoxSpacer(
-                        width: 20.w,
-                      ),
-                      Text(
-                        StringManager.logout,
-                        style: regularTextStyle(
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.logoutcolor),
-                      )
-                    ],
+                  child: GestureDetector(
+                    onTap: () => _signout(),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: ColorManager.logoutcolor,
+                          size: 28.sp,
+                        ),
+                        buildSizedBoxSpacer(
+                          width: 20.w,
+                        ),
+                        Text(
+                          StringManager.logout,
+                          style: regularTextStyle(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.logoutcolor),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

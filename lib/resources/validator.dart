@@ -23,4 +23,24 @@ class Validator {
     RequiredValidator(errorText: StringManager.enterphnno),
     MinLengthValidator(10, errorText: StringManager.pleaseentervalidphnno),
   ]);
+
+  static MultiValidator cardnamevalidator =
+      MultiValidator([RequiredValidator(errorText: 'enter card name')]);
+
+  static MultiValidator cardnovalidator = MultiValidator([
+    RequiredValidator(errorText: 'enter card number'),
+    //MaxLengthValidator(17, errorText: 'enter 16 digit card number '),
+    PatternValidator(r'[0-9]', errorText: 'enter only numbers')
+  ]);
+
+  static MultiValidator expdatevalidator = MultiValidator([
+    RequiredValidator(errorText: 'enter expiry date'),
+    PatternValidator(r'^\d{2}\/\d{2}$', errorText: 'enter date mm/yy')
+  ]);
+
+  static MultiValidator cvvnovalidator = MultiValidator([
+    RequiredValidator(errorText: 'enter CVV number'),
+    PatternValidator(r'[0-9]', errorText: 'enter only numbers'),
+    MaxLengthValidator(3, errorText: 'enter 3 digit CVV number '),
+  ]);
 }

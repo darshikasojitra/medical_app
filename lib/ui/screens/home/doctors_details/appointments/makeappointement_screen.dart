@@ -4,6 +4,10 @@ import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointments.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import '../../../../../services/auth_services.dart';
 
 class MakeAppoinmentScreen extends StatefulWidget {
   static const String id = 'MakeAppoinmentScreen';
@@ -18,6 +22,11 @@ class MakeAppoinmentScreen extends StatefulWidget {
 
 class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
   int _myindex = 0;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  final AuthServices _auth = AuthServices();
+  DateTime _focusedDay = DateTime.now();
+  DateTime? scheduleTime;
+  DateTime? _selectedDay;
   final List _time = [
     StringManager.time9_30,
     StringManager.time10_30,
@@ -26,14 +35,33 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     StringManager.time12_00,
     StringManager.time12_30
   ];
+  String? finaltime;
 
   Future<void> _selectTime(index) async {
     setState(() {
       _myindex = index;
+      finaltime = _time[index];
+      print("final timeeeeee${finaltime}");
     });
   }
 
   Future<void> _showPaymentScreen(populardoctorimage, doctorname) async {
+    setState(() {
+      scheduleTime = _selectedDay ?? _focusedDay;
+      print("selected time in this --- ${scheduleTime}");
+      FirebaseFirestore.instance
+          .collection('user')
+          .doc(_auth.getUser()!.uid)
+          .collection("appointment")
+          .doc()
+          .set({
+        'doctorname': widget.doctorname,
+        'date': DateFormat.d().format(scheduleTime as DateTime),
+        'day': DateFormat.E().format(scheduleTime as DateTime),
+        'time': finaltime,
+        'uid': _auth.getUser()!.uid
+      });
+    });
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -42,6 +70,14 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
             doctorname: doctorname,
           ),
         ));
+  }
+
+  @override
+  void initState() {
+    setState(() {});
+    // print("timeeeeee${_focusedDay.day}");
+    // print("select timeeeeee${_selectedDay }");
+    super.initState();
   }
 
   @override
@@ -79,13 +115,87 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
             ),
           ),
           SizedBox(
-              height: 274.h, width: 322.w, child: const NewTableCalender()),
+            height: 274.h, width: 322.w,
+            child: newCalender(),
+            //const NewTableCalender()
+          ),
           displaybottomcontainer(context, _selectTime, _myindex, _time,
               widget.populardoctorimage, widget.doctorname, _showPaymentScreen)
         ],
       ),
     );
   }
+
+  Widget newCalender() => TableCalendar(
+        rowHeight: 35.h,
+        daysOfWeekVisible: false,
+        headerStyle: HeaderStyle(
+          titleTextFormatter: (date, locale) =>
+              DateFormat.MMMM(locale).format(_focusedDay).toString(),
+          formatButtonVisible: false,
+          titleCentered: true,
+          titleTextStyle: regularTextStyle(
+            color: ColorManager.darkblack,
+            fontSize: 34.sp,
+            fontWeight: FontWeight.w800,
+          ),
+          leftChevronIcon: Icon(
+            Icons.chevron_left,
+            color: ColorManager.settingiconcolor,
+            size: 30.sp,
+          ),
+          rightChevronIcon: Icon(
+            Icons.chevron_right,
+            color: ColorManager.settingiconcolor,
+            size: 30.sp,
+          ),
+        ),
+        calendarStyle: CalendarStyle(
+          todayDecoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: ColorManager.darkblue,
+          ),
+          todayTextStyle: regularTextStyle(
+              color: ColorManager.white,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: 15.sp),
+          selectedDecoration: BoxDecoration(
+            color: ColorManager.darkblue,
+            shape: BoxShape.circle,
+          ),
+          selectedTextStyle: regularTextStyle(
+              color: ColorManager.white,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: 15.sp),
+        ),
+        focusedDay: _focusedDay,
+        firstDay: DateTime.utc(2020, 10, 20),
+        lastDay: DateTime.utc(2040, 10, 20),
+        calendarFormat: _calendarFormat,
+        selectedDayPredicate: (day) {
+          return isSameDay(_selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) {
+          if (!isSameDay(_selectedDay, selectedDay)) {
+            setState(() {
+              _selectedDay = selectedDay;
+              _focusedDay = focusedDay;
+            });
+            setState(() {});
+          }
+        },
+        onFormatChanged: (format) => {
+          if (_calendarFormat != format)
+            {
+              setState(() {
+                _calendarFormat = format;
+              }),
+            }
+        },
+        onPageChanged: (focusedDay) => _focusedDay = focusedDay,
+      );
 }
 
 Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
@@ -127,7 +237,9 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
                   itemCount: 6,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () => selectTime(index),
+                      onTap: () {
+                        selectTime(index);
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: 50.h,
@@ -157,8 +269,8 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
                 top: 40.h,
               ),
               child: CustomButtons(
-                onPressed: () =>
-                    showPaymentScreen(populardoctorimage, doctorname),
+                onPressed: () async =>
+                    await showPaymentScreen(populardoctorimage, doctorname),
                 height: 46.h,
                 minWidth: double.infinity,
                 color: ColorManager.white,

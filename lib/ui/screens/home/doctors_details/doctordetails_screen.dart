@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointment_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
-import 'package:medical_app/widgets/common_widget/custombutton.dart';
+import 'package:medical_app/widgets/common_widget/common_widget.dart';
 
-class DoctorDetailScreen extends StatelessWidget {
+class DoctorDetailScreen extends StatefulWidget {
   static const String id = 'DoctorDetailScreen';
 
   const DoctorDetailScreen(this.populardoctorimage, this.doctorname,
@@ -13,6 +13,17 @@ class DoctorDetailScreen extends StatelessWidget {
   final Image populardoctorimage;
   final String doctorname;
 
+  @override
+  State<DoctorDetailScreen> createState() => _DoctorDetailScreenState();
+}
+
+List<String> list = <String>[
+  '10AM - 12PM',
+  '6PM - 9PM',
+];
+
+class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
+  String dropdownValue = list.last;
   @override
   Widget build(BuildContext context) {
     final List firsttext = [
@@ -30,7 +41,7 @@ class DoctorDetailScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              AppoinmentScreen(populardoctorimage, doctorname),
+              AppoinmentScreen(widget.populardoctorimage, widget.doctorname),
         ),
       );
     }
@@ -60,7 +71,7 @@ class DoctorDetailScreen extends StatelessWidget {
                     ),
                   ),
                   _aboutText,
-                  _availabilitycard,
+                  _availabilitycard(),
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
                     child: CustomButtons(
@@ -83,10 +94,73 @@ class DoctorDetailScreen extends StatelessWidget {
             )
           ],
         ),
-        _doctorIntro(doctorname, populardoctorimage),
+        _doctorIntro(widget.doctorname, widget.populardoctorimage),
       ],
     ));
   }
+
+  Widget _availabilitycard() => Padding(
+        padding: EdgeInsets.only(left: 10.w, bottom: 35.h, right: 10.w),
+        child: Container(
+          height: 70.h,
+          width: 300.w,
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            border: Border.all(color: ColorManager.bordercolor),
+            borderRadius: BorderRadius.circular(24.r),
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 15.w, right: 20.w),
+                child: Container(
+                  height: 46.h,
+                  width: 52.w,
+                  decoration: BoxDecoration(
+                    color: ColorManager.lightblue,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: Image.asset(AssetsManager.detailscreenclock),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.h, bottom: 0),
+                    child: Text(
+                      StringManager.availability,
+                      style: regularTextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: ColorManager.darkblack,
+                      ),
+                    ),
+                  ),
+                  CommonDropDown(
+                    value: dropdownValue,
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropdownValue = value!;
+                      });
+                    },
+                    items: list.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+              buildSizedBoxSpacer(
+                width: 0.w,
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
 Widget appbarContainer(context) => Container(
@@ -228,60 +302,6 @@ Widget _aboutText = Padding(
             ),
           ),
         ),
-      ],
-    ),
-  ),
-);
-Widget _availabilitycard = Padding(
-  padding: EdgeInsets.only(left: 10.w, bottom: 35.h, right: 10.w),
-  child: Container(
-    height: 70.h,
-    width: 300.w,
-    decoration: BoxDecoration(
-      color: ColorManager.white,
-      border: Border.all(color: ColorManager.bordercolor),
-      borderRadius: BorderRadius.circular(24.r),
-    ),
-    child: Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 15.w, right: 20.w),
-          child: Container(
-            height: 46.h,
-            width: 52.w,
-            decoration: BoxDecoration(
-              color: ColorManager.lightblue,
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Image.asset(AssetsManager.detailscreenclock),
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              StringManager.availability,
-              style: regularTextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 12.sp,
-                color: ColorManager.darkblack,
-              ),
-            ),
-            Text(
-              StringManager.sixtonine,
-              style: regularTextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15.sp,
-                color: ColorManager.darkblack,
-              ),
-            )
-          ],
-        ),
-        buildSizedBoxSpacer(
-          width: 90.w,
-        ),
-        Image.asset(AssetsManager.detailscreenarrow)
       ],
     ),
   ),
