@@ -5,6 +5,8 @@ import 'package:medical_app/ui/screens/home/doctors_details/appointments/appoint
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/common_widget.dart';
 
+import 'appointments/message_screen.dart';
+
 class DoctorDetailScreen extends StatefulWidget {
   static const String id = 'DoctorDetailScreen';
 
@@ -23,7 +25,7 @@ List<String> list = <String>[
 ];
 
 class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
-  String dropdownValue = list.last;
+  String dropdownValue = list.first;
   @override
   Widget build(BuildContext context) {
     final List firsttext = [
@@ -46,12 +48,29 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       );
     }
 
+    Future<void> _showMessageScreen() async {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MessageScreen(
+              populardoctorimage: widget.populardoctorimage,
+              doctorname: widget.doctorname,
+            ),
+          ));
+    }
+
+    Future<void> _selectDropdownValue(value) async {
+      setState(() {
+        dropdownValue = value!;
+      });
+    }
+
     return Scaffold(
         body: Stack(
       children: [
         Column(
           children: [
-            appbarContainer(context),
+            appbarContainer(context, _showMessageScreen),
             Padding(
               padding: EdgeInsets.only(top: 75.h, left: 25.w, right: 25.w),
               child: Column(
@@ -71,7 +90,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     ),
                   ),
                   _aboutText,
-                  _availabilitycard(),
+                  _availabilitycard(_selectDropdownValue),
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
                     child: CustomButtons(
@@ -99,7 +118,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
     ));
   }
 
-  Widget _availabilitycard() => Padding(
+  Widget _availabilitycard(selectDropdownValue) => Padding(
         padding: EdgeInsets.only(left: 10.w, bottom: 35.h, right: 10.w),
         child: Container(
           height: 70.h,
@@ -140,11 +159,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                   ),
                   CommonDropDown(
                     value: dropdownValue,
-                    onChanged: (String? value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
+                    onChanged: (String? value) => selectDropdownValue(value),
                     items: list.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -163,7 +178,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       );
 }
 
-Widget appbarContainer(context) => Container(
+Widget appbarContainer(context, showMessageScreen) => Container(
       height: 165.h,
       width: double.infinity,
       color: ColorManager.darkblue,
@@ -209,10 +224,11 @@ Widget appbarContainer(context) => Container(
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(color: ColorManager.bordercolor)),
                 child: GestureDetector(
-                    onTap: () {},
-                    child: Image.asset(
-                      AssetsManager.linkimage,
-                      color: ColorManager.white,
+                    onTap: () => showMessageScreen(),
+                    child: Icon(
+                      Icons.message,
+                      color: ColorManager.bordercolor,
+                      size: 20.h,
                     )),
               ),
             ],

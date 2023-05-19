@@ -35,7 +35,8 @@ class AssetsManager {
   static const String zimimage = "$imagepath/zim_image.png";
   static const String starimage = "$imagepath/star_image.png";
   static const String linkimage = "$imagepath/link_image.png";
-  static const String detailscreendrimage = "$imagepath/detailscreendr_image.png";
+  static const String detailscreendrimage =
+      "$imagepath/detailscreendr_image.png";
   static const String detailscreenclock = "$imagepath/detailscreenclock.png";
   static const String detailscreenarrow = "$imagepath/detailscreenarrow.png";
   static const String locationimage = "$imagepath/location_image.png";
@@ -60,15 +61,16 @@ class AssetsManager {
   static const String sendimage = "$imagepath/send_image.png";
   static const String linkdataimage = "$imagepath/linkdata_image.png";
   static const String skinimage = "$imagepath/skin_image.png";
-  static const String pharmacylocationimage = "$imagepath/pharmacylocation_image.png";
+  static const String pharmacylocationimage =
+      "$imagepath/pharmacylocation_image.png";
   static const String pharmaimage = "$imagepath/pharma_image.png";
   static const String smallclockimage = "$imagepath/smallclock_image.png";
   static const String locationarrowimage = "$imagepath/locationarrow_image.png";
   static const String searchimage = "$imagepath/search_image.png";
   static const String homeimage = "$imagepath/home_image.png";
   static const String googleimage = "$imagepath/google.png";
-   static const String paypal = "$imagepath/paypal.png";
-   static const String vediocall = "$imagepath/vediocall.png";
-    static const String payoneer = "$imagepath/payoneer.png";
-  
+  static const String paypal = "$imagepath/paypal.png";
+  static const String vediocall = "$imagepath/vediocall.png";
+  static const String payoneer = "$imagepath/payoneer.png";
+  static const String livedotimage = "$imagepath/livedot_image.png";
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
-import 'package:intl/intl.dart';
 import 'package:medical_app/ui/screens/schedule/doctors_schedule.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -14,57 +14,10 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 DateTime? _selectedDate;
-String? _selectedDay;
-
-extension DateTimeExtension on DateTime {
-  String? weekdayName(int weekday) {
-    const Map<int, String> weekdayName = {
-      1: "Mon",
-      2: "Tue",
-      3: "Wed",
-      4: "Thu",
-      5: "Fri",
-      6: "Sat",
-      7: "Sun"
-    };
-    return weekdayName[weekday];
-  }
-}
+String?  _selectedDay;
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
   int _dateIndex = 0;
-  List<String> date = [
-    _selectedDate == null
-        ? DateTime.now().day.toString()
-        : (_selectedDate!.day).toString(),
-    _selectedDate == null
-        ? (DateTime.now().day + 1).toString()
-        : ((_selectedDate!.day) + 1).toString(),
-    _selectedDate == null
-        ? (DateTime.now().day + 2).toString()
-        : ((_selectedDate!.day) + 2).toString(),
-    _selectedDate == null
-        ? (DateTime.now().day + 3).toString()
-        : ((_selectedDate!.day) + 3).toString(),
-    _selectedDate == null
-        ? (DateTime.now().day + 4).toString()
-        : ((_selectedDate!.day) + 4).toString(),
-    _selectedDate == null
-        ? (DateTime.now().day + 5).toString()
-        : ((_selectedDate!.day) + 5).toString(),
-    _selectedDate == null
-        ? (DateTime.now().day + 6).toString()
-        : ((_selectedDate!.day) + 6).toString(),
-  ];
-  List day = [
-    _selectedDay ?? DateFormat.E().format(DateTime.now()),
-    DateTime.now().weekdayName(2),
-    DateTime.now().weekdayName(3),
-    DateTime.now().weekdayName(4),
-    DateTime.now().weekdayName(5),
-    DateTime.now().weekdayName(6),
-    DateTime.now().weekdayName(7),
-  ];
   Future<void> _dateIndexMethod(index) async {
     setState(() {
       _dateIndex = index;
@@ -93,11 +46,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 width: 175.w,
               ),
               GestureDetector(
-                  onTap: ()  async{
+                  onTap: () async {
                     await _selectDate(context);
-                    setState(() {
-                      
-                    });
+                    setState(() {});
                   },
                   child: Image.asset(AssetsManager.scheduleimage))
             ],
@@ -111,6 +62,17 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             scrollDirection: Axis.horizontal,
             itemCount: 7,
             itemBuilder: (context, index) {
+              String finalday;
+              String selectdate;
+              DateTime? unselecteddate =
+                  (DateTime.now()).add(Duration(days: index));
+              DateTime? finaldate = _selectedDate?.add(Duration(days: index));
+              selectdate = _selectedDate == null
+                  ? DateFormat.d().format(unselecteddate)
+                  : DateFormat.d().format(finaldate!);
+              finalday = _selectedDate == null
+                  ? DateFormat.E().format(unselecteddate)
+                  : DateFormat.E().format(finaldate!);
               return Padding(
                 padding: index == 0
                     ? EdgeInsets.only(left: 25.w, right: 10.w)
@@ -130,7 +92,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          date[index],
+                          selectdate,
                           style: regularTextStyle(
                               fontSize: 19.sp,
                               fontWeight: FontWeight.w800,
@@ -139,7 +101,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   : ColorManager.hellotextcolor),
                         ),
                         Text(
-                          day[index],
+                          finalday,
                           style: regularTextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
@@ -161,11 +123,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   }
 
   _selectDate(BuildContext context) async {
-     await showDatePicker(
+    await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2010),
-      lastDate: DateTime(2027),
+      firstDate: DateTime.now(),
+      lastDate: (DateTime.now()).add(Duration(days: 30)),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -185,10 +147,10 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       },
     ).then((value) {
       if (value != null) {
-        _selectedDate = value;
-        _selectedDay = DateFormat.E().format(value);
-        setState(() {});
+        setState(() {
+          _selectedDate = value;
+        });
       }
-    });   
+    });
   }
 }

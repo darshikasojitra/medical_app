@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class BottomsheetContainer extends StatefulWidget {
   const BottomsheetContainer({super.key});
@@ -13,15 +14,33 @@ class BottomsheetContainer extends StatefulWidget {
 
 class _BottomsheetContainerState extends State<BottomsheetContainer> {
   int _myindex = 0;
+  bool light = true;
   int _yerindex = 0;
   final List _categoryimage = [
     Image.asset(
       AssetsManager.dentistimage,
-      color: ColorManager.darkblack,
+      height: 35.h,
+      width: 35.w,
+      color: ColorManager.settingiconcolor,
     ),
-    Image.asset(AssetsManager.surgeonimage),
-    Image.asset(AssetsManager.allergistimage),
-    Image.asset(AssetsManager.urologistimage),
+    Image.asset(
+      AssetsManager.surgeonimage,
+      height: 30.h,
+      width: 32.w,
+      color: ColorManager.settingiconcolor,
+    ),
+    Image.asset(
+      AssetsManager.allergistimage,
+      height: 30.h,
+      width: 30.w,
+      color: ColorManager.settingiconcolor,
+    ),
+    Image.asset(
+      AssetsManager.urologistimage,
+      height: 35.h,
+      width: 35.w,
+      color: ColorManager.settingiconcolor,
+    ),
   ];
   final List _categorytext = [
     StringManager.dentist,
@@ -62,7 +81,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                   width: 40.w,
                   decoration: BoxDecoration(
                     color: ColorManager.darkblue,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
               ),
@@ -84,7 +103,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
               ),
               _categoriesText(),
               buildSizedBoxSpacer(
-                height: 20.h,
+                height: 25.h,
               ),
               Row(
                 children: [
@@ -101,7 +120,20 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                   buildSizedBoxSpacer(
                     width: 25.w,
                   ),
-                  Image.asset(AssetsManager.switchimage),
+                  FlutterSwitch(
+                    height: 25.h,
+                    width: 55.w,
+                    padding: 4.0,
+                    toggleSize: 25.w,
+                    borderRadius: 8.r,
+                    activeColor: ColorManager.darkyellow,
+                    value: light,
+                    onToggle: (value) {
+                      setState(() {
+                        light = value;
+                      });
+                    },
+                  ),
                 ],
               ),
               buildSizedBoxSpacer(
@@ -151,7 +183,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
   Widget _categoriesText() => Row(
         children: [
           SizedBox(
-            height: 82.h,
+            height: 70.h,
             width: 310.w,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -159,49 +191,37 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(right: 14.w),
-                  child: Container(
-                    height: 92.h,
-                    width: 67.w,
-                    decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: Border.all(
-                            color: _myindex == index
-                                ? ColorManager.darkblue
-                                : ColorManager.bordercolor)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 8.h, top: 5.h),
-                          child: GestureDetector(
-                            onTap: () => _selectMyIndex(index),
-                            child: Container(
-                              height: 46.h,
-                              width: 52.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                border: Border.all(
-                                    color: _myindex == index
-                                        ? ColorManager.darkblue
-                                        : ColorManager.bordercolor),
-                                color: _myindex == index
-                                    ? ColorManager.darkblue
-                                    : ColorManager.white,
-                              ),
-                              child: _categoryimage[index],
-                            ),
-                          ),
-                        ),
-                        Text(
-                          _categorytext[index],
-                          style: regularTextStyle(
-                              fontSize: 11.sp,
-                              fontWeight: FontWeight.w600,
+                  child: GestureDetector(
+                    onTap: () => _selectMyIndex(index),
+                    child: Container(
+                      height: 92.h,
+                      width: 67.w,
+                      decoration: BoxDecoration(
+                          color: ColorManager.white,
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(
                               color: _myindex == index
                                   ? ColorManager.darkblue
-                                  : ColorManager.settingiconcolor),
-                        ),
-                      ],
+                                  : ColorManager.bordercolor)),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 0.h, top: 0.h),
+                            child: _categoryimage[index],
+                          ),
+                          Text(
+                            _categorytext[index],
+                            style: regularTextStyle(
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w600,
+                                color: _myindex == index
+                                    ? ColorManager.darkblue
+                                    : ColorManager.settingiconcolor),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

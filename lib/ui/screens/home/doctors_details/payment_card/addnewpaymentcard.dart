@@ -17,21 +17,25 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
   final AuthServices _auth = AuthServices();
   String? selectedImage;
   final _fromKey = GlobalKey<FormState>();
-  FocusNode cardnamefocusnode = FocusNode();
-  FocusNode cardnofocusnode = FocusNode();
-  FocusNode blancefocusnode = FocusNode();
-  FocusNode expdatefocusnode = FocusNode();
-  FocusNode cvvnofocusnode = FocusNode();
   final ScrollController _scrollcontroller = ScrollController();
-  TextEditingController cardname = TextEditingController();
+  TextEditingController paypalname = TextEditingController();
+  TextEditingController paypalcardnumber = TextEditingController();
+  TextEditingController paypalexpdate = TextEditingController();
+  TextEditingController paypalcvvnumber = TextEditingController();
+
+  TextEditingController payonnername = TextEditingController();
+  TextEditingController payonnercardnumber = TextEditingController();
+  TextEditingController payonnerexpdate = TextEditingController();
+  TextEditingController payonnercvvnumber = TextEditingController();
+
+  TextEditingController name = TextEditingController();
   TextEditingController cardnumber = TextEditingController();
-  TextEditingController blance = TextEditingController();
   TextEditingController expdate = TextEditingController();
   TextEditingController cvvnumber = TextEditingController();
   static bool? checkval = false;
   final List _images = [
-    AssetsManager.paypal,
-    AssetsManager.payoneer,
+    AssetsManager.paypalimage,
+    AssetsManager.payoneerimage,
     AssetsManager.visaimage
   ];
   Future<void> _selectindex(int index) async {
@@ -48,52 +52,19 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
   }
 
   Future<void> _addcardinfo() async {
-    FirebaseFirestore.instance.collection('payment').doc(_auth.getUser()!.uid).collection('cardinfo').doc().set({
+    FirebaseFirestore.instance
+        .collection('payment')
+        .doc(_auth.getUser()!.uid)
+        .collection('cardinfo')
+        .doc()
+        .set({
+      'name': name.text,
       'cardno': cardnumber.text,
       'expdate': expdate.text,
       'cvvno': cvvnumber.text,
-      'blance': blance.text,
-      'type': cardname.text,
+      'type': selectedImage.toString(),
       'uid': _auth.getUser()!.uid,
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    cardnamefocusnode = FocusNode();
-    cardnamefocusnode.addListener(() {
-      setState(() {});
-    });
-    cardnofocusnode = FocusNode();
-    cardnofocusnode.addListener(() {
-      setState(() {});
-    });
-    blancefocusnode = FocusNode();
-    blancefocusnode.addListener(() {
-      setState(() {});
-    });
-    cardnamefocusnode = FocusNode();
-    cardnamefocusnode.addListener(() {
-      setState(() {});
-    });
-    expdatefocusnode = FocusNode();
-    expdatefocusnode.addListener(() {
-      setState(() {});
-    });
-    cvvnofocusnode = FocusNode();
-    cvvnofocusnode.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    cardnamefocusnode.dispose();
-    cardnofocusnode.dispose();
-    expdatefocusnode.dispose();
-    cvvnofocusnode.dispose();
-    super.dispose();
   }
 
   @override
@@ -118,7 +89,7 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                         itemCount: _images.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            height: 50,
+                            height: 50.h,
                             width: 90.w,
                             child: cardImage(index),
                           );
@@ -229,12 +200,9 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                     children: [
                       CustomTextFeild(
                         obscureText: false,
-                        controller: cardname,
+                        controller: name,
                         validator: Validator.cardnamevalidator,
-                        focusNode: cardnamefocusnode,
-                        hintText: cardnamefocusnode.hasFocus
-                            ? 'Visa/PayPal/Payoneer'
-                            : 'Card Type',
+                        hintText: 'Account Holder name',
                       ),
                       Row(
                         children: [
@@ -253,21 +221,8 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                       CustomTextFeild(
                         obscureText: false,
                         controller: cardnumber,
-                        focusNode: cardnofocusnode,
                         validator: Validator.cardnovalidator,
-                        hintText: cardnofocusnode.hasFocus
-                            ? 'XXXX XXXX XXXX XXXX'
-                            : 'Card number',
-                      ),
-                      buildSizedBoxSpacer(height: 17.h),
-                      CustomTextFeild(
-                        obscureText: false,
-                        controller: blance,
-                        focusNode: blancefocusnode,
-                        validator: Validator.nameValidator,
-                        hintText: blancefocusnode.hasFocus
-                            ? '${00000}'
-                            : 'availlable blance',
+                        hintText: 'Card number',
                       ),
                       buildSizedBoxSpacer(height: 17.h),
                       Row(
@@ -275,14 +230,9 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                         children: [
                           Flexible(
                             child: CustomTextFeild(
-                              //keyboardType: TextInputType.number,
                               obscureText: false,
                               controller: expdate,
-                              focusNode: expdatefocusnode,
-                              hintText: expdatefocusnode.hasFocus
-                                  ? "10/29"
-                                  : 'Expiry date',
-
+                              hintText: 'Expiry date',
                               validator: Validator.expdatevalidator,
                             ),
                           ),
@@ -292,8 +242,7 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                               keyboardType: TextInputType.number,
                               obscureText: false,
                               controller: cvvnumber,
-                              focusNode: cvvnofocusnode,
-                              hintText: cvvnofocusnode.hasFocus ? '477' : 'CCV',
+                              hintText: 'CCV',
                               validator: Validator.cvvnovalidator,
                             ),
                           ),

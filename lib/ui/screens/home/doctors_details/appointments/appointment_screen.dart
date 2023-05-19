@@ -31,9 +31,8 @@ List<String> list = <String>[
 
 class _AppoinmentScreenState extends State<AppoinmentScreen> {
   String dropdownValue = list.first;
- 
+
   Future<void> _showMakeAppoinmentScreen(context) async {
-    
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -42,6 +41,12 @@ class _AppoinmentScreenState extends State<AppoinmentScreen> {
             doctorname: widget.doctorname,
           ),
         ));
+  }
+
+  Future<void> _selectvalue(value) async {
+    setState(() {
+      dropdownValue = value!;
+    });
   }
 
   @override
@@ -149,11 +154,7 @@ class _AppoinmentScreenState extends State<AppoinmentScreen> {
                 ),
                 CommonDropDown(
                   value: dropdownValue,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue = value!;
-                    });
-                  },
+                  onChanged: (String? value) => _selectvalue(value),
                   items: list.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,

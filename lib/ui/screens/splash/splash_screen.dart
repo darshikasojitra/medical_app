@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medical_app/resources/resources.dart';
@@ -24,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 4), () {
       FirebaseAuth.instance.authStateChanges().listen((event) {
         if (event != null) {
           if (mounted) {
@@ -55,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
           //   borderRadius: BorderRadius.circular(110.r),
           //  // border: Border.all(color: ColorManager.bordercolor)
           // ),
-      child: Lottie.network('https://assets2.lottiefiles.com/packages/lf20_pk5mpw6j.json'),
+      child: Lottie.network('https://assets6.lottiefiles.com/packages/lf20_pk5mpw6j.json'),
     )
       ),
     );

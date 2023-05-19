@@ -37,10 +37,10 @@ class ReportScreen extends StatelessWidget {
                     ),
                   ),
                   buildSizedBoxSpacer(
-                    width: 200.w,
+                    width: 210.w,
                   ),
                   Image.asset(
-                    AssetsManager.horozontal3dots,
+                    AssetsManager.vertical3dotsimage,
                     color: ColorManager.settingiconcolor,
                   ),
                 ],
@@ -127,10 +127,10 @@ Widget _booldGroupContainer = Padding(
                   children: [
                     Image.asset(AssetsManager.bloodimage),
                     buildSizedBoxSpacer(
-                      width: 85.w,
+                      width: 95.w,
                     ),
                     Image.asset(
-                      AssetsManager.horozontal3dots,
+                      AssetsManager.vertical3dotsimage,
                       color: ColorManager.settingiconcolor,
                     ),
                   ],
@@ -175,11 +175,11 @@ Widget _booldGroupContainer = Padding(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(AssetsManager.weightimage),
-                  SizedBox(
-                    width: 70.w,
+                  buildSizedBoxSpacer(
+                    width: 75.w,
                   ),
                   Image.asset(
-                    AssetsManager.horozontal3dots,
+                    AssetsManager.vertical3dotsimage,
                     color: ColorManager.settingiconcolor,
                   ),
                 ],

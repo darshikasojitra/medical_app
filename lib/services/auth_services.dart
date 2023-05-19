@@ -56,7 +56,12 @@ class AuthServices {
     }
     return user;
   }
-
+ Future<User?> resetpassword({required String email}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    await auth.sendPasswordResetEmail(email: email);
+    return user;
+  }
   Future<void> signup(BuildContext context) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =

@@ -15,7 +15,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-   final AuthServices _auth = AuthServices();
   final List _icons = [
     Icon(
       Icons.settings_sharp,
@@ -53,6 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           context, LoginScreen.id, (route) => false);
     }
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,9 +85,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  Image.asset(AssetsManager.profilepageimage),
-                  buildSizedBoxSpacer(height: 17.h),
+                  Icon(Icons.account_circle_rounded,size: 70.sp,color: ColorManager.white,),
+                  //Image.asset(AssetsManager.profilepageimage),
+                  buildSizedBoxSpacer(height: 10.h),
                   Text(
+                     //"${user?.displayName}",
                     StringManager.sahinalam,
                     style: regularTextStyle(
                         fontSize: 20.sp,

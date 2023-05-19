@@ -13,6 +13,8 @@ class CommonDropDown extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
           value: value,
+          dropdownColor: ColorManager.threecardcolor,
+          borderRadius: BorderRadius.circular(26.r),
           icon: Padding(
             padding: EdgeInsets.only(left: 75.w),
             child: Image.asset(AssetsManager.detailscreenarrow),

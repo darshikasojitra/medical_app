@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/see_all_doctors.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/doctors_details.dart';
 
@@ -14,7 +15,6 @@ class DoctorSearchScreen extends StatefulWidget {
 
 class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
   bool light = true;
-   bool _seeall = false;
   final List _populardoctorimage = [
     Image.asset(AssetsManager.drmim),
     Image.asset(AssetsManager.drjon),
@@ -36,7 +36,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     StringManager.drmim,
     StringManager.drjon,
     StringManager.drzim,
-     StringManager.drmim,
+    StringManager.drmim,
     StringManager.drjon,
     StringManager.drzim
   ];
@@ -108,9 +108,16 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: index == 0
-                      ? EdgeInsets.only(left: 25.w)
-                      : EdgeInsets.only(left: 0.w),
-                  child: Container(child: _livedoctorimage[index]),
+                      ? EdgeInsets.only(left: 25.w, right: 8.w)
+                      : EdgeInsets.only(left: 0.w, right: 8.w),
+                  child: Stack(
+                    children: [
+                      Container(child: _livedoctorimage[index]),
+                      Positioned(
+                          left: 63.w,
+                          child: Image.asset(AssetsManager.livedotimage))
+                    ],
+                  ),
                 );
               },
             ),
@@ -130,24 +137,28 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                 buildSizedBoxSpacer(
                   width: 125.w,
                 ),
-                TextButton(onPressed: (){
-                  setState(() {
-                    _seeall = true;
-                  });
-                }, child: Text(
-                  StringManager.seeall,
-                  style: regularTextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: ColorManager.darkblue,
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SeeAllDoctorsScreen(),
+                        ));
+                  },
+                  child: Text(
+                    StringManager.seeall,
+                    style: regularTextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                      color: ColorManager.darkblue,
+                    ),
                   ),
-                ),)
-                
+                )
               ],
             ),
           ),
           _popularDoctorContainer(
-              _populardoctorimage, _doctorname, _showDoctorScreen,_seeall)
+              _populardoctorimage, _doctorname, _showDoctorScreen)
         ],
       ),
     ));
@@ -199,13 +210,13 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 }
 
 Widget _popularDoctorContainer(
-        populardoctorimage, doctorname, showDoctorScreen,seeall) =>
+        populardoctorimage, doctorname, showDoctorScreen) =>
     SizedBox(
       height: 370.h,
       width: 370.w,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: seeall==true?6:3,
+        itemCount: 3,
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(bottom: 17.h, left: 25.w),
@@ -239,7 +250,7 @@ Widget _popularDoctorContainer(
                         ),
                       ),
                       buildSizedBoxSpacer(height: 7.h),
-                      _starandsearch
+                      starandsearch
                     ],
                   )
                 ],
@@ -250,7 +261,7 @@ Widget _popularDoctorContainer(
       ),
     );
 
-Widget _starandsearch = Row(
+Widget starandsearch = Row(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Image.asset(AssetsManager.starimage),

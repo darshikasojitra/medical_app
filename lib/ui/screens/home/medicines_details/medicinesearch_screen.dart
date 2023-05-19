@@ -211,11 +211,12 @@ Widget _pharmacyContainer(pharmaimage) => SizedBox(
 
 Widget _starandsearch = Row(
   children: [
-    Image.asset(
-      AssetsManager.starimage,
-      height: 12.h,
-      width: 12.w,
-    ),
+    Icon(Icons.star,color: ColorManager.darkyellow,size: 18.sp,),
+    // Image.asset(
+    //   AssetsManager.starimage,
+    //   height: 12.h,
+    //   width: 12.w,
+    // ),
     buildSizedBoxSpacer(
       width: 4.w,
     ),
@@ -264,8 +265,9 @@ Widget _uploadPrescriptionContainer = Padding(
                   color: ColorManager.white,
                   borderRadius: BorderRadius.circular(18.r),
                 ),
-                child: Image.asset(AssetsManager.bluelinkimage,
-                    color: ColorManager.darkblue),
+                child:Icon(Icons.link,color: ColorManager.darkblue,size: 30.h,)
+                //  Image.asset(AssetsManager.bluelinkimage,
+                //     color: ColorManager.darkblue),
               ),
               buildSizedBoxSpacer(
                 height: 10.h,
@@ -292,7 +294,8 @@ Widget _uploadPrescriptionContainer = Padding(
                   color: ColorManager.white,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: Image.asset(AssetsManager.uploadimage),
+                child: Icon(Icons.upload,color: ColorManager.darkyellow,size: 30.h,)
+                //Image.asset(AssetsManager.uploadimage),
               ),
               buildSizedBoxSpacer(
                 height: 10.h,

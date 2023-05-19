@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/doctors_details.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 class DoctorsSchedule extends StatefulWidget {
@@ -45,7 +46,14 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
       StringManager.drshahin,
       StringManager.drmim,
     ];
-
+Future<void> _showDoctorScreen(populardoctorimage, doctorname, index) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              DoctorDetailScreen(populardoctorimage[index], doctorname[index]),
+        ));
+  }
     return Padding(
       padding: EdgeInsets.only(left: 25.w, right: 25.w),
       child: SizedBox(
@@ -83,10 +91,12 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                     ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () => _selectIndex(index),
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 10.h),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10.h),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showDoctorScreen(doctorsimages,drname,index);
+                    },
                     child: Container(
                       height: 100.h,
                       width: 360.w,
@@ -104,52 +114,57 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 22.h),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 200.w, bottom: 5.w),
-                                  child: Image.asset(
-                                    AssetsManager.horozontal3dots,
-                                    color: _cardIndex == index
-                                        ? ColorManager.white
-                                        : ColorManager.black,
+                            child: Container(
+                              width: 150.w,
+                              //color: Colors.amber,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    calendertime[index],
+                                    style: regularTextStyle(
+                                      color: index == 0
+                                          ? ColorManager.white
+                                          : ColorManager.black,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  calendertime[index],
-                                  style: regularTextStyle(
-                                    color: _cardIndex == index
-                                        ? ColorManager.white
-                                        : ColorManager.black,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
+                                  Text(
+                                    drname[index],
+                                    style: regularTextStyle(
+                                      color: _cardIndex == index
+                                          ? ColorManager.white
+                                          : ColorManager.darkblack,
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  drname[index],
-                                  style: regularTextStyle(
-                                    color: _cardIndex == index
-                                        ? ColorManager.white
-                                        : ColorManager.darkblack,
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Text(
-                                  StringManager.cardiologist,
-                                  style: regularTextStyle(
-                                    color: _cardIndex == index
-                                        ? ColorManager.white
-                                        : ColorManager.black,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                )
-                              ],
+                                  Text(
+                                    StringManager.cardiologist,
+                                    style: regularTextStyle(
+                                      color: _cardIndex == index
+                                          ? ColorManager.white
+                                          : ColorManager.black,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          )
+                          ),
+                          Align(alignment: Alignment.topRight,
+                            child: Padding(
+                              padding:  EdgeInsets.only(top: 15.h,left: 55.w),
+                              child: Image.asset(
+                                        AssetsManager.vertical3dotsimage,
+                                        color: index == 0
+                                            ? ColorManager.white
+                                            : ColorManager.black,
+                                      ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

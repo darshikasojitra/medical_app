@@ -33,22 +33,28 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     StringManager.time11_00,
     StringManager.time11_30,
     StringManager.time12_00,
-    StringManager.time12_30
+    StringManager.time12_30,
+    '6:00PM',
+  '6:30PM',
+   '7:00PM ',
+    '7:30PM ',
+    '8:00PM ',
+    '8:30PM',
   ];
-  String? finaltime;
+  String? finaltime = '9:30 AM';
 
   Future<void> _selectTime(index) async {
     setState(() {
       _myindex = index;
       finaltime = _time[index];
-      print("final timeeeeee${finaltime}");
+      print('finaltime $finaltime');
     });
   }
 
   Future<void> _showPaymentScreen(populardoctorimage, doctorname) async {
     setState(() {
       scheduleTime = _selectedDay ?? _focusedDay;
-      print("selected time in this --- ${scheduleTime}");
+      print('make image :- $populardoctorimage');
       FirebaseFirestore.instance
           .collection('user')
           .doc(_auth.getUser()!.uid)
@@ -56,6 +62,7 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
           .doc()
           .set({
         'doctorname': widget.doctorname,
+        'doctorimage':widget.populardoctorimage.toString(),
         'date': DateFormat.d().format(scheduleTime as DateTime),
         'day': DateFormat.E().format(scheduleTime as DateTime),
         'time': finaltime,
@@ -72,12 +79,23 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
         ));
   }
 
-  @override
-  void initState() {
-    setState(() {});
-    // print("timeeeeee${_focusedDay.day}");
-    // print("select timeeeeee${_selectedDay }");
-    super.initState();
+  Future<void> _bottomSheet()async{
+setState(() {
+  showModalBottomSheet(
+              context: context,
+              barrierColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.w),
+            topRight: Radius.circular(30.w),
+          ),
+        ),
+              builder: (BuildContext context) {
+                return displaybottomcontainer(context, _selectTime, _myindex, _time,
+              widget.populardoctorimage, widget.doctorname, _showPaymentScreen);
+              },
+            );
+});
   }
 
   @override
@@ -87,7 +105,7 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
         children: [
           Padding(
             padding: EdgeInsets.only(
-                left: 28.w, right: 28.w, top: 40.h, bottom: 20.h),
+                left: 28.w, right: 28.w, top: 40.h, bottom: 0.h),
             child: Row(
               children: [
                 Container(
@@ -115,12 +133,12 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
             ),
           ),
           SizedBox(
-            height: 274.h, width: 322.w,
+            height: 270.h, width: 322.w,
             child: newCalender(),
             //const NewTableCalender()
           ),
           displaybottomcontainer(context, _selectTime, _myindex, _time,
-              widget.populardoctorimage, widget.doctorname, _showPaymentScreen)
+              widget.populardoctorimage, widget.doctorname, _showPaymentScreen),
         ],
       ),
     );
@@ -161,29 +179,31 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
           selectedDecoration: BoxDecoration(
-            color: ColorManager.darkblue,
+            //color: ColorManager.darkblue,
             shape: BoxShape.circle,
+            border: Border.all(color: ColorManager.darkblue)
           ),
           selectedTextStyle: regularTextStyle(
-              color: ColorManager.white,
+              color: ColorManager.darkblue,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
         ),
         focusedDay: _focusedDay,
-        firstDay: DateTime.utc(2020, 10, 20),
-        lastDay: DateTime.utc(2040, 10, 20),
+        firstDay: DateTime.now(),
+        lastDay: (DateTime.now()).add(Duration(days: 60)),
         calendarFormat: _calendarFormat,
         selectedDayPredicate: (day) {
           return isSameDay(_selectedDay, day);
         },
         onDaySelected: (selectedDay, focusedDay) {
+          
           if (!isSameDay(_selectedDay, selectedDay)) {
             setState(() {
               _selectedDay = selectedDay;
               _focusedDay = focusedDay;
+             // _bottomSheet();
             });
-            setState(() {});
           }
         },
         onFormatChanged: (format) => {
@@ -201,14 +221,14 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
 Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
         populardoctorimage, doctorname, showPaymentScreen) =>
     Container(
-      height: 318.h,
+      height: 342.h,
       width: double.infinity,
       decoration: BoxDecoration(
           color: ColorManager.darkblue,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.w), topRight: Radius.circular(30.w))),
       child: Padding(
-        padding: EdgeInsets.only(left: 30.w, top: 40.h, right: 30.w),
+        padding: EdgeInsets.only(left: 30.w, top: 10.h, right: 30.w),
         child: Column(
           children: [
             Align(
@@ -222,10 +242,10 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
               ),
             ),
             buildSizedBoxSpacer(
-              height: 10.h,
+              height: 0.h,
             ),
             SizedBox(
-                height: 125.h,
+                height: 210.h,
                 width: 335.w,
                 child: GridView.builder(
                   physics: const BouncingScrollPhysics(),
@@ -234,7 +254,7 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
                       mainAxisSpacing: 20.h,
                       crossAxisSpacing: 10.w,
                       childAspectRatio: 2.h),
-                  itemCount: 6,
+                  itemCount: 12,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
@@ -266,7 +286,7 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
                 )),
             Padding(
               padding: EdgeInsets.only(
-                top: 40.h,
+                top: 25.h,
               ),
               child: CustomButtons(
                 onPressed: () async =>
