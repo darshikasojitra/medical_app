@@ -18,7 +18,7 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
   String? selectedImage;
   final _fromKey = GlobalKey<FormState>();
   final ScrollController _scrollcontroller = ScrollController();
-  TextEditingController paypalname = TextEditingController();
+  TextEditingController paypalame = TextEditingController();
   TextEditingController paypalcardnumber = TextEditingController();
   TextEditingController paypalexpdate = TextEditingController();
   TextEditingController paypalcvvnumber = TextEditingController();
@@ -88,7 +88,7 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                         scrollDirection: Axis.horizontal,
                         itemCount: _images.length,
                         itemBuilder: (context, index) {
-                          return Container(
+                          return SizedBox(
                             height: 50.h,
                             width: 90.w,
                             child: cardImage(index),
@@ -97,7 +97,7 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
                       ),
                     ),
                     buildSizedBoxSpacer(height: 20.h),
-                    Container(
+                    SizedBox(
                       height: 380.h,
                       width: 300.w,
                       child: ListView.builder(
@@ -188,7 +188,7 @@ class _AddNewPaymentcardState extends State<AddNewPaymentcard> {
         ),
       );
 
-  Widget cardInfo(int index) => Container(
+  Widget cardInfo(int index) => SizedBox(
         //height: 320.h,
         width: 300.w,
         child: selectedImage == _images[index]

@@ -33,12 +33,18 @@ class StringManager {
   static const String bestmedicalservice = 'Get the Best Medical Service';
   static const String loremipsum =
       'Lorem Ipsum is simply dummy ext of the printing';
-  static const String upcomingappointments = 'Upcoming Appointments';
+  static const String todayappointments = "Today's Appointments";
   static const String text12 = '12';
   static const String tue = 'Tue';
   static const String time9_30 = '09:30 AM';
   static const String drmim = 'Dr. Mim Akhter';
   static const String depression = 'Depression';
+
+//main Appointment screen
+
+
+//artical screen
+static const String article = 'Article';
 
   //schedule screen
   static const String schedule = 'Schedule';

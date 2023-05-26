@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointments.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/make_appointments/appointments.dart';
 import 'package:medical_app/resources/resources.dart';
 
 import 'package:medical_app/widgets/common_widget/common_widget.dart';
@@ -40,7 +39,7 @@ class _AppoinmentScreenState extends State<AppoinmentScreen> {
             populardoctorimage: widget.populardoctorimage,
             doctorname: widget.doctorname,
           ),
-        ));
+        ),);
   }
 
   Future<void> _selectvalue(value) async {
@@ -87,7 +86,7 @@ class _AppoinmentScreenState extends State<AppoinmentScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: ColorManager.searchcolor)),
+                      borderSide: BorderSide(color: ColorManager.searchcolor),),
                 ),
               ),
               buildSizedBoxSpacer(
@@ -177,7 +176,7 @@ Widget _appbar(context) => Row(
           decoration: BoxDecoration(
               color: ColorManager.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: ColorManager.bordercolor)),
+              border: Border.all(color: ColorManager.bordercolor),),
           child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Image.asset(AssetsManager.arrowimage)),

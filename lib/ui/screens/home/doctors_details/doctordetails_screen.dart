@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointment_screen.dart';
+// import 'package:medical_app/ui/screens/home/doctors_details/make_appointments/appointment_screen.dart';
+// import 'package:medical_app/ui/screens/home/doctors_details/make_appointments/makeappointement_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/common_widget.dart';
 
-import 'appointments/message_screen.dart';
+import 'make_appointments/appointment_screen.dart';
+import 'make_appointments/makeappointement_screen.dart';
+import 'messages/message_screen.dart';
 
 class DoctorDetailScreen extends StatefulWidget {
   static const String id = 'DoctorDetailScreen';
@@ -19,12 +22,19 @@ class DoctorDetailScreen extends StatefulWidget {
   State<DoctorDetailScreen> createState() => _DoctorDetailScreenState();
 }
 
-List<String> list = <String>[
-  '10AM - 12PM',
-  '6PM - 9PM',
-];
-
 class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
+  Future<void> _showMakeAppoinmentScreen(context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MakeAppoinmentScreen(
+          populardoctorimage: widget.populardoctorimage,
+          doctorname: widget.doctorname,
+        ),
+      ),
+    );
+  }
+
   String dropdownValue = list.first;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +58,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       );
     }
 
-    Future<void> _showMessageScreen() async {
+    Future<void> showMessageScreen() async {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -59,7 +69,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
           ));
     }
 
-    Future<void> _selectDropdownValue(value) async {
+    Future<void> selectDropdownValue(value) async {
       setState(() {
         dropdownValue = value!;
       });
@@ -70,7 +80,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       children: [
         Column(
           children: [
-            appbarContainer(context, _showMessageScreen),
+            appbarContainer(context, showMessageScreen),
             Padding(
               padding: EdgeInsets.only(top: 75.h, left: 25.w, right: 25.w),
               child: Column(
@@ -90,11 +100,54 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     ),
                   ),
                   _aboutText,
-                  _availabilitycard(_selectDropdownValue),
                   Padding(
-                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                    padding:  EdgeInsets.only(left: 10.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Working Time',
+                          style: regularTextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14.sp,
+                            color: ColorManager.darkblack,
+                          ),
+                        ),
+                        buildSizedBoxSpacer(height: 5.h),
+                        Text(
+                          'Monday - Saturday',
+                          style: regularTextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                            color: ColorManager.settingiconcolor,
+                          ),
+                        ),
+                        buildSizedBoxSpacer(height: 5.h),
+                        Text(
+                          'Morning Time : 09:30 AM to 01:00 PM',
+                          style: regularTextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15.sp,
+                            color: ColorManager.settingiconcolor,
+                          ),
+                        ),
+                        Text(
+                          'Evening Time : 06:00 PM to 09:00 PM',
+                          style: regularTextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15.sp,
+                            color: ColorManager.settingiconcolor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //_availabilitycard(_selectDropdownValue),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 10.w, right: 10.w, bottom: 10.h, top: 40.h),
                     child: CustomButtons(
-                      onPressed: () => showAppoinmentScreen(),
+                      onPressed: () => _showMakeAppoinmentScreen(context),
                       height: 46.h,
                       minWidth: double.infinity,
                       color: ColorManager.darkblue,
@@ -117,65 +170,6 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       ],
     ));
   }
-
-  Widget _availabilitycard(selectDropdownValue) => Padding(
-        padding: EdgeInsets.only(left: 10.w, bottom: 35.h, right: 10.w),
-        child: Container(
-          height: 70.h,
-          width: 300.w,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            border: Border.all(color: ColorManager.bordercolor),
-            borderRadius: BorderRadius.circular(24.r),
-          ),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 15.w, right: 20.w),
-                child: Container(
-                  height: 46.h,
-                  width: 52.w,
-                  decoration: BoxDecoration(
-                    color: ColorManager.lightblue,
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: Image.asset(AssetsManager.detailscreenclock),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 8.h, bottom: 0),
-                    child: Text(
-                      StringManager.availability,
-                      style: regularTextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        color: ColorManager.darkblack,
-                      ),
-                    ),
-                  ),
-                  CommonDropDown(
-                    value: dropdownValue,
-                    onChanged: (String? value) => selectDropdownValue(value),
-                    items: list.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-              buildSizedBoxSpacer(
-                width: 0.w,
-              ),
-            ],
-          ),
-        ),
-      );
 }
 
 Widget appbarContainer(context, showMessageScreen) => Container(
@@ -196,11 +190,12 @@ Widget appbarContainer(context, showMessageScreen) => Container(
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(color: ColorManager.bordercolor)),
                 child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Image.asset(
-                      AssetsManager.arrowimage,
-                      color: ColorManager.white,
-                    )),
+                  onTap: () => Navigator.pop(context),
+                  child: Image.asset(
+                    AssetsManager.arrowimage,
+                    color: ColorManager.white,
+                  ),
+                ),
               ),
               buildSizedBoxSpacer(
                 width: 85.w,
@@ -216,20 +211,21 @@ Widget appbarContainer(context, showMessageScreen) => Container(
               buildSizedBoxSpacer(
                 width: 83.w,
               ),
-              Container(
-                height: 38.h,
-                width: 42.w,
-                decoration: BoxDecoration(
-                    color: ColorManager.darkblue,
-                    borderRadius: BorderRadius.circular(16.r),
-                    border: Border.all(color: ColorManager.bordercolor)),
-                child: GestureDetector(
-                    onTap: () => showMessageScreen(),
-                    child: Icon(
-                      Icons.message,
-                      color: ColorManager.bordercolor,
-                      size: 20.h,
-                    )),
+              GestureDetector(
+                onTap: () => showMessageScreen(),
+                child: Container(
+                  height: 38.h,
+                  width: 42.w,
+                  decoration: BoxDecoration(
+                      color: ColorManager.darkblue,
+                      borderRadius: BorderRadius.circular(16.r),
+                      border: Border.all(color: ColorManager.bordercolor)),
+                  child: Icon(
+                    Icons.message,
+                    color: ColorManager.bordercolor,
+                    size: 20.h,
+                  ),
+                ),
               ),
             ],
           ),
@@ -343,7 +339,7 @@ Widget _doctorIntro(doctorname, populardoctorimage) => Positioned(
                   child: populardoctorimage),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 22.h),
+              padding: EdgeInsets.only(top: 16.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -362,7 +358,22 @@ Widget _doctorIntro(doctorname, populardoctorimage) => Positioned(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: 5.h, top: 12.h, left: 145.w, right: 5.w),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        '\$ 12/Ap.',
+                        style: regularTextStyle(
+                          color: ColorManager.black,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -80,7 +80,7 @@ class AuthServices {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DashboardScreen(),
+              builder: (context) => const DashboardScreen(),
             ));
       }
     }

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/search_doctors/search_doctors_screen.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/see_all_doctors.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/doctors_details.dart';
 
-class DoctorSearchScreen extends StatefulWidget {
-  static const String id = 'DoctorSearchScreen';
-  const DoctorSearchScreen({super.key});
+class AllDoctorsScreen extends StatefulWidget {
+  static const String id = 'AllDoctorsScreen';
+  const AllDoctorsScreen({super.key});
 
   @override
-  State<DoctorSearchScreen> createState() => _DoctorSearchScreenState();
+  State<AllDoctorsScreen> createState() => _AllDoctorsScreenState();
 }
 
-class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
+class _AllDoctorsScreenState extends State<AllDoctorsScreen> {
   bool light = true;
   final List _populardoctorimage = [
     Image.asset(AssetsManager.drmim),
@@ -21,7 +22,6 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     Image.asset(AssetsManager.drzim),
     Image.asset(AssetsManager.drmim),
     Image.asset(AssetsManager.drjon),
-    Image.asset(AssetsManager.drzim)
   ];
   final List _livedoctorimage = [
     Image.asset(AssetsManager.firstdoctorimage),
@@ -29,7 +29,6 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     Image.asset(AssetsManager.thirddoctorimage),
     Image.asset(AssetsManager.firstdoctorimage),
     Image.asset(AssetsManager.seconddoctorimage),
-    Image.asset(AssetsManager.thirddoctorimage),
   ];
 
   final List _doctorname = [
@@ -38,7 +37,6 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
     StringManager.drzim,
     StringManager.drmim,
     StringManager.drjon,
-    StringManager.drzim
   ];
   Future<void> _showBottomSheet() async {
     setState(() {
@@ -79,16 +77,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             child: _appbar(context),
           ),
           Padding(
-            padding: EdgeInsets.only(
-              left: 25.w,
-              right: 25.w,
-              top: 20.h,
-              bottom: 18.h,
-            ),
-            child: searchtextfeild,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 25.w, bottom: 15.h),
+            padding: EdgeInsets.only(left: 25.w, bottom: 15.h, top: 25.h),
             child: Text(
               StringManager.livedoctors,
               style: regularTextStyle(
@@ -112,10 +101,13 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                       : EdgeInsets.only(left: 0.w, right: 8.w),
                   child: Stack(
                     children: [
-                      Container(child: _livedoctorimage[index]),
+                      Container(
+                        child: _livedoctorimage[index],
+                      ),
                       Positioned(
-                          left: 63.w,
-                          child: Image.asset(AssetsManager.livedotimage))
+                        left: 63.w,
+                        child: Image.asset(AssetsManager.livedotimage),
+                      )
                     ],
                   ),
                 );
@@ -142,7 +134,7 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SeeAllDoctorsScreen(),
+                          builder: (context) => const SeeAllDoctorsScreen(),
                         ));
                   },
                   child: Text(
@@ -170,12 +162,14 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             height: 38.h,
             width: 42.w,
             decoration: BoxDecoration(
-                color: ColorManager.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: ColorManager.bordercolor)),
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: ColorManager.bordercolor),
+            ),
             child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Image.asset(AssetsManager.arrowimage)),
+              onTap: () => Navigator.pop(context),
+              child: Image.asset(AssetsManager.arrowimage),
+            ),
           ),
           buildSizedBoxSpacer(
             width: 77.w,
@@ -189,21 +183,34 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
             ),
           ),
           buildSizedBoxSpacer(
-            width: 77.w,
+            width: 85.w,
           ),
           Container(
             height: 38.h,
             width: 42.w,
             decoration: BoxDecoration(
-                color: ColorManager.white,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: ColorManager.bordercolor)),
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: ColorManager.bordercolor),
+            ),
             child: GestureDetector(
-                onTap: () => _showBottomSheet(),
+              onTap: () {
+                //_showBottomSheet()
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SearchDoctorsScreen(),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.all(10.h),
                 child: Image.asset(
-                  AssetsManager.linkimage,
-                  color: ColorManager.darkblack,
-                )),
+                  AssetsManager.searchimage,
+                  color: ColorManager.darkblue,
+                ),
+              ),
+            ),
           ),
         ],
       );
@@ -212,11 +219,11 @@ class _DoctorSearchScreenState extends State<DoctorSearchScreen> {
 Widget _popularDoctorContainer(
         populardoctorimage, doctorname, showDoctorScreen) =>
     SizedBox(
-      height: 370.h,
+      height: 416.h,
       width: 370.w,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: 3,
+        itemCount: 4,
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(bottom: 17.h, left: 25.w),

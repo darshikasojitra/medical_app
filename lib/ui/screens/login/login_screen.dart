@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthServices _auth = AuthServices();
   final _loginfromKey = GlobalKey<FormState>();
   final _signupfromKey = GlobalKey<FormState>();
-  String gender = "male";
+  String _gender = "male";
   final PageController _pagecontroller = PageController();
   final TextEditingController _loginemailController = TextEditingController();
   final TextEditingController _loginpasswordController =
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _phnnoController = TextEditingController();
   bool isprocessing = false;
-  bool _isSignup = false;
+  bool _isSignup = true;
   bool _passwordVisible = false;
   Future<void> _showpassword() async {
     setState(() {
@@ -52,13 +52,17 @@ class _LoginScreenState extends State<LoginScreen> {
           isprocessing = true;
         });
         final user = await _auth.signInUsingEmailPassword(
-            email: _loginemailController.text, password: _loginpasswordController.text);
+            email: _loginemailController.text,
+            password: _loginpasswordController.text);
         if (user != null) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DashboardScreen(),
-              ));
+          // ignore: use_build_context_synchronously
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DashboardScreen(),
+            ),
+            (route) => false,
+          );
           //Navigator.pushNamed(context, DashboardScreen.id);
           setState(() {
             isprocessing = false;
@@ -160,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // width: 300.w,
                     //color: Colors.blueAccent,
                     child: PageView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       controller: _pagecontroller,
                       onPageChanged: (value) {
                         if (value == 0) _showLogin(false);
@@ -171,14 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Container(child: _loginSCreen()),
                         Container(child: _signupScreen()),
-                        //Sign up
-                        // if (_isSignup) _signupScreen(),
                         //Login
-                        //if (!(_isSignup)) _loginSCreen(),
+                        // if (!_isSignup) _loginSCreen(),
+                        // //Sign up
+                        //  if (_isSignup) _signupScreen(),
                       ],
                     ),
                   ),
-                ],
+                ], 
               ),
             ),
           ),
@@ -195,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           GestureDetector(
             onTap: () => {
-              // _showLogin(false),
+              _showLogin(false),
             },
             child: Column(
               children: [
@@ -219,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           GestureDetector(
             onTap: () => {
-              //  _showLogin(true)
+              _showLogin(true),
             },
             child: Column(
               children: [
@@ -245,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
   Widget _loginSCreen() => Container(
-        margin: EdgeInsets.only(top: 20.h,right: 20.w,left: 20.w),
+        margin: EdgeInsets.only(top: 20.h, right: 20.w, left: 20.w),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Form(
@@ -267,6 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: !_passwordVisible,
                     controller: _loginpasswordController,
                     hintText: StringManager.enterpassword,
+                    maxLines: 1,
                     //labelText: 'Password',
                     prefixIcon: Icon(
                       Icons.lock_outline,
@@ -289,7 +294,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ForfotPasswordScreen(),
+                                builder: (context) =>
+                                    const ForfotPasswordScreen(),
                               ));
                         },
                         child: Text(
@@ -305,13 +311,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
   Widget _signupScreen() => Container(
-        margin: EdgeInsets.only(top: 20.h,right: 20.w,left: 20.w),
+        margin: EdgeInsets.only(top: 20.h, right: 20.w, left: 20.w),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Container(
+          child: SizedBox(
             height: 280.h,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Form(
                 key: _signupfromKey,
                 child: Column(
@@ -339,6 +345,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomTextFeild(
                         obscureText: !_passwordVisible,
                         controller: _passwordController,
+                        maxLines: 1,
                         prefixIcon: Icon(
                           Icons.lock,
                           color: ColorManager.schedulecolor,
@@ -393,10 +400,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.w500),
                             ),
                             value: "male",
-                            groupValue: gender,
+                            groupValue: _gender,
                             onChanged: (value) {
                               setState(() {
-                                gender = value.toString();
+                                _gender = value.toString();
                               });
                             },
                           ),
@@ -412,10 +419,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.w500),
                             ),
                             value: "female",
-                            groupValue: gender,
+                            groupValue: _gender,
                             onChanged: (value) {
                               setState(() {
-                                gender = value.toString();
+                                _gender = value.toString();
                               });
                             },
                           ),

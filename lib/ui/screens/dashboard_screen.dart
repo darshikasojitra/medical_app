@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/reports/report_screen.dart';
-import 'package:medical_app/ui/screens/schedule/schedule_screen.dart';
+import 'appointments/booking_appointments_screen.dart';
+import 'articals/articals_screen.dart';
+//import 'appointments/booking_appointments_screen.dart';
 import 'home/home_screen.dart';
 import 'notifications/notification_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const String id = 'DashboardScreen';
- 
-   DashboardScreen({super.key});
+
+  const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -18,9 +19,11 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _myIndex = 0;
   static List<Widget> widgetList = [
-     HomeScreen(),
-    const ScheduleScreen(),
-    const ReportScreen(),
+    const HomeScreen(),
+    // const ScheduleScreen(),
+    const BookingAppointmentsScreen(),
+    const ArticalsScreen(),
+    // const ReportScreen(),
     const NotoficationScreen(),
   ];
   Future<void> _selectIndex(int index) async {
@@ -36,49 +39,50 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: widgetList[_myIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          onTap: (index) => _selectIndex(index),
-          currentIndex: _myIndex,
-          unselectedItemColor: ColorManager.unselectedcolor,
-          selectedItemColor: ColorManager.darkblue,
-          selectedLabelStyle: regularTextStyle(
-            color: ColorManager.darkblue,
-            fontSize: 12.sp,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) => _selectIndex(index),
+        currentIndex: _myIndex,
+        unselectedItemColor: ColorManager.unselectedcolor,
+        selectedItemColor: ColorManager.darkblue,
+        selectedLabelStyle: regularTextStyle(
+          color: ColorManager.darkblue,
+          fontSize: 12.sp,
+        ),
+        unselectedLabelStyle: regularTextStyle(
+          color: ColorManager.unselectedcolor,
+          fontSize: 12.sp,
+        ),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home_sharp,
+              size: 28.sp,
+            ),
+            label: StringManager.home,
           ),
-          unselectedLabelStyle: regularTextStyle(
-            color: ColorManager.unselectedcolor,
-            fontSize: 12.sp,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.calendar_month_sharp,
+              size: 28.sp,
+            ),
+            label: StringManager.appointment,
           ),
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_sharp,
-                size: 28.sp,
-              ),
-              label: StringManager.home,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.article_outlined,
+              size: 28.sp,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.calendar_month_sharp,
-                size: 28.sp,
-              ),
-              label: StringManager.schedule,
+            label: StringManager.article,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications,
+              size: 28.sp,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.medical_services_rounded,
-                size: 28.sp,
-              ),
-              label: StringManager.report,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.notifications,
-                size: 28.sp,
-              ),
-              label: StringManager.notifications,
-            ),
-          ]),
+            label: StringManager.notifications,
+          ),
+        ],
+      ),
     );
   }
 }

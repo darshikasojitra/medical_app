@@ -125,6 +125,7 @@ class _BottomsheetContainerState extends State<BottomsheetContainer> {
                     width: 55.w,
                     padding: 4.0,
                     toggleSize: 25.w,
+                    //toggleBorder: BoxBorder.lerp(, b, 5),
                     borderRadius: 8.r,
                     activeColor: ColorManager.darkyellow,
                     value: light,

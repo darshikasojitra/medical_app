@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:medical_app/ui/screens/home/user_profile/change_password_screen.dart';
 import 'package:medical_app/ui/screens/login/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       size: 25.sp,
     ),
     Icon(
-      Icons.payment,
+      Icons.lock,
       color: ColorManager.settingiconcolor,
       size: 25.sp,
     )
@@ -41,8 +41,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     StringManager.accountsettings,
     StringManager.privacypolicy,
     StringManager.paymentmethod,
-    StringManager.paymentmethod
+    'Change Password'
   ];
+  Future<void> serviceMethod(index) async {
+      if (index == 3) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen(),));
+      } 
+    }
   Future<void> _signout() async {
     if (FirebaseAuth.instance.currentUser != null) {
       await FirebaseAuth.instance.signOut();
@@ -118,6 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     itemCount: 4,
                     itemBuilder: (context, index) {
                       return GestureDetector(
+                        onTap: () => serviceMethod(index),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 15.h),
                           child: Container(

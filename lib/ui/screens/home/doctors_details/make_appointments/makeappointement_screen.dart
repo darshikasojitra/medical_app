@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/ui/screens/dashboard_screen.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/make_appointments/successfully_booked_appointment.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appointments/appointments.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -11,10 +12,14 @@ import '../../../../../services/auth_services.dart';
 
 class MakeAppoinmentScreen extends StatefulWidget {
   static const String id = 'MakeAppoinmentScreen';
-  final Image populardoctorimage;
+  final Image? populardoctorimage;
   final String doctorname;
+  final String? apid;
   const MakeAppoinmentScreen(
-      {super.key, required this.populardoctorimage, required this.doctorname});
+      {super.key,
+      this.populardoctorimage,
+      required this.doctorname,
+      this.apid});
 
   @override
   State<MakeAppoinmentScreen> createState() => _MakeAppoinmentScreenState();
@@ -34,12 +39,12 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     StringManager.time11_30,
     StringManager.time12_00,
     StringManager.time12_30,
-    '6:00PM',
-  '6:30PM',
-   '7:00PM ',
-    '7:30PM ',
-    '8:00PM ',
-    '8:30PM',
+    '6:00 PM',
+    '6:30 PM',
+    '7:00 PM ',
+    '7:30 PM ',
+    '8:00 PM ',
+    '8:30 PM',
   ];
   String? finaltime = '9:30 AM';
 
@@ -47,14 +52,33 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
     setState(() {
       _myindex = index;
       finaltime = _time[index];
-      print('finaltime $finaltime');
     });
+  }
+
+  Future<void> _showSelectedDay(selectedDay, focusedDay) async {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+      });
+    }
+  }
+
+  Future<void> _showCalenderFormat(format) async {
+    if (_calendarFormat != format) {
+      setState(() {
+        _calendarFormat = format;
+      });
+    }
+  }
+
+  Future<void> _showFocusDay(focusedDay) async {
+    _focusedDay = focusedDay;
   }
 
   Future<void> _showPaymentScreen(populardoctorimage, doctorname) async {
     setState(() {
       scheduleTime = _selectedDay ?? _focusedDay;
-      print('make image :- $populardoctorimage');
       FirebaseFirestore.instance
           .collection('user')
           .doc(_auth.getUser()!.uid)
@@ -62,40 +86,38 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
           .doc()
           .set({
         'doctorname': widget.doctorname,
-        'doctorimage':widget.populardoctorimage.toString(),
+        'doctorimage': widget.populardoctorimage.toString(),
         'date': DateFormat.d().format(scheduleTime as DateTime),
         'day': DateFormat.E().format(scheduleTime as DateTime),
         'time': finaltime,
         'uid': _auth.getUser()!.uid
       });
     });
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => PaymentScreen(
-            populardoctorimage: populardoctorimage,
-            doctorname: doctorname,
-          ),
-        ));
+          builder: (context) => const SuccessfullyBookedAppointment(),
+        ),
+        (route) => false);
   }
 
-  Future<void> _bottomSheet()async{
-setState(() {
-  showModalBottomSheet(
-              context: context,
-              barrierColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
+  Future<void> _bottomSheet() async {
+    setState(() {
+      showModalBottomSheet(
+        context: context,
+        barrierColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.w),
             topRight: Radius.circular(30.w),
           ),
         ),
-              builder: (BuildContext context) {
-                return displaybottomcontainer(context, _selectTime, _myindex, _time,
+        builder: (BuildContext context) {
+          return displaybottomcontainer(context, _selectTime, _myindex, _time,
               widget.populardoctorimage, widget.doctorname, _showPaymentScreen);
-              },
-            );
-});
+        },
+      );
+    });
   }
 
   @override
@@ -179,10 +201,9 @@ setState(() {
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
           selectedDecoration: BoxDecoration(
-            //color: ColorManager.darkblue,
-            shape: BoxShape.circle,
-            border: Border.all(color: ColorManager.darkblue)
-          ),
+              //color: ColorManager.darkblue,
+              shape: BoxShape.circle,
+              border: Border.all(color: ColorManager.darkblue)),
           selectedTextStyle: regularTextStyle(
               color: ColorManager.darkblue,
               fontFamily: 'Poppins',
@@ -191,30 +212,15 @@ setState(() {
         ),
         focusedDay: _focusedDay,
         firstDay: DateTime.now(),
-        lastDay: (DateTime.now()).add(Duration(days: 60)),
+        lastDay: (DateTime.now()).add(const Duration(days: 60)),
         calendarFormat: _calendarFormat,
         selectedDayPredicate: (day) {
           return isSameDay(_selectedDay, day);
         },
-        onDaySelected: (selectedDay, focusedDay) {
-          
-          if (!isSameDay(_selectedDay, selectedDay)) {
-            setState(() {
-              _selectedDay = selectedDay;
-              _focusedDay = focusedDay;
-             // _bottomSheet();
-            });
-          }
-        },
-        onFormatChanged: (format) => {
-          if (_calendarFormat != format)
-            {
-              setState(() {
-                _calendarFormat = format;
-              }),
-            }
-        },
-        onPageChanged: (focusedDay) => _focusedDay = focusedDay,
+        onDaySelected: (selectedDay, focusedDay) =>
+            _showSelectedDay(selectedDay, focusedDay),
+        onFormatChanged: (format) => _showCalenderFormat(format),
+        onPageChanged: (focusedDay) => _showFocusDay(focusedDay),
       );
 }
 
@@ -224,9 +230,12 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
       height: 342.h,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: ColorManager.darkblue,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.w), topRight: Radius.circular(30.w))),
+        color: ColorManager.darkblue,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.w),
+          topRight: Radius.circular(30.w),
+        ),
+      ),
       child: Padding(
         padding: EdgeInsets.only(left: 30.w, top: 10.h, right: 30.w),
         child: Column(

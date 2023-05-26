@@ -11,11 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
+  flutter_localizations:
+    sdk: flutter
+  # localization: ^2.1.0
+  intl: ^0.17.0
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.7.0
-  table_calendar: ^3.0.9
+  table_calendar: ^3.0.8
   smooth_page_indicator: ^1.0.1
   form_field_validator: ^1.1.0
   intl_phone_field: ^3.1.0
@@ -32,13 +34,15 @@ dependencies:
   lottie: ^2.3.2
   flutter_switch: ^0.3.2
   grouped_list: ^5.1.2
+  carousel_slider: ^4.2.1
+  dots_indicator: ^3.0.0
+  webview_flutter: ^4.2.1
+  agora_rtc_engine: ^6.1.1+1
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  
   flutter_lints: ^2.0.0
 
 

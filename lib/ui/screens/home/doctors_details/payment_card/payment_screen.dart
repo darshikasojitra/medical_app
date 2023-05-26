@@ -4,19 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/dashboard_screen.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/appointments/message_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
-
 import '../../../../../widgets/common_widget/common_widget.dart';
-import 'addnewpaymentcard.dart';
+import 'add_new_paymentcard.dart';
 
 class PaymentScreen extends StatefulWidget {
   static const String id = 'PaymentScreen';
-  final Image populardoctorimage;
-  final String doctorname;
-  const PaymentScreen(
-      {super.key, required this.populardoctorimage, required this.doctorname});
+  final Image? populardoctorimage;
+  final String? doctorname;
+  const PaymentScreen({
+    super.key,
+    this.populardoctorimage,
+    this.doctorname,
+  });
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -73,12 +74,14 @@ Widget _appBar(context) => Row(
           height: 38.h,
           width: 42.w,
           decoration: BoxDecoration(
-              color: ColorManager.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: ColorManager.bordercolor)),
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: ColorManager.bordercolor),
+          ),
           child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Image.asset(AssetsManager.arrowimage)),
+            onTap: () => Navigator.pop(context),
+            child: Image.asset(AssetsManager.arrowimage),
+          ),
         ),
         buildSizedBoxSpacer(
           width: 60.w,
@@ -96,18 +99,18 @@ Widget _appBar(context) => Row(
 Widget _creditCard(
   controller,
   cardcolor,
-  _auth,
+  auth,
 ) =>
-    Container(
+    SizedBox(
       height: 550.h,
       width: double.infinity,
       //color: Colors.blue,
-      child: Container(
+      child: SizedBox(
         height: 150.h,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('payment')
-              .doc(_auth.getUser()!.uid)
+              .doc(auth.getUser()!.uid)
               .collection('cardinfo')
               .snapshots(),
           builder: (context, snapshot) {
@@ -153,7 +156,7 @@ Widget _creditCard(
                                   padding: EdgeInsets.only(right: 10.w),
                                   child: Align(
                                     alignment: Alignment.topRight,
-                                    child: Container(
+                                    child: SizedBox(
                                         height: 20.h,
                                         width: 80.w,
                                         //color: Colors.white,
@@ -172,7 +175,7 @@ Widget _creditCard(
                                   height: 8.h,
                                 ),
                                 Text(
-                                  '**** **** **** ' +
+                                 '**** **** ****'  +
                                       (doc['cardno']).substring(
                                           (doc['cardno']).length - 4),
                                   style: regularTextStyle(
@@ -246,13 +249,13 @@ Widget _creditCard(
 Widget _continueButton(context) => Padding(
       padding: EdgeInsets.only(left: 20.w, right: 20.w),
       child: CustomButtons(
-        onPressed: () => {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DashboardScreen(),
-              ))
-        },
+        onPressed: () => Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DashboardScreen(),
+          ),
+          (route) => false,
+        ),
         height: 46.h,
         minWidth: double.infinity,
         color: ColorManager.darkblue,
@@ -277,7 +280,7 @@ Widget _addcard(
           borderType: BorderType.RRect,
           strokeWidth: 2,
           radius: Radius.circular(24.r),
-          dashPattern: [10, 5, 10, 5, 10, 5],
+          dashPattern: const [10, 5, 10, 5, 10, 5],
           child: Container(
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
             height: 150.h,
@@ -291,7 +294,7 @@ Widget _addcard(
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddNewPaymentcard(),
+                        builder: (context) => const AddNewPaymentcard(),
                       ));
                 },
                 child: Container(

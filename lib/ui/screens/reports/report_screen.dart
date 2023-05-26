@@ -207,7 +207,7 @@ Widget _booldGroupContainer = Padding(
                     ' Kg',
                     style: TextStyle(
                         fontSize: 10.sp,
-                        fontFeatures: [
+                        fontFeatures: const [
       FontFeature.subscripts(),
     ],
                         fontWeight: FontWeight.w700,

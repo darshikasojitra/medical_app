@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: ColorManager.bgcolor,
       body: Center(
-         child: Container(
+         child: SizedBox(
           
            height: 210.h,width: 230.w,
           // decoration: BoxDecoration(

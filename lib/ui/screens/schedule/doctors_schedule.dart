@@ -13,7 +13,7 @@ class DoctorsSchedule extends StatefulWidget {
 
 class _DoctorsScheduleState extends State<DoctorsSchedule> {
   int _cardIndex = 0;
-  void _selectIndex(index) {
+  void selectIndex(index) {
     setState(() {
       _cardIndex = index;
     });
@@ -46,7 +46,7 @@ class _DoctorsScheduleState extends State<DoctorsSchedule> {
       StringManager.drshahin,
       StringManager.drmim,
     ];
-Future<void> _showDoctorScreen(populardoctorimage, doctorname, index) async {
+Future<void> showDoctorScreen(populardoctorimage, doctorname, index) async {
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -95,7 +95,7 @@ Future<void> _showDoctorScreen(populardoctorimage, doctorname, index) async {
                   padding: EdgeInsets.only(bottom: 10.h),
                   child: GestureDetector(
                     onTap: () {
-                      _showDoctorScreen(doctorsimages,drname,index);
+                      showDoctorScreen(doctorsimages,drname,index);
                     },
                     child: Container(
                       height: 100.h,
@@ -114,7 +114,7 @@ Future<void> _showDoctorScreen(populardoctorimage, doctorname, index) async {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 22.h),
-                            child: Container(
+                            child: SizedBox(
                               width: 150.w,
                               //color: Colors.amber,
                               child: Column(

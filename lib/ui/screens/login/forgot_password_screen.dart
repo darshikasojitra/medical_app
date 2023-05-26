@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/widgets/common_widget/common_widget.dart';
@@ -12,13 +11,13 @@ class ForfotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailcontroller = TextEditingController();
-    final _fromKey = GlobalKey<FormState>();
-    final AuthServices _auth = AuthServices();
+    final TextEditingController emailcontroller = TextEditingController();
+    final fromKey = GlobalKey<FormState>();
+    final AuthServices auth = AuthServices();
 
     Future<void> _resetPassword() async {
-      if (_fromKey.currentState!.validate()) {
-        _auth.resetpassword(email: _emailcontroller.text);
+      if (fromKey.currentState!.validate()) {
+        auth.resetpassword(email: emailcontroller.text);
         Navigator.pop(context);
       }
     }
@@ -34,7 +33,7 @@ class ForfotPasswordScreen extends StatelessWidget {
                 color: ColorManager.white),
           )),
       body: Form(
-        key: _fromKey,
+        key: fromKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
@@ -42,7 +41,7 @@ class ForfotPasswordScreen extends StatelessWidget {
             children: [
               CustomTextFeild(
                 obscureText: false,
-                controller: _emailcontroller,
+                controller: emailcontroller,
                 labelText: StringManager.enteremail,
                 hintText: StringManager.enteremail,
                 validator: Validator.emailValidator,

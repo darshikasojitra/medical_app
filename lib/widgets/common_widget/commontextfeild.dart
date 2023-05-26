@@ -12,6 +12,7 @@ class CustomTextFeild extends StatelessWidget {
   final Widget? suffixIcon;
   final String? Function(dynamic value) validator;
   final bool obscureText;
+  final int? maxLines;
   const CustomTextFeild(
       {super.key,
       this.hintText,
@@ -19,6 +20,7 @@ class CustomTextFeild extends StatelessWidget {
       this.controller,
       this.prefixIcon,
       this.focusNode,
+      this.maxLines,
       this.keyboardType,
       required this.obscureText,
       this.suffixIcon,
@@ -32,6 +34,7 @@ class CustomTextFeild extends StatelessWidget {
       autofocus: false,
       keyboardType: keyboardType,
       focusNode: focusNode,
+      maxLines: maxLines,
       controller: controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(

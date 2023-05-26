@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/doctor_search_screen.dart';
+import 'package:medical_app/ui/screens/home/doctors_details/all_doctors_screen.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 
 import 'doctordetails_screen.dart';
@@ -13,7 +11,7 @@ class SeeAllDoctorsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List _populardoctorimage = [
+    final List populardoctorimage = [
       Image.asset(AssetsManager.drmim),
       Image.asset(AssetsManager.drjon),
       Image.asset(AssetsManager.drzim),
@@ -27,7 +25,7 @@ class SeeAllDoctorsScreen extends StatelessWidget {
       Image.asset(AssetsManager.drjon),
       Image.asset(AssetsManager.drzim)
     ];
-    final List _doctorname = [
+    final List doctorname = [
       StringManager.drmim,
       StringManager.drjon,
       StringManager.drzim,
@@ -80,7 +78,7 @@ class SeeAllDoctorsScreen extends StatelessWidget {
               width: 370.w,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: _populardoctorimage.length,
+                itemCount: populardoctorimage.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 17.h, left: 25.w),
@@ -90,13 +88,13 @@ class SeeAllDoctorsScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => DoctorDetailScreen(
-                                  _populardoctorimage[index],
-                                  _doctorname[index]),
+                                  populardoctorimage[index],
+                                  doctorname[index]),
                             ));
                       },
                       child: Row(
                         children: [
-                          _populardoctorimage[index],
+                          populardoctorimage[index],
                           buildSizedBoxSpacer(
                             width: 20.w,
                           ),
@@ -104,7 +102,7 @@ class SeeAllDoctorsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _doctorname[index],
+                                doctorname[index],
                                 style: regularTextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 19.sp,

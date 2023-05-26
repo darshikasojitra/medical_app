@@ -14,7 +14,6 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 DateTime? _selectedDate;
-String?  _selectedDay;
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
   int _dateIndex = 0;
@@ -127,7 +126,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: (DateTime.now()).add(Duration(days: 30)),
+      lastDate: (DateTime.now()).add(const Duration(days: 30)),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -138,7 +137,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                primary: ColorManager.darkblue,
+                foregroundColor: ColorManager.darkblue,
               ),
             ),
           ),
