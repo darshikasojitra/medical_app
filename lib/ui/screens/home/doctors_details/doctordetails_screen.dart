@@ -76,99 +76,101 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
     }
 
     return Scaffold(
-        body: Stack(
-      children: [
-        Column(
-          children: [
-            appbarContainer(context, showMessageScreen),
-            Padding(
-              padding: EdgeInsets.only(top: 75.h, left: 25.w, right: 25.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _threeCard(firsttext, secondtext),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 10.w, top: 30.h, bottom: 15.h),
-                    child: Text(
-                      StringManager.about,
-                      style: regularTextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17.sp,
-                        color: ColorManager.darkblack,
+        body: SingleChildScrollView(
+          child: Stack(
+              children: [
+          Column(
+            children: [
+              appbarContainer(context, showMessageScreen),
+              Padding(
+                padding: EdgeInsets.only(top: 75.h, left: 25.w, right: 25.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _threeCard(firsttext, secondtext),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(left: 10.w, top: 30.h, bottom: 15.h),
+                      child: Text(
+                        StringManager.about,
+                        style: regularTextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17.sp,
+                          color: ColorManager.darkblack,
+                        ),
                       ),
                     ),
-                  ),
-                  _aboutText,
-                  Padding(
-                    padding:  EdgeInsets.only(left: 10.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Working Time',
+                    _aboutText,
+                    Padding(
+                      padding:  EdgeInsets.only(left: 10.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Working Time',
+                            style: regularTextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14.sp,
+                              color: ColorManager.darkblack,
+                            ),
+                          ),
+                          buildSizedBoxSpacer(height: 5.h),
+                          Text(
+                            'Monday - Saturday',
+                            style: regularTextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14.sp,
+                              color: ColorManager.settingiconcolor,
+                            ),
+                          ),
+                          buildSizedBoxSpacer(height: 5.h),
+                          Text(
+                            'Morning Time : 09:30 AM to 01:00 PM',
+                            style: regularTextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15.sp,
+                              color: ColorManager.settingiconcolor,
+                            ),
+                          ),
+                          Text(
+                            'Evening Time : 06:00 PM to 09:00 PM',
+                            style: regularTextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15.sp,
+                              color: ColorManager.settingiconcolor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //_availabilitycard(_selectDropdownValue),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 10.w, right: 10.w, bottom: 10.h, top: 40.h),
+                      child: CustomButtons(
+                        onPressed: () => _showMakeAppoinmentScreen(context),
+                        height: 46.h,
+                        minWidth: double.infinity,
+                        color: ColorManager.darkblue,
+                        child: Text(
+                          StringManager.booknow,
                           style: regularTextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 14.sp,
-                            color: ColorManager.darkblack,
+                            color: ColorManager.white,
                           ),
-                        ),
-                        buildSizedBoxSpacer(height: 5.h),
-                        Text(
-                          'Monday - Saturday',
-                          style: regularTextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.sp,
-                            color: ColorManager.settingiconcolor,
-                          ),
-                        ),
-                        buildSizedBoxSpacer(height: 5.h),
-                        Text(
-                          'Morning Time : 09:30 AM to 01:00 PM',
-                          style: regularTextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15.sp,
-                            color: ColorManager.settingiconcolor,
-                          ),
-                        ),
-                        Text(
-                          'Evening Time : 06:00 PM to 09:00 PM',
-                          style: regularTextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15.sp,
-                            color: ColorManager.settingiconcolor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //_availabilitycard(_selectDropdownValue),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 10.w, right: 10.w, bottom: 10.h, top: 40.h),
-                    child: CustomButtons(
-                      onPressed: () => _showMakeAppoinmentScreen(context),
-                      height: 46.h,
-                      minWidth: double.infinity,
-                      color: ColorManager.darkblue,
-                      child: Text(
-                        StringManager.booknow,
-                        style: regularTextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14.sp,
-                          color: ColorManager.white,
                         ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-        _doctorIntro(widget.doctorname, widget.populardoctorimage),
-      ],
-    ));
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          _doctorIntro(widget.doctorname, widget.populardoctorimage),
+              ],
+            ),
+        ));
   }
 }
 

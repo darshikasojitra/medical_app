@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/dashboard_screen.dart';
-import 'package:medical_app/ui/screens/home/doctors_details/make_appointments/successfully_booked_appointment.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/widgets/common_widget/custombutton.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -93,12 +93,44 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
         'uid': _auth.getUser()!.uid
       });
     });
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SuccessfullyBookedAppointment(),
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
         ),
-        (route) => false);
+        title: Lottie.network(
+            'https://assets10.lottiefiles.com/packages/lf20_vOw8d0zc1F.json'),
+        content: Text(
+          '  Sucessfully Booked',
+          style: regularTextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: ColorManager.darkyellow),
+        ),
+        actions: <Widget>[
+          Center(
+            child: CustomButtons(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashboardScreen(),
+                    ),
+                    (route) => false);
+              },
+              child: Text(
+                'Bake to home',
+                style: regularTextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.darkblue),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _bottomSheet() async {
@@ -201,9 +233,10 @@ class _MakeAppoinmentScreenState extends State<MakeAppoinmentScreen> {
               fontWeight: FontWeight.w500,
               fontSize: 15.sp),
           selectedDecoration: BoxDecoration(
-              //color: ColorManager.darkblue,
-              shape: BoxShape.circle,
-              border: Border.all(color: ColorManager.darkblue)),
+            //color: ColorManager.darkblue,
+            shape: BoxShape.circle,
+            border: Border.all(color: ColorManager.darkblue),
+          ),
           selectedTextStyle: regularTextStyle(
               color: ColorManager.darkblue,
               fontFamily: 'Poppins',
@@ -245,9 +278,10 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
               child: Text(
                 StringManager.time,
                 style: regularTextStyle(
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w800,
-                    color: ColorManager.white),
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w800,
+                  color: ColorManager.white,
+                ),
               ),
             ),
             buildSizedBoxSpacer(
@@ -259,10 +293,11 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
                 child: GridView.builder(
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 20.h,
-                      crossAxisSpacing: 10.w,
-                      childAspectRatio: 2.h),
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 20.h,
+                    crossAxisSpacing: 10.w,
+                    childAspectRatio: 2.h,
+                  ),
                   itemCount: 12,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -274,14 +309,15 @@ Widget displaybottomcontainer(BuildContext context, selectTime, myindex, time,
                         height: 50.h,
                         width: 40.w,
                         decoration: BoxDecoration(
-                            color: myindex == index
-                                ? ColorManager.darkyellow
-                                : ColorManager.darkblue,
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(
-                                color: myindex == index
-                                    ? ColorManager.darkyellow
-                                    : ColorManager.white)),
+                          color: myindex == index
+                              ? ColorManager.darkyellow
+                              : ColorManager.darkblue,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(
+                              color: myindex == index
+                                  ? ColorManager.darkyellow
+                                  : ColorManager.white),
+                        ),
                         child: Text(
                           time[index],
                           style: regularTextStyle(

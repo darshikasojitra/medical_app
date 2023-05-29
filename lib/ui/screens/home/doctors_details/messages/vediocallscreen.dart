@@ -13,7 +13,6 @@ class VedioCallScreen extends StatefulWidget {
 
 class _VedioCallScreenState extends State<VedioCallScreen> {
   late RtcEngine _engine;
-  AgoraClient? _agoraClient;
   int? _remoteUid;
   bool _mute = true;
   bool _localUserJoined = false;

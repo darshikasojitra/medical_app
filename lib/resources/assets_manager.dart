@@ -73,6 +73,13 @@ class AssetsManager {
   static const String vediocall = "$imagepath/vediocall.png";
   static const String payoneer = "$imagepath/payoneer.png";
   static const String livedotimage = "$imagepath/livedot_image.png";
+  static const String syrup = "$imagepath/syrup.png";
+   static const String pills = "$imagepath/pills.png";
+   static const String aciditypills = "$imagepath/aciditypills.png";
+    static const String oxitardpill = "$imagepath/oxitardpill.png";
+   static const String livpills = "$imagepath/livpills.png";
+   static const String english = "$imagepath/english.png";
+   static const String arabic = "$imagepath/arabic.png";
 
   static const String a1 = "$imagepath/a1.png";
   static const String a2 = "$imagepath/a2.png";

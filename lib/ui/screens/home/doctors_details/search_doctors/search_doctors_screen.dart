@@ -154,6 +154,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                       : EdgeInsets.only(bottom: 17.h, left: 25.w, top: 0.h),
                   child: GestureDetector(
                     onTap: () {
+                     FocusScope.of(context).requestFocus(FocusNode());
                       Navigator.push(
                           context,
                           MaterialPageRoute(

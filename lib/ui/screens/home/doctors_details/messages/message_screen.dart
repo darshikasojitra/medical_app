@@ -51,7 +51,7 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   Future<void> downloadURLExample() async {
-    String filename = Uuid().v1();
+    String filename = const Uuid().v1();
     final ref =
         FirebaseStorage.instance.ref().child('images').child("$filename.jpg");
     var uploadTask = await ref.putFile(_imagefile!);
@@ -183,7 +183,10 @@ class _MessageScreenState extends State<MessageScreen> {
         child: Row(
           children: [
             GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                Navigator.pop(context);
+              },
               child: Padding(
                 padding: EdgeInsets.only(bottom: 5.h, right: 15.w),
                 child: Icon(
@@ -207,7 +210,8 @@ class _MessageScreenState extends State<MessageScreen> {
                     height: 45.h,
                     width: 40.w,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.r)),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
                     child: populardoctorimage),
             Padding(
               padding: EdgeInsets.only(left: 15.w, top: 23.h),
@@ -257,7 +261,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     ));
               },
               child: Padding(
-                padding: EdgeInsets.only(left: 100.w, right: 10.w),
+                padding: EdgeInsets.only(left: 95.w, right: 10.w),
                 child: Image.asset(
                   AssetsManager.vediocall,
                   height: 27.h,

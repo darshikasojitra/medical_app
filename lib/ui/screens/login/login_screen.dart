@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           GestureDetector(
             onTap: () => {
-              _showLogin(false),
+              //_showLogin(false),
             },
             child: Column(
               children: [
@@ -223,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           GestureDetector(
             onTap: () => {
-              _showLogin(true),
+              //_showLogin(true),
             },
             child: Column(
               children: [

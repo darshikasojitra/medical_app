@@ -38,9 +38,9 @@ class _UpComingAppointmentState extends State<UpComingAppointment> {
     return GestureDetector(
       onTap: () {},
       child: Padding(
-        padding:  EdgeInsets.only(bottom: 10.h),
+        padding:  EdgeInsets.only(bottom: 13.h),
         child: Container(
-            height: 115.h,
+            height: 117.h,
             width: 265.w,
             decoration: BoxDecoration(
               color: ColorManager.darkblue,
@@ -84,10 +84,10 @@ class _UpComingAppointmentState extends State<UpComingAppointment> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20.h),
+                  padding: EdgeInsets.only(top: 22.h),
                   child: Container(
                     width: 210.w,
-                    height: 90.h,
+                    height: 100.h,
                     //color: Colors.amber,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,7 @@ class _UpComingAppointmentState extends State<UpComingAppointment> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 80.w),
+                          padding: EdgeInsets.only(left: 80.w,bottom: 0.h),
                           child: Row(
                             children: [
                               MaterialButton(
@@ -222,9 +222,4 @@ class _UpComingAppointmentState extends State<UpComingAppointment> {
       ),
     );
   }
-}
-
-class UpcomingAppointment{
-  final String id;
- const UpcomingAppointment({required this.id});
 }

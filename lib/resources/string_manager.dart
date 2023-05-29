@@ -155,7 +155,8 @@ static const String article = 'Article';
   static const String thu9_15AM = 'Thu 09:15 AM';
   static const String yeshereit = "Yes Here it's";
   static const String writehere = 'Write here..';
-
+//medicine screen
+//static const String medicine = 'Dhanmondi, Dhaka';
 //medicinesearch screen
   static const String dhanmondidhaka = 'Dhanmondi, Dhaka';
   static const String pharmacynearby = 'Pharmacy Nearby';

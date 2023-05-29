@@ -58,11 +58,14 @@ class _AllDoctorsScreenState extends State<AllDoctorsScreen> {
 
   Future<void> _showDoctorScreen(populardoctorimage, doctorname, index) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              DoctorDetailScreen(populardoctorimage[index], doctorname[index]),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => DoctorDetailScreen(
+          populardoctorimage[index],
+          doctorname[index],
+        ),
+      ),
+    );
   }
 
   @override
@@ -185,24 +188,24 @@ class _AllDoctorsScreenState extends State<AllDoctorsScreen> {
           buildSizedBoxSpacer(
             width: 85.w,
           ),
-          Container(
-            height: 38.h,
-            width: 42.w,
-            decoration: BoxDecoration(
-              color: ColorManager.white,
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: ColorManager.bordercolor),
-            ),
-            child: GestureDetector(
-              onTap: () {
-                //_showBottomSheet()
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SearchDoctorsScreen(),
-                  ),
-                );
-              },
+          GestureDetector(
+            onTap: () {
+              //_showBottomSheet()
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchDoctorsScreen(),
+                ),
+              );
+            },
+            child: Container(
+              height: 38.h,
+              width: 42.w,
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(color: ColorManager.bordercolor),
+              ),
               child: Padding(
                 padding: EdgeInsets.all(10.h),
                 child: Image.asset(

@@ -74,7 +74,6 @@ class AuthServices {
           accessToken: googleSignInAuthentication.accessToken);
 
       UserCredential result = await auth.signInWithCredential(authCredential);
-      User? user = result.user;
 
       if (result != null) {
         Navigator.push(

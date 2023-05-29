@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home.dart';
+import 'package:medical_app/ui/screens/home/medicines_details/medicines_screen.dart';
 import 'package:medical_app/widgets/common_widget/common_appointment_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'doctors_details/all_doctors_screen.dart';
@@ -24,7 +25,8 @@ class HomeScreen extends StatelessWidget {
       if (index == 0) {
         Navigator.pushNamed(context, AllDoctorsScreen.id);
       } else if (index == 1) {
-        Navigator.pushNamed(context, MedicineSearchScreen.id);
+        //Navigator.pushNamed(context, MedicineSearchScreen.id);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const MedicineScreen(),));
       }
     }
 
@@ -43,7 +45,7 @@ class HomeScreen extends StatelessWidget {
       ColorManager.lightblue,
       ColorManager.lightyellow,
     ];
-    final List containertext = ['Doctors', 'Medicals'];
+    final List containertext = ['Doctors', 'Medicine'];
 
     final List image = [
       Image.asset(AssetsManager.doctorimage),

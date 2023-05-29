@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
+import 'package:medical_app/ui/screens/home/user_profile/change_language_screen.dart';
 import 'package:medical_app/ui/screens/home/user_profile/change_password_screen.dart';
 import 'package:medical_app/ui/screens/login/login_screen.dart';
 
@@ -40,13 +41,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final List _textlist = [
     StringManager.accountsettings,
     StringManager.privacypolicy,
-    StringManager.paymentmethod,
+    'Change Language',
     'Change Password'
   ];
+
   Future<void> serviceMethod(index) async {
       if (index == 3) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordScreen(),));
       } 
+      if (index ==2) {
+         Navigator.push(context, MaterialPageRoute(builder: (context) => const LanguageScreen(),));
+      }
     }
   Future<void> _signout() async {
     if (FirebaseAuth.instance.currentUser != null) {

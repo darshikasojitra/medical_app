@@ -39,7 +39,7 @@ class SuccessfullyBookedAppointment extends StatelessWidget {
                     color: ColorManager.darkyellow),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 210.h, bottom: 10.h),
+                padding: EdgeInsets.only(top: 190.h, bottom: 10.h),
                 child: CustomButtons(
                   onPressed: () => shoeDashboardScreen(),
                   child: Text(
@@ -58,4 +58,3 @@ class SuccessfullyBookedAppointment extends StatelessWidget {
     );
   }
 }
- 
