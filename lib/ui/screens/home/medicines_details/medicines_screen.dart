@@ -17,13 +17,7 @@ class MedicineScreen extends StatefulWidget {
 class _MedicineScreenState extends State<MedicineScreen> {
   @override
   Widget build(BuildContext context) {
-    int medicinetype = 0;
-    Future<void> selectCategory(index) async {
-     setState(() {
-      medicinetype = index;
-       });
-    }
-
+    int category=0;
     final List categoryText = [
       'General',
       'Covid Essential',
@@ -106,55 +100,53 @@ class _MedicineScreenState extends State<MedicineScreen> {
               ],
             ),
           ),
-          // Padding(
-          //   padding: EdgeInsets.only(top: 20.h, left: 0.w, bottom: 0.w),
-          //   child: SizedBox(
-          //     height: 40.h,
-          //     width: double.infinity,
-          //     child: ListView.builder(
-          //       physics: const BouncingScrollPhysics(),
-          //       itemCount: categoryText.length,
-          //       scrollDirection: Axis.horizontal,
-          //       itemBuilder: (context, index) {
-          //         return Padding(
-          //           padding: index == 0
-          //               ? EdgeInsets.only(left: 25.w, right: 10.w)
-          //               : EdgeInsets.only(right: 10.w),
-          //           child: GestureDetector(
-          //             onTap: () => selectCategory(index),
-          //             child: Container(
-          //               height: 20.h,
-          //               width: 80.w,
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(12.w),
-          //                 color: medicinetype == index
-          //                     ? ColorManager.darkblue
-          //                     : ColorManager.white,
-          //                 border: Border.all(color: ColorManager.bordercolor),
-          //               ),
-          //               child: Padding(
-          //                 padding: EdgeInsets.only(left: 5.w),
-          //                 child: Center(
-          //                   child: Text(
-          //                     categoryText[index],
-          //                     style: regularTextStyle(
-          //                         color: medicinetype == index
-          //                             ? ColorManager.white
-          //                             : ColorManager.black,
-          //                         fontSize: 13.sp,
-          //                         fontWeight: medicinetype == index
-          //                             ? FontWeight.bold
-          //                             : FontWeight.normal),
-          //                   ),
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   ),
-          // ),
+          Padding(
+            padding: EdgeInsets.only(top: 20.h, left: 0.w, bottom: 0.w),
+            child: SizedBox(
+              height: 40.h,
+              width: double.infinity,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: categoryText.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: index == 0
+                        ? EdgeInsets.only(left: 25.w, right: 10.w)
+                        : EdgeInsets.only(right: 10.w),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          category =index;
+                        });
+                      },
+                      child: Container(
+                        height: 20.h,
+                        width: 80.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.w),
+                          color:category == index?ColorManager.darkblue:  ColorManager.white,
+                          border: Border.all(color: ColorManager.bordercolor),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: Center(
+                            child: Text(
+                              categoryText[index],
+                              style: regularTextStyle(
+                                  color:ColorManager.black,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(
@@ -239,14 +231,6 @@ class _MedicineScreenState extends State<MedicineScreen> {
                                     )
                                   ],
                                 ),
-
-                                // Text(
-                                //   '25 mg , 12 pills',
-                                //   style: regularTextStyle(
-                                //       fontSize: 12.sp,
-                                //       color: ColorManager.textcolor),
-                                // ),
-                                //buildSizedBoxSpacer(height: 3.h),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -269,9 +253,10 @@ class _MedicineScreenState extends State<MedicineScreen> {
                                               .set({
                                             'image': image[index].toString(),
                                             'name': 'Nepa Extra',
-                                            'prize': '\$20',
+                                            'price': 20,
                                             'quantity': 1,
                                             'pid': index,
+                                            //'total':20,
                                             'uid': auth.getUser()!.uid
                                           });
                                           Navigator.push(

@@ -6,9 +6,9 @@ import 'package:medical_app/resources/resources.dart';
 
 class ImageMessage extends StatelessWidget {
   final String path;
-  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>? snapshot;
-  QuerySnapshot<Map<String, dynamic>>? data;
-   ImageMessage({
+  final AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>? snapshot;
+ final  QuerySnapshot<Map<String, dynamic>>? data;
+  const ImageMessage({
     Key? key,
     required this.isSender,
     required this.path,

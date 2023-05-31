@@ -5,7 +5,9 @@ import 'package:medical_app/resources/resources.dart';
 class CustomTextFeild extends StatelessWidget {
   final TextEditingController? controller;
   final String? labelText;
+  final Function(String)? onChanged;
   final String? hintText;
+  final String? initialValue;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
@@ -17,7 +19,9 @@ class CustomTextFeild extends StatelessWidget {
       {super.key,
       this.hintText,
       this.labelText,
+      this.onChanged,
       this.controller,
+      this.initialValue,
       this.prefixIcon,
       this.focusNode,
       this.maxLines,
@@ -30,7 +34,9 @@ class CustomTextFeild extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: onChanged,
       obscureText: obscureText,
+      initialValue: initialValue,
       autofocus: false,
       keyboardType: keyboardType,
       focusNode: focusNode,
@@ -38,7 +44,7 @@ class CustomTextFeild extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(35.r), 
+            borderRadius: BorderRadius.circular(35.r),
             borderSide: BorderSide(color: ColorManager.bordercolor)),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(35.r),

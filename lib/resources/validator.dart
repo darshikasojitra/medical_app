@@ -9,7 +9,13 @@ class Validator {
        //r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
         errorText: StringManager.pleaseentervalidemail)
   ]);
-
+static MultiValidator pincodeValidator = MultiValidator([
+    RequiredValidator(errorText: StringManager.pleaseenteremail),
+    PatternValidator(
+       r"^[1-9][0-9]{5}$",
+       //r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+        errorText: StringManager.pleaseentervalidemail)
+  ]);
   static MultiValidator passValidator = MultiValidator([
     RequiredValidator(errorText: StringManager.pleaseenterpassword),
     MinLengthValidator(6, errorText: StringManager.pleaseentervalidpassword),

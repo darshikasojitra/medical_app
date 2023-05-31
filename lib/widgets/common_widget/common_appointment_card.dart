@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medical_app/resources/resources.dart';
+import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -18,6 +19,17 @@ class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthServices auth = AuthServices();
+      Future<void> removecard(
+        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
+        int index) async {
+      FirebaseFirestore.instance
+          .collection('user')
+          .doc(auth.getUser()?.uid)
+          .collection("appointment")
+          .doc(snapshot.data?.docs[index].id)
+          .delete();
+    }
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -130,7 +142,7 @@ class AppointmentCard extends StatelessWidget {
                       return [
                         PopupMenuItem(
                           onTap: () {
-                            //removecard(snapshot, index);
+                           // removecard(snapshot, index!);
                           },
                           value: '/remove',
                           child: const Text('Remove'),

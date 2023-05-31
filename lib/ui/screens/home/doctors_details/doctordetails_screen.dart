@@ -48,15 +48,6 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
       StringManager.yr10,
       StringManager.rating467
     ];
-    Future<void> showAppoinmentScreen() async {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              AppoinmentScreen(widget.populardoctorimage, widget.doctorname),
-        ),
-      );
-    }
 
     Future<void> showMessageScreen() async {
       Navigator.push(
@@ -69,16 +60,10 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
           ));
     }
 
-    Future<void> selectDropdownValue(value) async {
-      setState(() {
-        dropdownValue = value!;
-      });
-    }
-
     return Scaffold(
         body: SingleChildScrollView(
-          child: Stack(
-              children: [
+      child: Stack(
+        children: [
           Column(
             children: [
               appbarContainer(context, showMessageScreen),
@@ -102,7 +87,7 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
                     ),
                     _aboutText,
                     Padding(
-                      padding:  EdgeInsets.only(left: 10.w),
+                      padding: EdgeInsets.only(left: 10.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -168,9 +153,9 @@ class _DoctorDetailScreenState extends State<DoctorDetailScreen> {
             ],
           ),
           _doctorIntro(widget.doctorname, widget.populardoctorimage),
-              ],
-            ),
-        ));
+        ],
+      ),
+    ));
   }
 }
 
@@ -326,7 +311,7 @@ Widget _doctorIntro(doctorname, populardoctorimage) => Positioned(
       right: 25.w,
       top: 120.h,
       child: Container(
-        height: 90.h,
+        height: 92.h,
         width: 319.w,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -335,13 +320,13 @@ Widget _doctorIntro(doctorname, populardoctorimage) => Positioned(
         child: Row(
           children: [
             Padding(
-              padding: EdgeInsets.all(14.w),
+              padding: EdgeInsets.all(12.w),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(23.r),
                   child: populardoctorimage),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 16.h),
+              padding: EdgeInsets.only(top: 14.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -363,7 +348,7 @@ Widget _doctorIntro(doctorname, populardoctorimage) => Positioned(
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        bottom: 5.h, top: 12.h, left: 145.w, right: 5.w),
+                        bottom: 5.h, top: 8.h, left: 142.w, right: 5.w),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: Text(

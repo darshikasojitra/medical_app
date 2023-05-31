@@ -8,7 +8,6 @@ import 'package:medical_app/ui/screens/home/doctors_details/messages/vediocallsc
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/ui/screens/home/doctors_details/messages/components/image_message.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../../services/auth_services.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -185,7 +184,9 @@ class _MessageScreenState extends State<MessageScreen> {
             GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();
-                Navigator.pop(context);
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  Navigator.pop(context);
+                });
               },
               child: Padding(
                 padding: EdgeInsets.only(bottom: 5.h, right: 15.w),

@@ -15,7 +15,7 @@ class ForfotPasswordScreen extends StatelessWidget {
     final fromKey = GlobalKey<FormState>();
     final AuthServices auth = AuthServices();
 
-    Future<void> _resetPassword() async {
+    Future<void> resetPassword() async {
       if (fromKey.currentState!.validate()) {
         auth.resetpassword(email: emailcontroller.text);
         Navigator.pop(context);
@@ -54,7 +54,7 @@ class ForfotPasswordScreen extends StatelessWidget {
                 minWidth: double.infinity,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.r)),
-                onPressed: () => _resetPassword(),
+                onPressed: () => resetPassword(),
                 color: ColorManager.darkblue,
                 child: Text(
                   'Reset Password',

@@ -85,7 +85,7 @@ class _UpComingAppointmentState extends State<UpComingAppointment> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 22.h),
-                  child: Container(
+                  child: SizedBox(
                     width: 210.w,
                     height: 100.h,
                     //color: Colors.amber,

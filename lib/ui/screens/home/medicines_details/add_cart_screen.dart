@@ -5,28 +5,39 @@ import 'package:medical_app/resources/resources.dart';
 import 'package:medical_app/services/auth_services.dart';
 import 'package:medical_app/ui/screens/home/home_screen.dart';
 import 'package:medical_app/ui/screens/home/medicines_details/products_details.dart';
+import 'cart_details/bottom_container.dart';
 
-class AddCartScreen extends StatelessWidget {
+class AddCartScreen extends StatefulWidget {
   final String? image;
   const AddCartScreen({super.key, this.image});
 
   @override
-  Widget build(BuildContext context) {
-    final AuthServices auth = AuthServices();
-    var documentID = '';
-    var cart = FirebaseFirestore.instance
-        .collection('cart')
-        .doc(auth.getUser()?.uid)
-        .collection("products");
-    var _total = 0;
+  State<AddCartScreen> createState() => _AddCartScreenState();
+}
 
-    Future<void> _addtotal() async {
-      _total = _total + 20;
-      print(_total);
-    }
-
-    Future<void> add(doc) async {
-      await cart
+final AuthServices auth = AuthServices();
+class _AddCartScreenState extends State<AddCartScreen> {
+  var documentID = '';
+  var que=0;
+   final _checkout = FirebaseFirestore.instance
+      .collection('cart')
+      .doc(auth.getUser()?.uid)
+      .collection('checkout');
+  final _cart = FirebaseFirestore.instance
+      .collection('cart')
+      .doc(auth.getUser()?.uid)
+      .collection('products');
+        
+  var _total = 20;
+  var _quantity = 1;
+  Future<void> _add(doc, int price) async {
+    setState(() {
+      _total = _total + price;
+      _quantity = _quantity + 1;
+      _checkout
+          .doc(auth.getUser()?.uid)
+          .set({'total': _total, 'total_quantity': _quantity});
+      _cart
           .where('uid', isEqualTo: auth.getUser()?.uid)
           .where('pid', isEqualTo: doc['pid'])
           .get()
@@ -34,15 +45,22 @@ class AddCartScreen extends StatelessWidget {
                 snapshot.docs.forEach((element) {
                   documentID = element.reference.id;
                 }),
-                cart.doc(documentID).update({
+                _cart.doc(documentID).update({
                   'quantity': doc['quantity'] + 1,
                 })
               });
-    }
+    });
+  }
 
-    Future<void> remove(doc) async {
+  Future<void> _remove(doc, int price) async {
+    setState(() {
+      if (_total > 0 || _quantity>0) {
+        _total = _total - price;
+         _quantity = _quantity -1;
+        _checkout.doc(auth.getUser()?.uid).set({'total': _total,'total_quantity': _quantity});
+      }
       if (doc['quantity'] > 0) {
-        await cart
+        _cart
             .where('uid', isEqualTo: auth.getUser()?.uid)
             .where('pid', isEqualTo: doc['pid'])
             .get()
@@ -50,13 +68,36 @@ class AddCartScreen extends StatelessWidget {
                   snapshot.docs.forEach((element) {
                     documentID = element.reference.id;
                   }),
-                  cart
+                  _cart
                       .doc(documentID)
                       .update({'quantity': doc['quantity'] - 1}),
                 });
       }
+    });
+  }
+Future<void> removecard(
+        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
+        int index,doc) async {
+          if (_total > 0 || _quantity>0) {
+             _cart
+          .where('uid', isEqualTo: auth.getUser()?.uid)
+          .where('pid', isEqualTo: doc['pid'])
+          .get()
+          .then((QuerySnapshot snapshot) => {
+                snapshot.docs.forEach((element) {
+                  documentID = element.reference.id;
+                }),
+                _cart.doc(documentID).update({
+                  'quantity': _quantity - doc['quantity'],
+                })
+              });
+          }
+         _cart
+          .doc(snapshot.data?.docs[index].id)
+          .delete();
     }
-
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
@@ -125,8 +166,9 @@ class AddCartScreen extends StatelessWidget {
                                   width: 140.w,
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.w),
-                                          bottomLeft: Radius.circular(20.w)),
+                                        topLeft: Radius.circular(20.w),
+                                        bottomLeft: Radius.circular(20.w),
+                                      ),
                                       child: Image.asset(
                                         doc!['image'],
                                         fit: BoxFit.fill,
@@ -134,20 +176,47 @@ class AddCartScreen extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(top: 10.h, left: 10.w),
+                                      EdgeInsets.only(top: 0.h, left: 10.w),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        doc['name'],
-                                        style: regularTextStyle(
-                                            fontSize: 17.sp,
-                                            color: ColorManager.darkblack,
-                                            fontWeight: FontWeight.w700),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            doc['name'],
+                                            style: regularTextStyle(
+                                                fontSize: 17.sp,
+                                                color: ColorManager.darkblack,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          buildSizedBoxSpacer(width: 30.w),
+                                          PopupMenuButton(
+                                            icon: Image.asset(
+                                              AssetsManager.vertical3dotsimage,
+                                              color: ColorManager.searchiconcolor,
+                                              height: 15.h,
+                                            ),
+                                            position: PopupMenuPosition.under,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(5.sp)),
+                                            onSelected: (value) {},
+                                            itemBuilder: (context) {
+                                              return [
+                                                PopupMenuItem(
+                                                  onTap: () {
+                                                    removecard(snapshot, index,doc);
+                                                  },
+                                                  value: '/remove',
+                                                  child: const Text('Remove'),
+                                                )
+                                              ];
+                                            },
+                                          ),
+                                        ],
                                       ),
                                       Text(
-                                        doc['prize'],
+                                        '\$ ${(doc['price'].toString())}',
                                         style: regularTextStyle(
                                             fontSize: 14.sp,
                                             color:
@@ -167,13 +236,19 @@ class AddCartScreen extends StatelessWidget {
                                               ),
                                             );
                                           },
-                                          child: Text('View Details',style: regularTextStyle(fontSize: 13.sp,color: ColorManager.darkblue,fontWeight: FontWeight.bold),)),
+                                          child: Text(
+                                            'View Details',
+                                            style: regularTextStyle(
+                                                fontSize: 13.sp,
+                                                color: ColorManager.darkblue,
+                                                fontWeight: FontWeight.bold),
+                                          )),
                                       Padding(
                                         padding: EdgeInsets.only(
-                                            top: 13.h,
+                                            top: 10.h,
                                             right: 8.w,
                                             left: 50.w,
-                                            bottom: 8.h),
+                                            bottom: 5.h),
                                         child: Container(
                                           height: 30.h,
                                           width: 100.w,
@@ -187,13 +262,14 @@ class AddCartScreen extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               GestureDetector(
-                                                  onTap: () => remove(doc),
+                                                  onTap: () => _remove(
+                                                      doc, doc['price']),
                                                   child: Icon(
                                                     Icons.remove,
                                                     color:
                                                         ColorManager.darkblue,
                                                   )),
-                                              buildSizedBoxSpacer(width: 24.w),
+                                              buildSizedBoxSpacer(width: 18.w),
                                               Text(
                                                 doc['quantity'].toString(),
                                                 style: regularTextStyle(
@@ -201,17 +277,16 @@ class AddCartScreen extends StatelessWidget {
                                                         ColorManager.darkblue,
                                                     fontSize: 15.sp),
                                               ),
-                                              buildSizedBoxSpacer(width: 20.w),
+                                              buildSizedBoxSpacer(width: 18.w),
                                               GestureDetector(
-                                                  onTap: () {
-                                                    _addtotal();
-                                                    add(doc);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color:
-                                                        ColorManager.darkblue,
-                                                  )),
+                                                onTap: () {
+                                                  _add(doc, doc['price']);
+                                                },
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: ColorManager.darkblue,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -231,13 +306,35 @@ class AddCartScreen extends StatelessWidget {
               ),
             ),
           ),
+          const BottomContainer(),
           // Container(
           //   height: 47.h,
           //   width: double.infinity,
           //   color: ColorManager.white,
           //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [Text('Total : $_total')],
+          //     //mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Text(
+          //         'total: $_total',
+          //       ),
+          //       buildSizedBoxSpacer(width: 180.w),
+          //       CustomButtons(
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => const CheckoutScreen(),
+          //             ),
+          //           );
+          //         },
+          //         color: ColorManager.darkblue,
+          //         child: Text(
+          //           'Checkout',
+          //           style: regularTextStyle(
+          //               color: ColorManager.white, fontSize: 14.sp),
+          //         ),
+          //       ),
+          //     ],
           //   ),
           // )
         ],

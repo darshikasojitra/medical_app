@@ -249,7 +249,7 @@ Widget searchtextfeild = TextFormField(
   ),
 );
 Widget _serviceCard(
-        image, smallcontainercolor, serviceMethod(index), containertext) =>
+        image, smallcontainercolor, serviceMethod, containertext) =>
     Padding(
       padding: EdgeInsets.only(top: 10.h, bottom: 0.h, left: 28.w),
       child: Row(
